@@ -45,17 +45,8 @@ static integer c__1 = 1;
 /* Subroutine */ int path_(integer *ip, integer *lambda, real *dur, integer *
 	ilrate, integer *lamsav, real *dursav, integer *ilrsav)
 {
-    /* Format strings */
-    static char fmt_75[] = "(\002PATH:\002,3(i3,2x),2(f8.3,2x))";
-
-    /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
-
-    /* Local variables */
-    static integer i__, j, k, n, ixl, ixs, ilelm;
-
-    /* Fortran I/O blocks */
-    static cilist io___8 = { 0, 6, 0, fmt_75, 0 };
+     /* Local variables */
+    static integer i, j, k, n, ixl, ixs, ilelm;
 
 
 
@@ -82,10 +73,10 @@ static integer c__1 = 1;
 
     /* Function Body */
     for (k = 1; k <= 6; ++k) {
-	for (i__ = 1; i__ <= 5; ++i__) {
+	for (i = 1; i <= 5; ++i) {
 /*  STATE IDENTITY N: */
 
-	    n = (i__ - 1) * 6 + k;
+	    n = (i - 1) * 6 + k;
 /*  NEW PATH IDENTITY: */
 
 	    j = (*ip - 1) * 30 + n;
@@ -109,16 +100,9 @@ L50:
 /* CALCULATE DURATION - ADD SAMPLE DURATION 5 ms FOR EACH VALID PATH */
 	    dursav[j] = *dur * (1 - ixs - ixl + (ixs << 1) * ixl) + 5.f;
 /* 	NEW DATA RATE: */
-	    ilrsav[j] = *ilrate + (i__ - 3) * blkrat_1.memdel[ilelm + k * 6 - 
+	    ilrsav[j] = *ilrate + (i - 3) * blkrat_1.memdel[ilelm + k * 6 - 
 		    7];
 	    goto L100;
-	    s_wsfe(&io___8);
-	    do_fio(&c__1, (char *)&j, (ftnlen)sizeof(integer));
-	    do_fio(&c__1, (char *)&ilrsav[j], (ftnlen)sizeof(integer));
-	    do_fio(&c__1, (char *)&(*lambda), (ftnlen)sizeof(integer));
-	    do_fio(&c__1, (char *)&(*dur), (ftnlen)sizeof(real));
-	    do_fio(&c__1, (char *)&dursav[j], (ftnlen)sizeof(real));
-	    e_wsfe();
 L100:
 	    ;
 	}

@@ -11,6 +11,9 @@
 */
 
 #include "f2c.h"
+#include <stdio.h> 
+
+//#define DEBUG 1
 
 /* Common Block Declarations */
 
@@ -24,103 +27,6 @@ struct {
 
 static integer c__1 = 1;
 
-/* Subroutine */ int visbuf_(char *nam, integer *buf, ftnlen nam_len)
-{
-    /* Format strings */
-    static char fmt_3[] = "(a3,\002:\002,65(i3,1x))";
-    static char fmt_1[] = "(i3,\002:\002,65(i3,1x))";
-
-    /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
-
-    /* Local variables */
-    static integer i__, j;
-
-    /* Fortran I/O blocks */
-    static cilist io___1 = { 0, 6, 0, fmt_3, 0 };
-    static cilist io___4 = { 0, 6, 0, fmt_1, 0 };
-
-
-    /* Parameter adjustments */
-    buf -= 201;
-
-    /* Function Body */
-    s_wsfe(&io___1);
-    do_fio(&c__1, nam, (ftnlen)3);
-    for (j = 1; j <= 65; ++j) {
-	do_fio(&c__1, (char *)&j, (ftnlen)sizeof(integer));
-    }
-    e_wsfe();
-    for (i__ = 1; i__ <= 25; ++i__) {
-	s_wsfe(&io___4);
-	do_fio(&c__1, (char *)&i__, (ftnlen)sizeof(integer));
-	for (j = 1; j <= 65; ++j) {
-	    do_fio(&c__1, (char *)&buf[j + i__ * 200], (ftnlen)sizeof(integer)
-		    );
-	}
-	e_wsfe();
-/* L2: */
-    }
-    return 0;
-} /* visbuf_ */
-
-/* Subroutine */ int visbui_(char *nam, integer *k, ftnlen nam_len)
-{
-    /* Format strings */
-    static char fmt_5[] = "(a3,\002:\002,25(i6,1x))";
-
-    /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
-
-    /* Local variables */
-    static integer j;
-
-    /* Fortran I/O blocks */
-    static cilist io___5 = { 0, 6, 0, fmt_5, 0 };
-
-
-/* 	PRINT 4,NAM,(J,J=1,25) */
-/* 4	FORMAT(A3,25(I6,1x)) */
-    /* Parameter adjustments */
-    --k;
-
-    /* Function Body */
-    s_wsfe(&io___5);
-    do_fio(&c__1, nam, (ftnlen)3);
-    for (j = 1; j <= 25; ++j) {
-	do_fio(&c__1, (char *)&k[j], (ftnlen)sizeof(integer));
-    }
-    e_wsfe();
-    return 0;
-} /* visbui_ */
-
-/* Subroutine */ int visbua_(char *nam, integer *k, ftnlen nam_len)
-{
-    /* Format strings */
-    static char fmt_6[] = "(a3,\002:\002,200(i2))";
-
-    /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
-
-    /* Local variables */
-    static integer j;
-
-    /* Fortran I/O blocks */
-    static cilist io___7 = { 0, 6, 0, fmt_6, 0 };
-
-
-    /* Parameter adjustments */
-    --k;
-
-    /* Function Body */
-    s_wsfe(&io___7);
-    do_fio(&c__1, nam, (ftnlen)3);
-    for (j = 1; j <= 200; ++j) {
-	do_fio(&c__1, (char *)&k[j], (ftnlen)sizeof(integer));
-    }
-    e_wsfe();
-    return 0;
-} /* visbua_ */
 
 /* Subroutine */ int trelis_(integer *isave, integer *pathsv, integer *lambda,
 	 integer *imax, integer *ipmax)
@@ -450,39 +356,22 @@ static integer c__1 = 1;
 	    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	    0,0,0,0,0,0 };
 
-    /* Format strings */
-    static char fmt_2000[] = "(\002AVG # OF PATHS SAVED:\002,f4.2,\002 AVG D"
-	    "ECODE DELAY:\002,f4.2)";
-    static char fmt_330[] = "(\002PERCENT OF TIME PATHS = 25: \002,f3.2,\002"
-	    " PERCENT OF TIME DELAY = 200: \002,f3.2)";
-    static char fmt_2001[] = "(a1)";
-    static char fmt_1000[] = "(\002SAME DELAY AS LAST:\002,i3)";
-    static char fmt_1100[] = "(\002REVERSE ORDER:\002,i3)";
-    static char fmt_1200[] = "(\002HIGHEST PROB:\002,i3)";
 
     /* System generated locals */
-    integer i__1;
+    integer i1;
 
     /* Builtin functions */
     integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void),
 	     s_rsfe(cilist *), e_rsfe(void);
 
     /* Local variables */
-    static integer i__, k, ip, ieq, ltr, ndel;
+    static int i, k, ip, ieq, ltr, ndel;
     static char wait[1];
-    static integer isavg;
+    static int isavg;
     static real xsavg, xmmax, xnmax;
-    static integer ndlavg;
+    static int ndlavg;
     static real xdlavg;
-    extern /* Subroutine */ int transl_(integer *);
-
-    /* Fortran I/O blocks */
-    static cilist io___24 = { 0, 6, 0, fmt_2000, 0 };
-    static cilist io___25 = { 0, 6, 0, fmt_330, 0 };
-    static cilist io___28 = { 0, 5, 0, fmt_2001, 0 };
-    static cilist io___36 = { 0, 6, 0, fmt_1000, 0 };
-    static cilist io___37 = { 0, 6, 0, fmt_1100, 0 };
-    static cilist io___38 = { 0, 6, 0, fmt_1200, 0 };
+    extern /* Subroutine */ int transl_(int *);
 
 
 
@@ -510,17 +399,10 @@ static integer c__1 = 1;
     isavg = xsavg;
     ndlavg = xdlavg;
     blkend_1.iend = 0;
-    s_wsfe(&io___24);
-    do_fio(&c__1, (char *)&xsavg, (ftnlen)sizeof(real));
-    do_fio(&c__1, (char *)&xdlavg, (ftnlen)sizeof(real));
-    e_wsfe();
-    s_wsfe(&io___25);
-    do_fio(&c__1, (char *)&xmmax, (ftnlen)sizeof(real));
-    do_fio(&c__1, (char *)&xnmax, (ftnlen)sizeof(real));
-    e_wsfe();
-    s_rsfe(&io___28);
-    do_fio(&c__1, wait, (ftnlen)1);
-    e_rsfe();
+
+printf("\nAVG # OF PATHS SAVED:%4.2f,AVG DECODE DELAY:%4.2f)", xsavg, xdlavg);
+printf("\nPERCENT OF TIME PATHS = 25: %3.2f, PERCENT OF TIME DELAY = 200: %3.2f", xmmax, xnmax);
+
 L10:
     xsavg = (xsavg * (ncall - 1) + *isave) / ncall;
     xdlavg = (xdlavg * (ncall - 1) + ndel) / ncall;
@@ -544,17 +426,17 @@ L30:
     if (n == ndelay + 1) {
 	n = 1;
     }
-    i__1 = *isave;
-    for (i__ = 1; i__ <= i__1; ++i__) {
-	pthtrl[n + i__ * 200 - 201] = pathsv[i__];
-	lmdsav[n + i__ * 200 - 201] = lambda[i__];
+    i1 = *isave;
+    for (i = 1; i <= i1; ++i) {
+	pthtrl[n + i * 200 - 201] = pathsv[i];
+	lmdsav[n + i * 200 - 201] = lambda[i];
 /* L100: */
     }
 /* 	PERFORM DYNAMIC PROGRAM ROUTINE TO FIND CONVERGENT PATH: */
     k = 0;
-    i__1 = *isave;
-    for (i__ = 1; i__ <= i__1; ++i__) {
-	ipnod[i__ - 1] = i__;
+    i1 = *isave;
+    for (i = 1; i <= i1; ++i) {
+	ipnod[i - 1] = i;
 /* L180: */
     }
 L190:
@@ -563,13 +445,13 @@ L190:
 	goto L700;
     }
 /* 	IF IP EQUALS INDEX OF HIGHEST PROBABILITY NODE, STORE NODE TO IPMAX */
-    i__1 = *isave;
-    for (ip = 1; ip <= i__1; ++ip) {
-	i__ = n - k + 1;
-	if (i__ <= 0) {
-	    i__ = ndelay + i__;
+    i1 = *isave;
+    for (ip = 1; ip <= i1; ++ip) {
+	i = n - k + 1;
+	if (i <= 0) {
+	    i = ndelay + i;
 	}
-	ipnod[ip - 1] = pthtrl[i__ + ipnod[ip - 1] * 200 - 201];
+	ipnod[ip - 1] = pthtrl[i + ipnod[ip - 1] * 200 - 201];
 	if (ip == *imax) {
 	    *ipmax = ipnod[ip - 1];
 	}
@@ -577,8 +459,8 @@ L190:
     }
 /* 	CALL VISBUI('IPN',IPNOD) */
 /* 	IF ALL NODES ARE EQUAL,THEN PATHS CONVERGE: */
-    i__1 = *isave;
-    for (ieq = 2; ieq <= i__1; ++ieq) {
+    i1 = *isave;
+    for (ieq = 2; ieq <= i1; ++ieq) {
 	if (ipnod[0] != ipnod[ieq - 1]) {
 	    goto L190;
 	}
@@ -595,14 +477,14 @@ L190:
     if (ndel != ndelst) {
 	goto L350;
     }
-    i__ = n - ndel + 1;
-    if (i__ <= 0) {
-	i__ = ndelay + i__;
+    i = n - ndel + 1;
+    if (i <= 0) {
+	i = ndelay + i;
     }
-    ltr = lmdsav[i__ + ipnod[0] * 200 - 201];
-    s_wsfe(&io___36);
-    do_fio(&c__1, (char *)&ltr, (ftnlen)sizeof(integer));
-    e_wsfe();
+    ltr = lmdsav[i + ipnod[0] * 200 - 201];
+#ifdef DEBUG
+printf("\nSAME DELAY AS LAST: %d",ltr);
+#endif
     transl_(&ltr);
     goto L800;
 /* 	OTHERWISE,POINT OF CONVERGENCE HAS OCCURED */
@@ -612,26 +494,26 @@ L190:
 L350:
     kd = 0;
     ip = ipnod[0];
-    i__1 = ndelst;
-    for (k = ndel; k <= i__1; ++k) {
+    i1 = ndelst;
+    for (k = ndel; k <= i1; ++k) {
 	++kd;
-	i__ = n - k + 1;
-	if (i__ <= 0) {
-	    i__ = ndelay + i__;
+	i = n - k + 1;
+	if (i <= 0) {
+	    i = ndelay + i;
 	}
-	ltrsv[kd - 1] = lmdsav[i__ + ip * 200 - 201];
-	ip = pthtrl[i__ + ip * 200 - 201];
+	ltrsv[kd - 1] = lmdsav[i + ip * 200 - 201];
+	ip = pthtrl[i + ip * 200 - 201];
 /* L400: */
     }
 /* 	REVERSE ORDER OF DECODED LETTERS, SINCE THEY */
 /* 	WERE OBTAINED FROM THE TRELLIS IN REVERSE; */
 /* 	TRANSLATE EACH: */
-    i__1 = kd;
-    for (i__ = 1; i__ <= i__1; ++i__) {
-	ltr = ltrsv[kd - i__];
-	s_wsfe(&io___37);
-	do_fio(&c__1, (char *)&ltr, (ftnlen)sizeof(integer));
-	e_wsfe();
+    i1 = kd;
+    for (i = 1; i <= i1; ++i) {
+	ltr = ltrsv[kd - i];
+#ifdef DEBUG
+printf("\nIN REVERSE ORDER: %d",ltr);
+#endif
 	transl_(&ltr);
 /* L500: */
     }
@@ -641,18 +523,18 @@ L700:
 /* 	DELAY, SO TRANSLATE WHAT IS ON HIGHEST */
 /* 	PROBABILITY PATH: */
     ndel = ndelay;
-    i__ = n - ndelay + 1;
-    if (i__ <= 0) {
-	i__ = ndelay + i__;
+    i = n - ndelay + 1;
+    if (i <= 0) {
+	i = ndelay + i;
     }
-    ltr = lmdsav[i__ + *ipmax * 200 - 201];
-    s_wsfe(&io___38);
-    do_fio(&c__1, (char *)&ltr, (ftnlen)sizeof(integer));
-    e_wsfe();
+    ltr = lmdsav[i + *ipmax * 200 - 201];
+#ifdef DEBUG
+printf("\nHIGHEST PROB: %d", ltr);
+#endif
     transl_(&ltr);
 /* 	PRUNE AWAY NODES WHICH ARE NOT ON THIS PATH: */
-    i__1 = *isave;
-    for (k = 1; k <= i__1; ++k) {
+    i1 = *isave;
+    for (k = 1; k <= i1; ++k) {
 	if (ipnod[k - 1] == *ipmax) {
 	    goto L750;
 	}
@@ -662,9 +544,6 @@ L750:
     }
 L800:
     ndelst = ndel;
-/* 	CALL VISBUA('LTR', LTRSV) */
-/* 	CALL VISBUF('LMD', LMDSAV) */
-/* 	CALL VISBUF('PTH', PTHTRL) */
     return 0;
 } /* trelis_ */
 

@@ -16,157 +16,8 @@
 
 static integer c__1 = 1;
 
-/* Subroutine */ int visarl_(char *nam, real *k, ftnlen nam_len)
-{
-    /* Format strings */
-    static char fmt_10[] = "(a3,25(i6,1x))";
-    static char fmt_20[] = "(\002  :\002,25(f6.1,1x))";
 
-    /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
-
-    /* Local variables */
-    static integer j;
-
-    /* Fortran I/O blocks */
-    static cilist io___1 = { 0, 6, 0, fmt_10, 0 };
-    static cilist io___3 = { 0, 6, 0, fmt_20, 0 };
-
-
-    /* Parameter adjustments */
-    --k;
-
-    /* Function Body */
-    s_wsfe(&io___1);
-    do_fio(&c__1, nam, (ftnlen)3);
-    for (j = 1; j <= 25; ++j) {
-	do_fio(&c__1, (char *)&j, (ftnlen)sizeof(integer));
-    }
-    e_wsfe();
-    s_wsfe(&io___3);
-    for (j = 1; j <= 25; ++j) {
-	do_fio(&c__1, (char *)&k[j], (ftnlen)sizeof(real));
-    }
-    e_wsfe();
-    return 0;
-} /* visarl_ */
-
-/* Subroutine */ int visarr_(char *nam, integer *k, real *z__, integer *isave,
-	 integer *elmhat, ftnlen nam_len)
-{
-    /* Format strings */
-    static char fmt_20[] = "(f5.1,i3,\002  :\002,25(i6,1x))";
-
-    /* System generated locals */
-    integer i__1;
-
-    /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
-
-    /* Local variables */
-    static integer j;
-
-    /* Fortran I/O blocks */
-    static cilist io___4 = { 0, 6, 0, fmt_20, 0 };
-
-
-/* 	PRINT 10,NAM,(J,J=1,25) */
-/* 10	FORMAT(A3,25(I6,1x)) */
-    /* Parameter adjustments */
-    --k;
-
-    /* Function Body */
-    s_wsfe(&io___4);
-    do_fio(&c__1, (char *)&(*z__), (ftnlen)sizeof(real));
-    do_fio(&c__1, (char *)&(*elmhat), (ftnlen)sizeof(integer));
-    i__1 = *isave;
-    for (j = 1; j <= i__1; ++j) {
-	do_fio(&c__1, (char *)&k[j], (ftnlen)sizeof(integer));
-    }
-    e_wsfe();
-    return 0;
-} /* visarr_ */
-
-/* Subroutine */ int vis_(char *nam, real *p, ftnlen nam_len)
-{
-    /* Format strings */
-    static char fmt_10[] = "(a3,30(i7,1x))";
-    static char fmt_20[] = "(i2,\002:\002,30(f7.2,1x))";
-
-    /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
-
-    /* Local variables */
-    static integer i__, j;
-
-    /* Fortran I/O blocks */
-    static cilist io___6 = { 0, 6, 0, fmt_10, 0 };
-    static cilist io___9 = { 0, 6, 0, fmt_20, 0 };
-
-
-    /* Parameter adjustments */
-    p -= 26;
-
-    /* Function Body */
-    s_wsfe(&io___6);
-    do_fio(&c__1, nam, (ftnlen)3);
-    for (j = 1; j <= 30; ++j) {
-	do_fio(&c__1, (char *)&j, (ftnlen)sizeof(integer));
-    }
-    e_wsfe();
-    for (i__ = 1; i__ <= 25; ++i__) {
-	s_wsfe(&io___9);
-	do_fio(&c__1, (char *)&i__, (ftnlen)sizeof(integer));
-	for (j = 1; j <= 30; ++j) {
-	    do_fio(&c__1, (char *)&p[i__ + j * 25], (ftnlen)sizeof(real));
-	}
-	e_wsfe();
-/* L30: */
-    }
-    return 0;
-} /* vis_ */
-
-/* Subroutine */ int visi_(char *nam, integer *h__, ftnlen nam_len)
-{
-    /* Format strings */
-    static char fmt_10[] = "(a3,30(i3,1x))";
-    static char fmt_20[] = "(i2,\002:\002,30(i3,1x))";
-
-    /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
-
-    /* Local variables */
-    static integer i__, j;
-
-    /* Fortran I/O blocks */
-    static cilist io___10 = { 0, 6, 0, fmt_10, 0 };
-    static cilist io___13 = { 0, 6, 0, fmt_20, 0 };
-
-
-    /* Parameter adjustments */
-    h__ -= 26;
-
-    /* Function Body */
-    s_wsfe(&io___10);
-    do_fio(&c__1, nam, (ftnlen)3);
-    for (j = 1; j <= 30; ++j) {
-	do_fio(&c__1, (char *)&j, (ftnlen)sizeof(integer));
-    }
-    e_wsfe();
-    for (i__ = 1; i__ <= 25; ++i__) {
-	s_wsfe(&io___13);
-	do_fio(&c__1, (char *)&i__, (ftnlen)sizeof(integer));
-	for (j = 1; j <= 30; ++j) {
-	    do_fio(&c__1, (char *)&h__[i__ + j * 25], (ftnlen)sizeof(integer))
-		    ;
-	}
-	e_wsfe();
-/* L30: */
-    }
-    return 0;
-} /* visi_ */
-
-/* Subroutine */ int proces_(real *z__, real *rn, integer *xhat, real *px, 
+/* Subroutine */ int proces_(real *z, real *rn, integer *xhat, real *px, 
 	integer *elmhat, integer *ltrhat, real *spdhat, integer *imax, real *
 	pmax)
 {
@@ -339,10 +190,10 @@ static integer c__1 = 1;
 	    5,5,5 };
 
     /* System generated locals */
-    integer i__1;
+    integer i1;
 
     /* Local variables */
-    static integer i__;
+    static integer i;
     static real pin[750]	/* was [25][30] */, lkhd[750];
     extern /* Subroutine */ int path_(integer *, integer *, real *, integer *,
 	     integer *, real *, integer *);
@@ -406,25 +257,14 @@ static integer c__1 = 1;
 /* 	TRANSITION PROBABILITY TO NEW STATE (TRPROB); */
 /* 	IDENTITY OF EACH NEW PATH EXTENDED (PATH); */
 /* 	LIKELIHOOD OF EACH STATE EXTENSION (LIKHD); */
-    for (i__ = 1; i__ <= 750; ++i__) {
-/* 	P(I) = 1.0 */
-/* L110: */
-    }
-    i__1 = isave;
-    for (i__ = 1; i__ <= i__1; ++i__) {
-	ipath = i__;
-	trprob_(&ipath, &lambda[i__ - 1], &dur[i__ - 1], &ilrate[i__ - 1], 
-		pin);
-/* 	CALL VISARL('DR1',DUR) */
-	path_(&ipath, &lambda[i__ - 1], &dur[i__ - 1], &ilrate[i__ - 1], 
-		lamsav, dursav, ilrsav);
-/* 	CALL VIS('DRS', DURSAV) */
-/* 	CALL VISARR('LBD',LAMBDA) */
-/* 	CALL VIS('PIN', PIN) */
-	likhd_(z__, rn, &ipath, &lambda[i__ - 1], &dur[i__ - 1], &ilrate[i__ 
-		- 1], pin, lkhd);
-/* 	CALL VIS('LKH',LKHD) */
-/* L100: */
+
+
+    i1 = isave;
+    for (i = 1; i <= i1; ++i) {
+	ipath = i;
+	trprob_(&ipath, &lambda[i - 1], &dur[i - 1], &ilrate[i - 1], pin);
+	path_(&ipath, &lambda[i - 1], &dur[i - 1], &ilrate[i - 1],lamsav, dursav, ilrsav);
+	likhd_(z, rn, &ipath, &lambda[i - 1], &dur[i - 1], &ilrate[i- 1], pin, lkhd);
     }
 /* 	HAVING OBTAINED ALL NEW PATHS, COMPUTE: */
 /* 	POSTERIOR PROBABILITY OF EACH NEW PATH(PROBP); */
@@ -432,37 +272,22 @@ static integer c__1 = 1;
 /* 	CONDITIONAL MEAN ESTIMATE OF SPEED(SPROB); */
     probp_(p, pin, &isave, lkhd);
     sprob_(p, &isave, ilrsav, &pelm, elmhat, spdhat, px);
-/* 	CALL VISI('ILR', ILRSAV) */
-/* 	CALL VIS('P1:',P) */
-/* 	PRINT 111, Z, PX, SPDHAT, ELMHAT */
-/* 111	FORMAT('PROCES:',3(3X,F15.9), 3X,I3) */
+
     *xhat = 0;
     if (*px > .5f) {
 	*xhat = 1;
     }
 /* 	SAVE THE PATHS WITH HIGHEST PROBABILITY, AND */
 /* 	STORE THE VALUES CORRESPONDING TO THESE PATHS: */
-/* 	CALL VISI('ILS',ILRSAV) */
+
     savep_(p, pathsv, &isave, imax, lamsav, dursav, ilrsav, lambda, dur, 
 	    ilrate, sort, pmax);
-/* 	CALL VISARR('LBD',LAMBDA,Z,ISAVE,ELMHAT) */
-/* 	CALL VIS('P2:',P) */
-/* 	CALL VISARL('DR2',DUR) */
-/* 	CALL VISARR('ILR',ILRATE) */
-/* 	GOTO 900 */
 
-
-/* 	DO 900 INL=1, ISAVE */
-/* 	PRINT 112, INL, P(INL), PATHSV(INL), LAMBDA(INL), DUR(INL), */
-/*     &ILRATE(INL), LKHD(SORT(INL)) */
-/* 112	FORMAT(1X, I3, 2X, F10.7, 2X, I3, 2X, I3, 2X,F6.1, 2X, I3, 2X, */
-/*     &F10.5) */
-/* 	2 F10.7) */
-/* L900: */
 /* 	UPDATE TRELLIS WITH NEW SAVED NODES, AND */
 /* 	OBTAIN LETTER STATE ESTIMATE: */
+
     trelis_(&isave, pathsv, lambda, imax, &ipmax);
-/* L200: */
+
     return 0;
 } /* proces_ */
 

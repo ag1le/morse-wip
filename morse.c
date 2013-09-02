@@ -11,7 +11,8 @@
 */
 
 #include "f2c.h"
-
+#include <stdio.h>
+ 
 /* Main program */ int MAIN__(void)
 {
     /* Initialized data */
@@ -19,17 +20,11 @@
     static real rn = .1f;
     static integer np = 0;
 
-    /* Format strings */
-    static char fmt_4[] = "(\002MORSE:, X, PMAX, IPMAX, ELMHAT, ZSIG,RN,SPDH"
-	    "AT,ZDET\002)";
-
-    /* Builtin functions */
-    integer s_wsfe(cilist *), e_wsfe(void);
     /* Subroutine */ int s_stop(char *, ftnlen);
 
     /* Local variables */
     static integer n;
-    static real x, z__;
+    static real x, z;
     static integer n1, n2;
     static real s1[512], s2[512], s3[512], s4[512], px;
     static integer imax, xhat;
@@ -47,15 +42,12 @@
     static integer ltrhat;
     extern /* Subroutine */ int inputl_(void);
 
-    /* Fortran I/O blocks */
-    static cilist io___3 = { 0, 6, 0, fmt_4, 0 };
 
 
 /* 	CALL SRAND(86456) */
     initl_();
     inputl_();
-    s_wsfe(&io___3);
-    e_wsfe();
+
 L1:
     for (n1 = 1; n1 <= 512; ++n1) {
 	for (n2 = 1; n2 <= 18; ++n2) {
@@ -71,15 +63,15 @@ L1:
 	    noise_(&zdet, &rn, &zout);
 /* 	RN = RAND() */
 	    rn = .01f;
-	    proces_(&x, &rn, &xhat, &px, &elmhat, &ltrhat, &spdhat, &imax, &
-		    pmax);
+	    proces_(&x, &rn, &xhat, &px, &elmhat, &ltrhat, &spdhat, &imax, &pmax);
 L3:
 	    ;
 	}
 	n = n1;
-/* 	PRINT 5, X,  PMAX, IMAX, ELMHAT,ZSIG, RN, SPDHAT, ZDET */
-/* 5	FORMAT('MORSE:',2(F10.3,2X),2(I7,1X),4(F10.3,2X) ) */
-	stats_(&zdet, &z__, &px, &xhat, s1, s2, s3, s4, &n);
+#ifdef DEBUG
+printf("\nMORSE: %f %f %d %d %f %f %f",x,pmax,imax,elmhat,zsig,rn,spdhat);
+#endif
+	stats_(&zdet, &z, &px, &xhat, s1, s2, s3, s4, &n);
 /* L2: */
     }
 /* 	CALL DISPLA(S1,S2,S3,S4) */
