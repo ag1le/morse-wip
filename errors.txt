@@ -1,0 +1,1426 @@
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 1 of line 3
+Warning: Nonconforming tab character in column 1 of line 4
+Warning: Nonconforming tab character in column 1 of line 5
+Warning: Nonconforming tab character in column 1 of line 6
+Warning: Nonconforming tab character in column 1 of line 7
+Warning: Nonconforming tab character in column 1 of line 8
+Warning: Nonconforming tab character in column 1 of line 9
+Warning: Nonconforming tab character in column 4 of line 10
+Warning: Nonconforming tab character in column 1 of line 12
+Warning: Nonconforming tab character in column 1 of line 13
+Warning: Nonconforming tab character in column 1 of line 14
+Warning: Nonconforming tab character in column 4 of line 15
+Warning: Nonconforming tab character in column 4 of line 16
+Warning: Nonconforming tab character in column 1 of line 18
+Warning: Nonconforming tab character in column 1 of line 19
+Warning: Nonconforming tab character in column 4 of line 20
+Warning: Nonconforming tab character in column 1 of line 22
+Warning: Nonconforming tab character in column 1 of line 23
+autocr.f:10.15:
+
+100   CONTINUE                                                          
+               1
+Warning: Nonconforming tab character at (1)
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 1 of line 13
+Warning: Nonconforming tab character in column 1 of line 14
+Warning: Nonconforming tab character in column 1 of line 15
+Warning: Nonconforming tab character in column 1 of line 16
+Warning: Nonconforming tab character in column 2 of line 18
+Warning: Nonconforming tab character in column 1 of line 20
+Warning: Nonconforming tab character in column 1 of line 21
+Warning: Nonconforming tab character in column 1 of line 22
+Warning: Nonconforming tab character in column 1 of line 23
+Warning: Nonconforming tab character in column 1 of line 24
+Warning: Nonconforming tab character in column 1 of line 25
+Warning: Nonconforming tab character in column 1 of line 26
+Warning: Nonconforming tab character in column 2 of line 28
+Warning: Nonconforming tab character in column 2 of line 29
+Warning: Nonconforming tab character in column 1 of line 31
+Warning: Nonconforming tab character in column 2 of line 35
+Warning: Nonconforming tab character in column 1 of line 37
+Warning: Nonconforming tab character in column 1 of line 38
+Warning: Nonconforming tab character in column 1 of line 39
+Warning: Nonconforming tab character in column 1 of line 40
+Warning: Nonconforming tab character in column 1 of line 42
+Warning: Nonconforming tab character in column 1 of line 43
+Warning: Nonconforming tab character in column 1 of line 44
+Warning: Nonconforming tab character in column 1 of line 45
+Warning: Nonconforming tab character in column 1 of line 46
+Warning: Nonconforming tab character in column 1 of line 48
+Warning: Nonconforming tab character in column 1 of line 49
+bpfdet.f: In function ‘bpfdet’:
+bpfdet.f:20:0: warning: ‘w2’ is used uninitialized in this function [-Wuninitialized]
+bpfdet.f:21:0: warning: ‘w1’ is used uninitialized in this function [-Wuninitialized]
+bpfdet.f:23:0: warning: ‘x2’ is used uninitialized in this function [-Wuninitialized]
+bpfdet.f:24:0: warning: ‘x1’ is used uninitialized in this function [-Wuninitialized]
+bpfdet.f:37:0: warning: ‘y2’ is used uninitialized in this function [-Wuninitialized]
+bpfdet.f:38:0: warning: ‘y1’ is used uninitialized in this function [-Wuninitialized]
+bpfdet.f:39:0: warning: ‘y0’ is used uninitialized in this function [-Wuninitialized]
+bpfdet.f:42:0: warning: ‘z2’ is used uninitialized in this function [-Wuninitialized]
+bpfdet.f:43:0: warning: ‘z1’ is used uninitialized in this function [-Wuninitialized]
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 1 of line 3
+Warning: Nonconforming tab character in column 1 of line 4
+Warning: Nonconforming tab character in column 1 of line 5
+Warning: Nonconforming tab character in column 1 of line 6
+Warning: Nonconforming tab character in column 1 of line 7
+Warning: Nonconforming tab character in column 1 of line 8
+Warning: Nonconforming tab character in column 1 of line 9
+Warning: Nonconforming tab character in column 1 of line 11
+Warning: Nonconforming tab character in column 1 of line 12
+Warning: Nonconforming tab character in column 1 of line 13
+Warning: Nonconforming tab character in column 1 of line 14
+Warning: Nonconforming tab character in column 1 of line 15
+Warning: Nonconforming tab character in column 1 of line 16
+Warning: Nonconforming tab character in column 1 of line 17
+Warning: Nonconforming tab character in column 1 of line 18
+Warning: Nonconforming tab character in column 1 of line 21
+Warning: Nonconforming tab character in column 1 of line 22
+Warning: Nonconforming tab character in column 1 of line 29
+Warning: Nonconforming tab character in column 1 of line 30
+Warning: Nonconforming tab character in column 1 of line 31
+Warning: Nonconforming tab character in column 1 of line 33
+Warning: Nonconforming tab character in column 1 of line 35
+Warning: Nonconforming tab character in column 2 of line 37
+Warning: Nonconforming tab character in column 2 of line 38
+Warning: Nonconforming tab character in column 2 of line 39
+Warning: Nonconforming tab character in column 2 of line 40
+Warning: Nonconforming tab character in column 2 of line 41
+Warning: Nonconforming tab character in column 1 of line 43
+Warning: Nonconforming tab character in column 1 of line 44
+Warning: Nonconforming tab character in column 1 of line 45
+Warning: Nonconforming tab character in column 1 of line 51
+Warning: Nonconforming tab character in column 1 of line 52
+Warning: Nonconforming tab character in column 1 of line 53
+Warning: Nonconforming tab character in column 1 of line 56
+Warning: Nonconforming tab character in column 1 of line 58
+Warning: Nonconforming tab character in column 1 of line 59
+Warning: Nonconforming tab character in column 1 of line 60
+Warning: Nonconforming tab character in column 1 of line 61
+Warning: Nonconforming tab character in column 3 of line 62
+Warning: Nonconforming tab character in column 1 of line 63
+Warning: Nonconforming tab character in column 1 of line 64
+Warning: Nonconforming tab character in column 3 of line 65
+Warning: Nonconforming tab character in column 1 of line 66
+Warning: Nonconforming tab character in column 1 of line 67
+Warning: Nonconforming tab character in column 1 of line 68
+Warning: Nonconforming tab character in column 1 of line 69
+Warning: Nonconforming tab character in column 3 of line 70
+Warning: Nonconforming tab character in column 1 of line 71
+Warning: Nonconforming tab character in column 1 of line 72
+Warning: Nonconforming tab character in column 1 of line 73
+Warning: Nonconforming tab character in column 1 of line 74
+Warning: Nonconforming tab character in column 1 of line 75
+Warning: Nonconforming tab character in column 3 of line 76
+Warning: Nonconforming tab character in column 1 of line 77
+Warning: Nonconforming tab character in column 3 of line 78
+Warning: Nonconforming tab character in column 1 of line 79
+Warning: Nonconforming tab character in column 1 of line 80
+Warning: Nonconforming tab character in column 1 of line 81
+Warning: Nonconforming tab character in column 1 of line 82
+Warning: Nonconforming tab character in column 1 of line 83
+Warning: Nonconforming tab character in column 3 of line 84
+Warning: Nonconforming tab character in column 3 of line 85
+Warning: Nonconforming tab character in column 1 of line 86
+Warning: Nonconforming tab character in column 1 of line 87
+Warning: Nonconforming tab character in column 1 of line 88
+Warning: Nonconforming tab character in column 1 of line 89
+Warning: Nonconforming tab character in column 1 of line 90
+initl.f:11.13:
+
+      COMMON /BLKLAM/ IELMST,ILAMI,ILAMX                                
+             1
+Warning: Nonconforming tab character at (1)
+initl.f:12.13:
+
+      COMMON /BLKRAT/ MEMDEL                                            
+             1
+Warning: Nonconforming tab character at (1)
+initl.f:13.13:
+
+      COMMON /BLKELM/ ELEMTR                                            
+             1
+Warning: Nonconforming tab character at (1)
+initl.f:14.13:
+
+      COMMON /BLKSPD/ RTRANS,MEMPR                                      
+             1
+Warning: Nonconforming tab character at (1)
+initl.f:15.13:
+
+      COMMON /BLKMEM/ MEMFCN                                            
+             1
+Warning: Nonconforming tab character at (1)
+initl.f:16.13:
+
+      COMMON /BLKS/ ISX                                                 
+             1
+Warning: Nonconforming tab character at (1)
+initl.f:17.13:
+
+      COMMON /BLKTRN/LTRMAP,IBLANK, IALPH                               
+             1
+Warning: Nonconforming tab character at (1)
+initl.f:18.13:
+
+      common /BLKTXT/ ITEXT                                             
+             1
+Warning: Nonconforming tab character at (1)
+initl.f:21.11:
+
+      DATA ISX/1,1,0,0,0,0/                                             
+           1
+Warning: Nonconforming tab character at (1)
+initl.f:22.11:
+
+      DATA MEMFCN /9,11,13,15,9,11,13,15,9,0,11,0,13,0,15,0,384*0,      
+           1
+Warning: Nonconforming tab character at (1)
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 1 of line 3
+Warning: Nonconforming tab character in column 1 of line 5
+Warning: Nonconforming tab character in column 1 of line 6
+Warning: Nonconforming tab character in column 1 of line 9
+Warning: Nonconforming tab character in column 1 of line 10
+Warning: Nonconforming tab character in column 1 of line 11
+Warning: Nonconforming tab character in column 1 of line 12
+Warning: Nonconforming tab character in column 1 of line 14
+Warning: Nonconforming tab character in column 4 of line 15
+Warning: Nonconforming tab character in column 2 of line 16
+Warning: Nonconforming tab character in column 1 of line 18
+Warning: Nonconforming tab character in column 4 of line 19
+Warning: Nonconforming tab character in column 2 of line 21
+Warning: Nonconforming tab character in column 4 of line 22
+Warning: Nonconforming tab character in column 1 of line 24
+Warning: Nonconforming tab character in column 4 of line 25
+Warning: Nonconforming tab character in column 2 of line 28
+Warning: Nonconforming tab character in column 4 of line 29
+Warning: Nonconforming tab character in column 1 of line 32
+Warning: Nonconforming tab character in column 4 of line 33
+Warning: Nonconforming tab character in column 2 of line 34
+Warning: Nonconforming tab character in column 4 of line 35
+Warning: Nonconforming tab character in column 2 of line 37
+Warning: Nonconforming tab character in column 1 of line 38
+Warning: Nonconforming tab character in column 1 of line 39
+Warning: Nonconforming tab character in column 1 of line 40
+Warning: Nonconforming tab character in column 1 of line 41
+Warning: Nonconforming tab character in column 1 of line 42
+Warning: Nonconforming tab character in column 1 of line 43
+Warning: Nonconforming tab character in column 1 of line 44
+Warning: Nonconforming tab character in column 1 of line 45
+Warning: Nonconforming tab character in column 1 of line 46
+Warning: Nonconforming tab character in column 1 of line 49
+Warning: Nonconforming tab character in column 1 of line 50
+Warning: Nonconforming tab character in column 1 of line 51
+Warning: Nonconforming tab character in column 1 of line 52
+Warning: Nonconforming tab character in column 1 of line 54
+Warning: Nonconforming tab character in column 1 of line 55
+Warning: Nonconforming tab character in column 1 of line 56
+Warning: Nonconforming tab character in column 2 of line 58
+Warning: Nonconforming tab character in column 1 of line 59
+Warning: Nonconforming tab character in column 1 of line 60
+Warning: Nonconforming tab character in column 1 of line 61
+Warning: Nonconforming tab character in column 1 of line 62
+Warning: Nonconforming tab character in column 1 of line 63
+Warning: Nonconforming tab character in column 1 of line 64
+Warning: Nonconforming tab character in column 4 of line 66
+Warning: Nonconforming tab character in column 1 of line 67
+inputl.f:5.13:
+
+      COMMON /BLK1/TAU/BLK6/ DMEAN,XDUR,ESEP,EDEV                       
+             1
+Warning: Nonconforming tab character at (1)
+inputl.f:6.13:
+
+      COMMON /BLK2/ WC, WCHIRP, ASIGMA, BSIGMA, PHISGM, RSIGM, TCHIRP,  
+             1
+Warning: Nonconforming tab character at (1)
+inputl.f:66.3:
+
+500   RETURN                                                            
+   1
+Warning: Label 500 at (1) defined but not used
+inputl.f:35.3:
+
+220   FORMAT(F7.1,F7.1,F7.1)                                            
+   1
+Warning: Label 220 at (1) defined but not used
+inputl.f:29.3:
+
+210   FORMAT(F7.1,F7.1,F7.1,F7.1,F7.1)                                  
+   1
+Warning: Label 210 at (1) defined but not used
+inputl.f:22.3:
+
+200   FORMAT(F7.1)                                                      
+   1
+Warning: Label 200 at (1) defined but not used
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 2 of line 4
+Warning: Nonconforming tab character in column 1 of line 30
+Warning: Nonconforming tab character in column 1 of line 31
+Warning: Nonconforming tab character in column 1 of line 32
+Warning: Nonconforming tab character in column 1 of line 34
+Warning: Nonconforming tab character in column 1 of line 35
+Warning: Nonconforming tab character in column 1 of line 36
+Warning: Nonconforming tab character in column 1 of line 37
+Warning: Nonconforming tab character in column 4 of line 53
+Warning: Nonconforming tab character in column 2 of line 57
+Warning: Nonconforming tab character in column 1 of line 60
+Warning: Nonconforming tab character in column 1 of line 61
+Warning: Nonconforming tab character in column 1 of line 67
+Warning: Nonconforming tab character in column 1 of line 68
+Warning: Nonconforming tab character in column 1 of line 69
+Warning: Nonconforming tab character in column 1 of line 71
+Warning: Nonconforming tab character in column 1 of line 73
+Warning: Nonconforming tab character in column 1 of line 75
+Warning: Nonconforming tab character in column 1 of line 77
+Warning: Nonconforming tab character in column 1 of line 79
+Warning: Nonconforming tab character in column 1 of line 80
+Warning: Nonconforming tab character in column 1 of line 81
+Warning: Nonconforming tab character in column 1 of line 83
+Warning: Nonconforming tab character in column 1 of line 84
+Warning: Nonconforming tab character in column 1 of line 85
+Warning: Nonconforming tab character in column 1 of line 86
+Warning: Nonconforming tab character in column 4 of line 88
+Warning: Nonconforming tab character in column 1 of line 89
+Warning: Nonconforming tab character in column 1 of line 91
+Warning: Nonconforming tab character in column 2 of line 92
+Warning: Nonconforming tab character in column 4 of line 94
+Warning: Nonconforming tab character in column 1 of line 95
+kalfil.f:1.39:
+
+      SUBROUTINE KALFIL (Z, IP, RN, ILX, IXS, KELEM, JNODE, ISRATE, DUR,
+                                       1
+Warning: Unused dummy argument 'ilx' at (1)
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 1 of line 3
+Warning: Nonconforming tab character in column 1 of line 4
+Warning: Nonconforming tab character in column 1 of line 5
+Warning: Nonconforming tab character in column 1 of line 6
+Warning: Nonconforming tab character in column 2 of line 7
+Warning: Nonconforming tab character in column 1 of line 8
+Warning: Nonconforming tab character in column 1 of line 10
+Warning: Nonconforming tab character in column 1 of line 11
+Warning: Nonconforming tab character in column 1 of line 13
+Warning: Nonconforming tab character in column 1 of line 14
+Warning: Nonconforming tab character in column 1 of line 16
+Warning: Nonconforming tab character in column 2 of line 36
+Warning: Nonconforming tab character in column 2 of line 37
+Warning: Nonconforming tab character in column 2 of line 38
+Warning: Nonconforming tab character in column 2 of line 39
+Warning: Nonconforming tab character in column 2 of line 40
+Warning: Nonconforming tab character in column 2 of line 41
+Warning: Nonconforming tab character in column 2 of line 42
+Warning: Nonconforming tab character in column 2 of line 43
+Warning: Nonconforming tab character in column 2 of line 44
+Warning: Nonconforming tab character in column 2 of line 45
+Warning: Nonconforming tab character in column 2 of line 46
+Warning: Nonconforming tab character in column 2 of line 47
+Warning: Nonconforming tab character in column 2 of line 48
+Warning: Nonconforming tab character in column 2 of line 49
+Warning: Nonconforming tab character in column 2 of line 50
+Warning: Nonconforming tab character in column 2 of line 51
+Warning: Nonconforming tab character in column 2 of line 52
+Warning: Nonconforming tab character in column 2 of line 53
+Warning: Nonconforming tab character in column 1 of line 55
+Warning: Nonconforming tab character in column 2 of line 58
+Warning: Nonconforming tab character in column 1 of line 60
+Warning: Nonconforming tab character in column 1 of line 61
+Warning: Nonconforming tab character in column 1 of line 62
+Warning: Nonconforming tab character in column 1 of line 63
+Warning: Nonconforming tab character in column 1 of line 64
+Warning: Nonconforming tab character in column 1 of line 65
+Warning: Nonconforming tab character in column 1 of line 66
+Warning: Nonconforming tab character in column 1 of line 67
+Warning: Nonconforming tab character in column 1 of line 68
+Warning: Nonconforming tab character in column 1 of line 69
+Warning: Nonconforming tab character in column 1 of line 70
+Warning: Nonconforming tab character in column 1 of line 71
+Warning: Nonconforming tab character in column 1 of line 72
+Warning: Nonconforming tab character in column 1 of line 73
+Warning: Nonconforming tab character in column 1 of line 74
+Warning: Nonconforming tab character in column 1 of line 77
+Warning: Nonconforming tab character in column 1 of line 78
+Warning: Nonconforming tab character in column 1 of line 79
+Warning: Nonconforming tab character in column 1 of line 80
+Warning: Nonconforming tab character in column 1 of line 81
+Warning: Nonconforming tab character in column 1 of line 82
+Warning: Nonconforming tab character in column 1 of line 83
+Warning: Nonconforming tab character in column 4 of line 85
+Warning: Nonconforming tab character in column 1 of line 86
+Warning: Nonconforming tab character in column 1 of line 87
+Warning: Nonconforming tab character in column 1 of line 88
+Warning: Nonconforming tab character in column 1 of line 89
+Warning: Nonconforming tab character in column 1 of line 90
+Warning: Nonconforming tab character in column 1 of line 91
+Warning: Nonconforming tab character in column 3 of line 92
+Warning: Nonconforming tab character in column 1 of line 94
+Warning: Nonconforming tab character in column 1 of line 95
+Warning: Nonconforming tab character in column 1 of line 96
+Warning: Nonconforming tab character in column 1 of line 97
+Warning: Nonconforming tab character in column 4 of line 98
+Warning: Nonconforming tab character in column 3 of line 99
+Warning: Nonconforming tab character in column 1 of line 101
+Warning: Nonconforming tab character in column 4 of line 103
+Warning: Nonconforming tab character in column 1 of line 104
+Warning: Nonconforming tab character in column 1 of line 105
+Warning: Nonconforming tab character in column 1 of line 106
+Warning: Nonconforming tab character in column 1 of line 107
+Warning: Nonconforming tab character in column 1 of line 108
+Warning: Nonconforming tab character in column 1 of line 109
+Warning: Nonconforming tab character in column 1 of line 110
+Warning: Nonconforming tab character in column 4 of line 112
+Warning: Nonconforming tab character in column 1 of line 113
+key.f:55.40:
+
+      DATA ISYMBL/1H.,1H-,1H ,1H;,1H/,1H~/                              
+                                        1
+Warning: Extension: Hollerith constant at (1)
+key.f:55.20:
+
+      DATA ISYMBL/1H.,1H-,1H ,1H;,1H/,1H~/                              
+                    1
+Warning: Extension: Conversion from HOLLERITH to INTEGER(4) at (1)
+key.f:55.24:
+
+      DATA ISYMBL/1H.,1H-,1H ,1H;,1H/,1H~/                              
+                        1
+Warning: Extension: Conversion from HOLLERITH to INTEGER(4) at (1)
+key.f:55.28:
+
+      DATA ISYMBL/1H.,1H-,1H ,1H;,1H/,1H~/                              
+                            1
+Warning: Extension: Conversion from HOLLERITH to INTEGER(4) at (1)
+key.f:55.32:
+
+      DATA ISYMBL/1H.,1H-,1H ,1H;,1H/,1H~/                              
+                                1
+Warning: Extension: Conversion from HOLLERITH to INTEGER(4) at (1)
+key.f:55.36:
+
+      DATA ISYMBL/1H.,1H-,1H ,1H;,1H/,1H~/                              
+                                    1
+Warning: Extension: Conversion from HOLLERITH to INTEGER(4) at (1)
+key.f:55.40:
+
+      DATA ISYMBL/1H.,1H-,1H ,1H;,1H/,1H~/                              
+                                        1
+Warning: Extension: Conversion from HOLLERITH to INTEGER(4) at (1)
+key.f:72.9:
+
+      IY=Y                                                              
+         1
+Warning: Possible change of value in conversion from REAL(4) to INTEGER(4) at (1)
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 2 of line 4
+Warning: Nonconforming tab character in column 2 of line 5
+Warning: Nonconforming tab character in column 2 of line 6
+Warning: Nonconforming tab character in column 2 of line 7
+Warning: Nonconforming tab character in column 2 of line 9
+Warning: Nonconforming tab character in column 2 of line 10
+Warning: Nonconforming tab character in column 2 of line 11
+Warning: Nonconforming tab character in column 2 of line 12
+Warning: Nonconforming tab character in column 2 of line 13
+Warning: Nonconforming tab character in column 2 of line 14
+Warning: Nonconforming tab character in column 2 of line 15
+Warning: Nonconforming tab character in column 2 of line 16
+Warning: Nonconforming tab character in column 2 of line 17
+Warning: Nonconforming tab character in column 2 of line 20
+Warning: Nonconforming tab character in column 1 of line 23
+Warning: Nonconforming tab character in column 1 of line 24
+Warning: Nonconforming tab character in column 1 of line 25
+Warning: Nonconforming tab character in column 1 of line 26
+Warning: Nonconforming tab character in column 1 of line 28
+Warning: Nonconforming tab character in column 1 of line 29
+Warning: Nonconforming tab character in column 1 of line 32
+Warning: Nonconforming tab character in column 3 of line 33
+Warning: Nonconforming tab character in column 1 of line 34
+Warning: Nonconforming tab character in column 2 of line 36
+Warning: Nonconforming tab character in column 1 of line 38
+Warning: Nonconforming tab character in column 1 of line 39
+Warning: Nonconforming tab character in column 2 of line 41
+Warning: Nonconforming tab character in column 1 of line 43
+Warning: Nonconforming tab character in column 1 of line 44
+Warning: Nonconforming tab character in column 1 of line 45
+Warning: Nonconforming tab character in column 1 of line 46
+Warning: Nonconforming tab character in column 1 of line 47
+Warning: Nonconforming tab character in column 2 of line 49
+Warning: Nonconforming tab character in column 1 of line 51
+Warning: Nonconforming tab character in column 1 of line 52
+Warning: Nonconforming tab character in column 1 of line 53
+Warning: Nonconforming tab character in column 1 of line 54
+Warning: Nonconforming tab character in column 1 of line 55
+Warning: Nonconforming tab character in column 1 of line 56
+Warning: Nonconforming tab character in column 4 of line 57
+Warning: Nonconforming tab character in column 2 of line 59
+Warning: Nonconforming tab character in column 4 of line 61
+Warning: Nonconforming tab character in column 4 of line 62
+Warning: Nonconforming tab character in column 1 of line 63
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 2 of line 5
+Warning: Nonconforming tab character in column 2 of line 6
+Warning: Nonconforming tab character in column 2 of line 7
+Warning: Nonconforming tab character in column 2 of line 9
+Warning: Nonconforming tab character in column 2 of line 10
+Warning: Nonconforming tab character in column 2 of line 11
+Warning: Nonconforming tab character in column 2 of line 12
+Warning: Nonconforming tab character in column 2 of line 13
+Warning: Nonconforming tab character in column 2 of line 14
+Warning: Nonconforming tab character in column 2 of line 16
+Warning: Nonconforming tab character in column 2 of line 17
+Warning: Nonconforming tab character in column 2 of line 18
+Warning: Nonconforming tab character in column 2 of line 19
+Warning: Nonconforming tab character in column 2 of line 23
+Warning: Nonconforming tab character in column 1 of line 25
+Warning: Nonconforming tab character in column 1 of line 26
+Warning: Nonconforming tab character in column 2 of line 27
+Warning: Nonconforming tab character in column 1 of line 29
+Warning: Nonconforming tab character in column 1 of line 30
+Warning: Nonconforming tab character in column 1 of line 31
+Warning: Nonconforming tab character in column 1 of line 33
+Warning: Nonconforming tab character in column 1 of line 34
+Warning: Nonconforming tab character in column 1 of line 35
+Warning: Nonconforming tab character in column 1 of line 36
+Warning: Nonconforming tab character in column 4 of line 38
+Warning: Nonconforming tab character in column 1 of line 39
+Warning: Nonconforming tab character in column 1 of line 40
+Warning: Nonconforming tab character in column 1 of line 41
+Warning: Nonconforming tab character in column 1 of line 42
+Warning: Nonconforming tab character in column 4 of line 44
+Warning: Nonconforming tab character in column 1 of line 45
+Warning: Nonconforming tab character in column 1 of line 46
+Warning: Nonconforming tab character in column 1 of line 47
+Warning: Nonconforming tab character in column 4 of line 49
+Warning: Nonconforming tab character in column 1 of line 50
+model.f:1.39:
+
+      SUBROUTINE MODEL(DUR,IELM,ILR,ISR,IXS,PHI,QA,HZ)                  
+                                       1
+Warning: Unused dummy argument 'isr' at (1)
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 1 of line 3
+Warning: Nonconforming tab character in column 1 of line 4
+Warning: Nonconforming tab character in column 1 of line 6
+Warning: Nonconforming tab character in column 1 of line 7
+Warning: Nonconforming tab character in column 1 of line 9
+Warning: Nonconforming tab character in column 1 of line 10
+Warning: Nonconforming tab character in column 4 of line 12
+Warning: Nonconforming tab character in column 1 of line 13
+Warning: Nonconforming tab character in column 1 of line 14
+Warning: Nonconforming tab character in column 1 of line 15
+Warning: Nonconforming tab character in column 1 of line 16
+Warning: Nonconforming tab character in column 1 of line 17
+Warning: Nonconforming tab character in column 1 of line 18
+Warning: Nonconforming tab character in column 1 of line 19
+Warning: Nonconforming tab character in column 1 of line 21
+Warning: Nonconforming tab character in column 1 of line 22
+Warning: Nonconforming tab character in column 1 of line 23
+Warning: Nonconforming tab character in column 2 of line 24
+Warning: Nonconforming tab character in column 1 of line 26
+Warning: Nonconforming tab character in column 1 of line 27
+Warning: Nonconforming tab character in column 2 of line 28
+Warning: Nonconforming tab character in column 2 of line 30
+Warning: Nonconforming tab character in column 1 of line 32
+Warning: Nonconforming tab character in column 1 of line 33
+Warning: Nonconforming tab character in column 1 of line 34
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 2 of line 4
+Warning: Nonconforming tab character in column 2 of line 5
+Warning: Nonconforming tab character in column 2 of line 6
+Warning: Nonconforming tab character in column 2 of line 7
+Warning: Nonconforming tab character in column 2 of line 8
+Warning: Nonconforming tab character in column 2 of line 9
+Warning: Nonconforming tab character in column 1 of line 14
+Warning: Nonconforming tab character in column 1 of line 15
+Warning: Nonconforming tab character in column 1 of line 16
+Warning: Nonconforming tab character in column 1 of line 17
+Warning: Nonconforming tab character in column 1 of line 18
+Warning: Nonconforming tab character in column 1 of line 20
+Warning: Nonconforming tab character in column 1 of line 21
+Warning: Nonconforming tab character in column 1 of line 22
+Warning: Nonconforming tab character in column 1 of line 23
+Warning: Nonconforming tab character in column 1 of line 24
+Warning: Nonconforming tab character in column 1 of line 25
+Warning: Nonconforming tab character in column 1 of line 26
+Warning: Nonconforming tab character in column 1 of line 27
+Warning: Nonconforming tab character in column 1 of line 28
+Warning: Nonconforming tab character in column 1 of line 29
+Warning: Nonconforming tab character in column 1 of line 30
+Warning: Nonconforming tab character in column 1 of line 31
+Warning: Nonconforming tab character in column 1 of line 32
+Warning: Nonconforming tab character in column 1 of line 33
+Warning: Nonconforming tab character in column 4 of line 35
+Warning: Nonconforming tab character in column 1 of line 36
+Warning: Nonconforming tab character in column 1 of line 37
+Warning: Nonconforming tab character in column 4 of line 38
+Warning: Nonconforming tab character in column 1 of line 40
+Warning: Nonconforming tab character in column 1 of line 41
+Warning: Nonconforming tab character in column 1 of line 42
+Warning: Nonconforming tab character in column 4 of line 43
+Warning: Nonconforming tab character in column 1 of line 45
+Warning: Nonconforming tab character in column 1 of line 46
+Warning: Nonconforming tab character in column 1 of line 47
+Warning: Nonconforming tab character in column 1 of line 49
+Warning: Nonconforming tab character in column 1 of line 50
+Warning: Nonconforming tab character in column 1 of line 51
+Warning: Nonconforming tab character in column 1 of line 52
+Warning: Nonconforming tab character in column 1 of line 53
+Warning: Nonconforming tab character in column 1 of line 54
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 1 of line 20
+Warning: Nonconforming tab character in column 1 of line 21
+Warning: Nonconforming tab character in column 1 of line 22
+Warning: Nonconforming tab character in column 1 of line 24
+Warning: Nonconforming tab character in column 1 of line 25
+Warning: Nonconforming tab character in column 1 of line 26
+Warning: Nonconforming tab character in column 1 of line 27
+Warning: Nonconforming tab character in column 1 of line 34
+Warning: Nonconforming tab character in column 1 of line 35
+Warning: Nonconforming tab character in column 1 of line 41
+Warning: Nonconforming tab character in column 1 of line 47
+Warning: Nonconforming tab character in column 1 of line 53
+Warning: Nonconforming tab character in column 1 of line 54
+Warning: Nonconforming tab character in column 1 of line 55
+Warning: Nonconforming tab character in column 3 of line 57
+Warning: Nonconforming tab character in column 1 of line 58
+Warning: Nonconforming tab character in column 1 of line 64
+Warning: Nonconforming tab character in column 1 of line 65
+Warning: Nonconforming tab character in column 1 of line 66
+Warning: Nonconforming tab character in column 1 of line 70
+Warning: Nonconforming tab character in column 2 of line 72
+Warning: Nonconforming tab character in column 1 of line 74
+Warning: Nonconforming tab character in column 4 of line 76
+Warning: Nonconforming tab character in column 4 of line 77
+Warning: Nonconforming tab character in column 1 of line 78
+path.f:77.3:
+
+200   RETURN                                                            
+   1
+Warning: Label 200 at (1) defined but not used
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 2 of line 4
+Warning: Nonconforming tab character in column 2 of line 6
+Warning: Nonconforming tab character in column 2 of line 7
+Warning: Nonconforming tab character in column 2 of line 9
+Warning: Nonconforming tab character in column 2 of line 10
+Warning: Nonconforming tab character in column 2 of line 11
+Warning: Nonconforming tab character in column 2 of line 12
+Warning: Nonconforming tab character in column 1 of line 15
+Warning: Nonconforming tab character in column 1 of line 16
+Warning: Nonconforming tab character in column 1 of line 17
+Warning: Nonconforming tab character in column 1 of line 19
+Warning: Nonconforming tab character in column 1 of line 20
+Warning: Nonconforming tab character in column 2 of line 23
+Warning: Nonconforming tab character in column 1 of line 25
+Warning: Nonconforming tab character in column 1 of line 26
+Warning: Nonconforming tab character in column 2 of line 28
+Warning: Nonconforming tab character in column 1 of line 30
+Warning: Nonconforming tab character in column 1 of line 34
+Warning: Nonconforming tab character in column 1 of line 35
+Warning: Nonconforming tab character in column 1 of line 37
+Warning: Nonconforming tab character in column 1 of line 38
+Warning: Nonconforming tab character in column 4 of line 39
+Warning: Nonconforming tab character in column 2 of line 42
+Warning: Nonconforming tab character in column 1 of line 44
+Warning: Nonconforming tab character in column 1 of line 45
+Warning: Nonconforming tab character in column 1 of line 46
+Warning: Nonconforming tab character in column 4 of line 47
+Warning: Nonconforming tab character in column 1 of line 49
+Warning: Nonconforming tab character in column 1 of line 50
+probp.f:17.26:
+
+      DIMENSION PSAV(750)                                               
+                          1
+Warning: Nonconforming tab character at (1)
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 2 of line 3
+Warning: Nonconforming tab character in column 2 of line 4
+Warning: Nonconforming tab character in column 2 of line 5
+Warning: Nonconforming tab character in column 2 of line 6
+Warning: Nonconforming tab character in column 2 of line 7
+Warning: Nonconforming tab character in column 2 of line 8
+Warning: Nonconforming tab character in column 2 of line 9
+Warning: Nonconforming tab character in column 2 of line 10
+Warning: Nonconforming tab character in column 2 of line 11
+Warning: Nonconforming tab character in column 2 of line 12
+Warning: Nonconforming tab character in column 2 of line 13
+Warning: Nonconforming tab character in column 2 of line 14
+Warning: Nonconforming tab character in column 2 of line 15
+Warning: Nonconforming tab character in column 2 of line 16
+Warning: Nonconforming tab character in column 2 of line 17
+Warning: Nonconforming tab character in column 2 of line 18
+Warning: Nonconforming tab character in column 2 of line 19
+Warning: Nonconforming tab character in column 2 of line 20
+Warning: Nonconforming tab character in column 2 of line 21
+Warning: Nonconforming tab character in column 2 of line 22
+Warning: Nonconforming tab character in column 2 of line 23
+Warning: Nonconforming tab character in column 2 of line 24
+Warning: Nonconforming tab character in column 2 of line 25
+Warning: Nonconforming tab character in column 2 of line 26
+Warning: Nonconforming tab character in column 2 of line 27
+Warning: Nonconforming tab character in column 2 of line 28
+Warning: Nonconforming tab character in column 2 of line 29
+Warning: Nonconforming tab character in column 2 of line 30
+Warning: Nonconforming tab character in column 2 of line 31
+Warning: Nonconforming tab character in column 2 of line 32
+Warning: Nonconforming tab character in column 2 of line 33
+Warning: Nonconforming tab character in column 2 of line 34
+Warning: Nonconforming tab character in column 2 of line 35
+Warning: Nonconforming tab character in column 2 of line 36
+Warning: Nonconforming tab character in column 2 of line 37
+Warning: Nonconforming tab character in column 2 of line 38
+Warning: Nonconforming tab character in column 2 of line 39
+Warning: Nonconforming tab character in column 2 of line 40
+Warning: Nonconforming tab character in column 2 of line 41
+Warning: Nonconforming tab character in column 2 of line 42
+Warning: Nonconforming tab character in column 2 of line 43
+Warning: Nonconforming tab character in column 1 of line 47
+Warning: Nonconforming tab character in column 1 of line 49
+Warning: Nonconforming tab character in column 1 of line 50
+Warning: Nonconforming tab character in column 1 of line 51
+Warning: Nonconforming tab character in column 1 of line 52
+Warning: Nonconforming tab character in column 1 of line 53
+Warning: Nonconforming tab character in column 1 of line 55
+Warning: Nonconforming tab character in column 1 of line 56
+Warning: Nonconforming tab character in column 1 of line 57
+Warning: Nonconforming tab character in column 1 of line 58
+Warning: Nonconforming tab character in column 1 of line 60
+Warning: Nonconforming tab character in column 1 of line 61
+Warning: Nonconforming tab character in column 2 of line 63
+Warning: Nonconforming tab character in column 2 of line 64
+Warning: Nonconforming tab character in column 2 of line 65
+Warning: Nonconforming tab character in column 2 of line 66
+Warning: Nonconforming tab character in column 1 of line 68
+Warning: Nonconforming tab character in column 1 of line 69
+Warning: Nonconforming tab character in column 1 of line 70
+Warning: Nonconforming tab character in column 1 of line 71
+Warning: Nonconforming tab character in column 1 of line 72
+Warning: Nonconforming tab character in column 4 of line 74
+Warning: Nonconforming tab character in column 2 of line 76
+Warning: Nonconforming tab character in column 2 of line 77
+Warning: Nonconforming tab character in column 2 of line 78
+Warning: Nonconforming tab character in column 2 of line 79
+Warning: Nonconforming tab character in column 1 of line 81
+Warning: Nonconforming tab character in column 1 of line 82
+Warning: Nonconforming tab character in column 1 of line 84
+Warning: Nonconforming tab character in column 1 of line 85
+Warning: Nonconforming tab character in column 2 of line 87
+Warning: Nonconforming tab character in column 2 of line 88
+Warning: Nonconforming tab character in column 1 of line 90
+Warning: Nonconforming tab character in column 2 of line 92
+Warning: Nonconforming tab character in column 1 of line 93
+Warning: Nonconforming tab character in column 1 of line 95
+Warning: Nonconforming tab character in column 4 of line 96
+Warning: Nonconforming tab character in column 1 of line 98
+Warning: Nonconforming tab character in column 1 of line 99
+Warning: Nonconforming tab character in column 4 of line 101
+Warning: Nonconforming tab character in column 2 of line 103
+Warning: Nonconforming tab character in column 4 of line 104
+Warning: Nonconforming tab character in column 2 of line 106
+Warning: Nonconforming tab character in column 2 of line 107
+Warning: Nonconforming tab character in column 1 of line 109
+Warning: Nonconforming tab character in column 4 of line 110
+Warning: Nonconforming tab character in column 1 of line 112
+proces.f:110.3:
+
+200   RETURN                                                            
+   1
+Warning: Label 200 at (1) defined but not used
+proces.f:104.3:
+
+900   CONTINUE                                                          
+   1
+proces.f:93.72:
+
+      GOTO 900                                                          
+                                                                        2
+Warning: Label at (1) is not in the same block as the GOTO statement at (2)
+proces.f:1.43:
+
+      SUBROUTINE PROCES(Z,RN,XHAT,PX,ELMHAT,LTRHAT)                     
+                                           1
+Warning: Unused dummy argument 'elmhat' at (1)
+proces.f:1.50:
+
+      SUBROUTINE PROCES(Z,RN,XHAT,PX,ELMHAT,LTRHAT)                     
+                                                  1
+Warning: Unused dummy argument 'ltrhat' at (1)
+proces.f:52.39:
+
+      DIMENSION LKHD(750),P(750),PSELEM(5)                              
+                                       1
+Warning: Unused variable 'pselem' declared at (1)
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 2 of line 4
+Warning: Nonconforming tab character in column 2 of line 5
+Warning: Nonconforming tab character in column 2 of line 6
+Warning: Nonconforming tab character in column 2 of line 7
+Warning: Nonconforming tab character in column 2 of line 8
+Warning: Nonconforming tab character in column 2 of line 9
+Warning: Nonconforming tab character in column 2 of line 10
+Warning: Nonconforming tab character in column 2 of line 11
+Warning: Nonconforming tab character in column 2 of line 12
+Warning: Nonconforming tab character in column 2 of line 13
+Warning: Nonconforming tab character in column 2 of line 14
+Warning: Nonconforming tab character in column 2 of line 15
+Warning: Nonconforming tab character in column 1 of line 17
+Warning: Nonconforming tab character in column 1 of line 18
+Warning: Nonconforming tab character in column 1 of line 20
+Warning: Nonconforming tab character in column 1 of line 21
+Warning: Nonconforming tab character in column 2 of line 23
+Warning: Nonconforming tab character in column 2 of line 24
+Warning: Nonconforming tab character in column 2 of line 25
+Warning: Nonconforming tab character in column 2 of line 26
+Warning: Nonconforming tab character in column 2 of line 27
+Warning: Nonconforming tab character in column 1 of line 29
+Warning: Nonconforming tab character in column 1 of line 30
+Warning: Nonconforming tab character in column 1 of line 31
+Warning: Nonconforming tab character in column 1 of line 32
+Warning: Nonconforming tab character in column 2 of line 34
+Warning: Nonconforming tab character in column 2 of line 35
+Warning: Nonconforming tab character in column 2 of line 36
+Warning: Nonconforming tab character in column 4 of line 37
+Warning: Nonconforming tab character in column 2 of line 39
+Warning: Nonconforming tab character in column 1 of line 41
+Warning: Nonconforming tab character in column 2 of line 43
+Warning: Nonconforming tab character in column 1 of line 45
+Warning: Nonconforming tab character in column 4 of line 46
+Warning: Nonconforming tab character in column 1 of line 48
+Warning: Nonconforming tab character in column 1 of line 49
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 1 of line 9
+Warning: Nonconforming tab character in column 1 of line 10
+Warning: Nonconforming tab character in column 1 of line 12
+Warning: Nonconforming tab character in column 1 of line 13
+Warning: Nonconforming tab character in column 1 of line 15
+Warning: Nonconforming tab character in column 1 of line 16
+Warning: Nonconforming tab character in column 1 of line 17
+Warning: Nonconforming tab character in column 1 of line 18
+Warning: Nonconforming tab character in column 1 of line 20
+Warning: Nonconforming tab character in column 1 of line 21
+Warning: Nonconforming tab character in column 1 of line 23
+Warning: Nonconforming tab character in column 1 of line 25
+Warning: Nonconforming tab character in column 1 of line 26
+rcvr.f: In function ‘rcvr’:
+rcvr.f:17:0: warning: ‘zilp’ is used uninitialized in this function [-Wuninitialized]
+rcvr.f:18:0: warning: ‘zqlp’ is used uninitialized in this function [-Wuninitialized]
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 2 of line 3
+Warning: Nonconforming tab character in column 2 of line 7
+Warning: Nonconforming tab character in column 2 of line 8
+Warning: Nonconforming tab character in column 2 of line 9
+Warning: Nonconforming tab character in column 2 of line 10
+Warning: Nonconforming tab character in column 2 of line 11
+Warning: Nonconforming tab character in column 2 of line 12
+Warning: Nonconforming tab character in column 2 of line 13
+Warning: Nonconforming tab character in column 2 of line 16
+Warning: Nonconforming tab character in column 2 of line 17
+Warning: Nonconforming tab character in column 2 of line 20
+Warning: Nonconforming tab character in column 2 of line 21
+Warning: Nonconforming tab character in column 2 of line 22
+Warning: Nonconforming tab character in column 2 of line 23
+Warning: Nonconforming tab character in column 2 of line 24
+Warning: Nonconforming tab character in column 2 of line 26
+Warning: Nonconforming tab character in column 2 of line 27
+Warning: Nonconforming tab character in column 2 of line 28
+Warning: Nonconforming tab character in column 2 of line 29
+Warning: Nonconforming tab character in column 2 of line 30
+Warning: Nonconforming tab character in column 2 of line 31
+Warning: Nonconforming tab character in column 2 of line 33
+Warning: Nonconforming tab character in column 2 of line 34
+Warning: Nonconforming tab character in column 2 of line 35
+Warning: Nonconforming tab character in column 1 of line 39
+Warning: Nonconforming tab character in column 1 of line 40
+Warning: Nonconforming tab character in column 1 of line 41
+Warning: Nonconforming tab character in column 1 of line 42
+Warning: Nonconforming tab character in column 1 of line 43
+Warning: Nonconforming tab character in column 1 of line 44
+Warning: Nonconforming tab character in column 1 of line 45
+Warning: Nonconforming tab character in column 1 of line 46
+Warning: Nonconforming tab character in column 1 of line 47
+Warning: Nonconforming tab character in column 1 of line 49
+Warning: Nonconforming tab character in column 1 of line 50
+Warning: Nonconforming tab character in column 2 of line 52
+Warning: Nonconforming tab character in column 1 of line 54
+Warning: Nonconforming tab character in column 1 of line 55
+Warning: Nonconforming tab character in column 1 of line 57
+Warning: Nonconforming tab character in column 1 of line 58
+Warning: Nonconforming tab character in column 1 of line 60
+Warning: Nonconforming tab character in column 1 of line 61
+Warning: Nonconforming tab character in column 1 of line 62
+Warning: Nonconforming tab character in column 1 of line 63
+Warning: Nonconforming tab character in column 1 of line 64
+Warning: Nonconforming tab character in column 4 of line 65
+Warning: Nonconforming tab character in column 1 of line 67
+Warning: Nonconforming tab character in column 1 of line 68
+Warning: Nonconforming tab character in column 4 of line 70
+Warning: Nonconforming tab character in column 1 of line 71
+Warning: Nonconforming tab character in column 1 of line 72
+Warning: Nonconforming tab character in column 1 of line 73
+Warning: Nonconforming tab character in column 1 of line 74
+Warning: Nonconforming tab character in column 4 of line 76
+Warning: Nonconforming tab character in column 2 of line 78
+Warning: Nonconforming tab character in column 2 of line 79
+Warning: Nonconforming tab character in column 4 of line 82
+Warning: Nonconforming tab character in column 1 of line 83
+Warning: Nonconforming tab character in column 1 of line 84
+Warning: Nonconforming tab character in column 1 of line 85
+Warning: Nonconforming tab character in column 1 of line 86
+Warning: Nonconforming tab character in column 1 of line 87
+Warning: Nonconforming tab character in column 4 of line 89
+Warning: Nonconforming tab character in column 1 of line 91
+Warning: Nonconforming tab character in column 1 of line 92
+Warning: Nonconforming tab character in column 1 of line 93
+Warning: Nonconforming tab character in column 1 of line 94
+Warning: Nonconforming tab character in column 4 of line 95
+Warning: Nonconforming tab character in column 1 of line 97
+Warning: Nonconforming tab character in column 1 of line 98
+Warning: Nonconforming tab character in column 1 of line 99
+Warning: Nonconforming tab character in column 1 of line 100
+Warning: Nonconforming tab character in column 1 of line 101
+Warning: Nonconforming tab character in column 1 of line 102
+Warning: Nonconforming tab character in column 1 of line 103
+Warning: Nonconforming tab character in column 1 of line 104
+Warning: Nonconforming tab character in column 1 of line 105
+Warning: Nonconforming tab character in column 1 of line 106
+Warning: Nonconforming tab character in column 2 of line 108
+Warning: Nonconforming tab character in column 5 of line 110
+Warning: Nonconforming tab character in column 2 of line 112
+Warning: Nonconforming tab character in column 2 of line 113
+Warning: Nonconforming tab character in column 2 of line 114
+Warning: Nonconforming tab character in column 1 of line 116
+Warning: Nonconforming tab character in column 1 of line 117
+Warning: Nonconforming tab character in column 1 of line 118
+Warning: Nonconforming tab character in column 1 of line 119
+Warning: Nonconforming tab character in column 1 of line 120
+Warning: Nonconforming tab character in column 1 of line 121
+Warning: Nonconforming tab character in column 1 of line 122
+Warning: Nonconforming tab character in column 5 of line 124
+Warning: Nonconforming tab character in column 1 of line 126
+Warning: Nonconforming tab character in column 1 of line 127
+Warning: Nonconforming tab character in column 4 of line 128
+Warning: Nonconforming tab character in column 1 of line 130
+Warning: Nonconforming tab character in column 1 of line 132
+Warning: Nonconforming tab character in column 1 of line 133
+Warning: Nonconforming tab character in column 1 of line 134
+Warning: Nonconforming tab character in column 1 of line 135
+Warning: Nonconforming tab character in column 1 of line 136
+Warning: Nonconforming tab character in column 1 of line 137
+Warning: Nonconforming tab character in column 1 of line 139
+Warning: Nonconforming tab character in column 1 of line 140
+Warning: Nonconforming tab character in column 1 of line 141
+Warning: Nonconforming tab character in column 1 of line 142
+Warning: Nonconforming tab character in column 4 of line 144
+Warning: Nonconforming tab character in column 4 of line 145
+Warning: Nonconforming tab character in column 1 of line 147
+Warning: Nonconforming tab character in column 1 of line 148
+Warning: Nonconforming tab character in column 1 of line 150
+Warning: Nonconforming tab character in column 1 of line 151
+Warning: Nonconforming tab character in column 1 of line 152
+Warning: Nonconforming tab character in column 1 of line 153
+Warning: Nonconforming tab character in column 1 of line 154
+Warning: Nonconforming tab character in column 1 of line 155
+Warning: Nonconforming tab character in column 1 of line 156
+Warning: Nonconforming tab character in column 1 of line 157
+Warning: Nonconforming tab character in column 1 of line 158
+Warning: Nonconforming tab character in column 1 of line 159
+Warning: Nonconforming tab character in column 1 of line 160
+Warning: Nonconforming tab character in column 1 of line 161
+Warning: Nonconforming tab character in column 4 of line 163
+Warning: Nonconforming tab character in column 1 of line 164
+Warning: Nonconforming tab character in column 1 of line 165
+Warning: Nonconforming tab character in column 1 of line 166
+Warning: Nonconforming tab character in column 1 of line 167
+Warning: Nonconforming tab character in column 1 of line 168
+Warning: Nonconforming tab character in column 1 of line 169
+Warning: Nonconforming tab character in column 1 of line 170
+Warning: Nonconforming tab character in column 1 of line 171
+Warning: Nonconforming tab character in column 4 of line 172
+Warning: Nonconforming tab character in column 1 of line 174
+Warning: Nonconforming tab character in column 1 of line 175
+savep.f: In function ‘savep’:
+savep.f:137:0: warning: ‘o’ may be used uninitialized in this function [-Wuninitialized]
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 1 of line 3
+Warning: Nonconforming tab character in column 1 of line 4
+Warning: Nonconforming tab character in column 1 of line 5
+Warning: Nonconforming tab character in column 1 of line 6
+Warning: Nonconforming tab character in column 1 of line 8
+Warning: Nonconforming tab character in column 1 of line 9
+Warning: Nonconforming tab character in column 1 of line 10
+Warning: Nonconforming tab character in column 1 of line 11
+Warning: Nonconforming tab character in column 1 of line 12
+Warning: Nonconforming tab character in column 2 of line 14
+Warning: Nonconforming tab character in column 1 of line 15
+Warning: Nonconforming tab character in column 1 of line 16
+Warning: Nonconforming tab character in column 2 of line 18
+Warning: Nonconforming tab character in column 1 of line 19
+Warning: Nonconforming tab character in column 1 of line 21
+Warning: Nonconforming tab character in column 1 of line 22
+Warning: Nonconforming tab character in column 1 of line 23
+Warning: Nonconforming tab character in column 1 of line 25
+Warning: Nonconforming tab character in column 1 of line 27
+Warning: Nonconforming tab character in column 1 of line 29
+Warning: Nonconforming tab character in column 1 of line 30
+Warning: Nonconforming tab character in column 2 of line 34
+Warning: Nonconforming tab character in column 1 of line 35
+Warning: Nonconforming tab character in column 1 of line 36
+Warning: Nonconforming tab character in column 1 of line 38
+Warning: Nonconforming tab character in column 2 of line 39
+Warning: Nonconforming tab character in column 1 of line 40
+Warning: Nonconforming tab character in column 1 of line 41
+simsgi.f: In function ‘simsgi’:
+simsgi.f:15:0: warning: ‘w’ is used uninitialized in this function [-Wuninitialized]
+simsgi.f:29:0: warning: ‘nc’ is used uninitialized in this function [-Wuninitialized]
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 2 of line 3
+Warning: Nonconforming tab character in column 2 of line 4
+Warning: Nonconforming tab character in column 2 of line 5
+Warning: Nonconforming tab character in column 2 of line 7
+Warning: Nonconforming tab character in column 2 of line 8
+Warning: Nonconforming tab character in column 2 of line 9
+Warning: Nonconforming tab character in column 2 of line 10
+Warning: Nonconforming tab character in column 2 of line 11
+Warning: Nonconforming tab character in column 2 of line 12
+Warning: Nonconforming tab character in column 1 of line 15
+Warning: Nonconforming tab character in column 1 of line 16
+Warning: Nonconforming tab character in column 1 of line 17
+Warning: Nonconforming tab character in column 2 of line 20
+Warning: Nonconforming tab character in column 2 of line 21
+Warning: Nonconforming tab character in column 1 of line 23
+Warning: Nonconforming tab character in column 1 of line 24
+Warning: Nonconforming tab character in column 1 of line 25
+Warning: Nonconforming tab character in column 1 of line 26
+Warning: Nonconforming tab character in column 2 of line 29
+Warning: Nonconforming tab character in column 4 of line 32
+Warning: Nonconforming tab character in column 1 of line 33
+Warning: Nonconforming tab character in column 1 of line 34
+Warning: Nonconforming tab character in column 1 of line 35
+Warning: Nonconforming tab character in column 1 of line 36
+Warning: Nonconforming tab character in column 4 of line 38
+Warning: Nonconforming tab character in column 1 of line 39
+Warning: Nonconforming tab character in column 1 of line 40
+Warning: Nonconforming tab character in column 1 of line 41
+Warning: Nonconforming tab character in column 1 of line 42
+Warning: Nonconforming tab character in column 4 of line 44
+Warning: Nonconforming tab character in column 1 of line 45
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 1 of line 21
+Warning: Nonconforming tab character in column 2 of line 25
+Warning: Nonconforming tab character in column 1 of line 27
+Warning: Nonconforming tab character in column 1 of line 28
+Warning: Nonconforming tab character in column 2 of line 30
+Warning: Nonconforming tab character in column 2 of line 31
+Warning: Nonconforming tab character in column 1 of line 33
+Warning: Nonconforming tab character in column 1 of line 34
+Warning: Nonconforming tab character in column 1 of line 35
+Warning: Nonconforming tab character in column 1 of line 36
+Warning: Nonconforming tab character in column 1 of line 37
+Warning: Nonconforming tab character in column 1 of line 39
+Warning: Nonconforming tab character in column 1 of line 40
+Warning: Nonconforming tab character in column 1 of line 41
+Warning: Nonconforming tab character in column 1 of line 42
+Warning: Nonconforming tab character in column 1 of line 43
+Warning: Nonconforming tab character in column 1 of line 44
+Warning: Nonconforming tab character in column 4 of line 45
+Warning: Nonconforming tab character in column 1 of line 47
+Warning: Nonconforming tab character in column 1 of line 49
+Warning: Nonconforming tab character in column 1 of line 50
+Warning: Nonconforming tab character in column 1 of line 51
+Warning: Nonconforming tab character in column 1 of line 52
+Warning: Nonconforming tab character in column 4 of line 54
+Warning: Nonconforming tab character in column 1 of line 56
+Warning: Nonconforming tab character in column 1 of line 57
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 1 of line 2
+Warning: Nonconforming tab character in column 1 of line 3
+Warning: Nonconforming tab character in column 1 of line 4
+Warning: Nonconforming tab character in column 1 of line 5
+Warning: Nonconforming tab character in column 1 of line 6
+Warning: Nonconforming tab character in column 1 of line 7
+Warning: Nonconforming tab character in column 1 of line 8
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 1 of line 10
+Warning: Nonconforming tab character in column 1 of line 11
+Warning: Nonconforming tab character in column 1 of line 12
+Warning: Nonconforming tab character in column 1 of line 14
+Warning: Nonconforming tab character in column 1 of line 15
+Warning: Nonconforming tab character in column 1 of line 17
+Warning: Nonconforming tab character in column 1 of line 18
+Warning: Nonconforming tab character in column 1 of line 19
+Warning: Nonconforming tab character in column 1 of line 20
+Warning: Nonconforming tab character in column 2 of line 22
+Warning: Nonconforming tab character in column 2 of line 23
+Warning: Nonconforming tab character in column 1 of line 25
+Warning: Nonconforming tab character in column 1 of line 26
+Warning: Nonconforming tab character in column 1 of line 27
+Warning: Nonconforming tab character in column 1 of line 28
+Warning: Nonconforming tab character in column 1 of line 29
+Warning: Nonconforming tab character in column 1 of line 30
+Warning: Nonconforming tab character in column 3 of line 32
+Warning: Nonconforming tab character in column 1 of line 33
+Warning: Nonconforming tab character in column 1 of line 34
+Warning: Nonconforming tab character in column 1 of line 35
+Warning: Nonconforming tab character in column 1 of line 36
+Warning: Nonconforming tab character in column 1 of line 38
+Warning: Nonconforming tab character in column 5 of line 39
+Warning: Nonconforming tab character in column 1 of line 40
+Warning: Nonconforming tab character in column 3 of line 42
+Warning: Nonconforming tab character in column 1 of line 43
+Warning: Nonconforming tab character in column 1 of line 44
+Warning: Nonconforming tab character in column 1 of line 45
+Warning: Nonconforming tab character in column 1 of line 46
+Warning: Nonconforming tab character in column 1 of line 47
+Warning: Nonconforming tab character in column 1 of line 48
+Warning: Nonconforming tab character in column 1 of line 49
+Warning: Nonconforming tab character in column 3 of line 51
+Warning: Nonconforming tab character in column 1 of line 53
+Warning: Nonconforming tab character in column 1 of line 54
+Warning: Nonconforming tab character in column 5 of line 55
+Warning: Nonconforming tab character in column 1 of line 56
+Warning: Nonconforming tab character in column 1 of line 57
+Warning: Nonconforming tab character in column 4 of line 59
+Warning: Nonconforming tab character in column 1 of line 60
+Warning: Nonconforming tab character in column 5 of line 61
+Warning: Nonconforming tab character in column 1 of line 62
+Warning: Nonconforming tab character in column 1 of line 63
+Warning: Nonconforming tab character in column 1 of line 64
+Warning: Nonconforming tab character in column 1 of line 65
+Warning: Nonconforming tab character in column 1 of line 66
+Warning: Nonconforming tab character in column 1 of line 67
+Warning: Nonconforming tab character in column 4 of line 68
+Warning: Nonconforming tab character in column 1 of line 69
+Warning: Nonconforming tab character in column 4 of line 72
+Warning: Nonconforming tab character in column 1 of line 73
+Warning: Nonconforming tab character in column 5 of line 74
+Warning: Nonconforming tab character in column 1 of line 75
+Warning: Nonconforming tab character in column 1 of line 76
+Warning: Nonconforming tab character in column 1 of line 77
+Warning: Nonconforming tab character in column 1 of line 78
+Warning: Nonconforming tab character in column 1 of line 79
+Warning: Nonconforming tab character in column 1 of line 80
+Warning: Nonconforming tab character in column 4 of line 81
+Warning: Nonconforming tab character in column 1 of line 82
+Warning: Nonconforming tab character in column 4 of line 84
+Warning: Nonconforming tab character in column 1 of line 86
+Warning: Nonconforming tab character in column 5 of line 87
+Warning: Nonconforming tab character in column 1 of line 88
+Warning: Nonconforming tab character in column 1 of line 89
+Warning: Nonconforming tab character in column 1 of line 90
+Warning: Nonconforming tab character in column 1 of line 91
+Warning: Nonconforming tab character in column 1 of line 92
+Warning: Nonconforming tab character in column 4 of line 93
+Warning: Nonconforming tab character in column 1 of line 94
+Warning: Nonconforming tab character in column 4 of line 96
+Warning: Nonconforming tab character in column 1 of line 98
+Warning: Nonconforming tab character in column 5 of line 99
+Warning: Nonconforming tab character in column 1 of line 100
+Warning: Nonconforming tab character in column 1 of line 101
+Warning: Nonconforming tab character in column 4 of line 103
+Warning: Nonconforming tab character in column 1 of line 104
+Warning: Nonconforming tab character in column 5 of line 105
+Warning: Nonconforming tab character in column 1 of line 106
+Warning: Nonconforming tab character in column 1 of line 107
+Warning: Nonconforming tab character in column 4 of line 109
+Warning: Nonconforming tab character in column 1 of line 110
+Warning: Nonconforming tab character in column 5 of line 111
+Warning: Nonconforming tab character in column 1 of line 112
+Warning: Nonconforming tab character in column 1 of line 113
+Warning: Nonconforming tab character in column 1 of line 114
+Warning: Nonconforming tab character in column 1 of line 115
+Warning: Nonconforming tab character in column 1 of line 116
+Warning: Nonconforming tab character in column 1 of line 117
+Warning: Nonconforming tab character in column 4 of line 118
+Warning: Nonconforming tab character in column 4 of line 120
+Warning: Nonconforming tab character in column 1 of line 122
+Warning: Nonconforming tab character in column 5 of line 123
+Warning: Nonconforming tab character in column 1 of line 124
+Warning: Nonconforming tab character in column 4 of line 126
+Warning: Nonconforming tab character in column 1 of line 127
+Warning: Nonconforming tab character in column 1 of line 128
+Warning: Nonconforming tab character in column 1 of line 130
+Warning: Nonconforming tab character in column 1 of line 131
+transl.f:51.22:
+
+50    IF(SPFLAG.EQ.0) GO TO 100                                         
+                      1
+Warning: Nonconforming tab character at (1)
+transl.f:63.22:
+
+      IF(NBLANK.EQ.0) GO TO 110                                         
+                      1
+Warning: Nonconforming tab character at (1)
+transl.f:65.9:
+
+      DO 110 I=1,NBLANK                                                 
+         1
+Warning: Nonconforming tab character at (1)
+transl.f:68.3:
+
+110   CONTINUE                                                          
+   1
+transl.f:63.72:
+
+      IF(NBLANK.EQ.0) GO TO 110                                         
+                                                                        2
+Warning: Label at (1) is not in the same block as the GOTO statement at (2)
+transl.f:81.3:
+
+210   CONTINUE                                                          
+   1
+transl.f:76.72:
+
+      IF (NBLANK.EQ.0) GO TO 210                                        
+                                                                        2
+Warning: Label at (1) is not in the same block as the GOTO statement at (2)
+transl.f:93.3:
+
+310   CONTINUE                                                          
+   1
+transl.f:89.72:
+
+      IF (NBLANK.EQ.0) GO TO 310                                        
+                                                                        2
+Warning: Label at (1) is not in the same block as the GOTO statement at (2)
+transl.f:118.3:
+
+560   CONTINUE                                                          
+   1
+transl.f:113.72:
+
+      IF(NBLANK.EQ.0) GO TO 560                                         
+                                                                        2
+Warning: Label at (1) is not in the same block as the GOTO statement at (2)
+transl.f: In function ‘transl’:
+transl.f:27:0: warning: ‘ixlast’ is used uninitialized in this function [-Wuninitialized]
+transl.f:28:0: warning: ‘lstelm’ may be used uninitialized in this function [-Wuninitialized]
+transl.f:32:0: warning: ‘lstltr’ may be used uninitialized in this function [-Wuninitialized]
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 1 of line 14
+Warning: Nonconforming tab character in column 1 of line 15
+Warning: Nonconforming tab character in column 1 of line 16
+Warning: Nonconforming tab character in column 1 of line 17
+Warning: Nonconforming tab character in column 1 of line 19
+Warning: Nonconforming tab character in column 1 of line 20
+Warning: Nonconforming tab character in column 1 of line 21
+Warning: Nonconforming tab character in column 2 of line 23
+Warning: Nonconforming tab character in column 1 of line 25
+Warning: Nonconforming tab character in column 1 of line 26
+Warning: Nonconforming tab character in column 1 of line 27
+Warning: Nonconforming tab character in column 1 of line 28
+Warning: Nonconforming tab character in column 1 of line 29
+Warning: Nonconforming tab character in column 1 of line 31
+Warning: Nonconforming tab character in column 5 of line 32
+Warning: Nonconforming tab character in column 2 of line 34
+Warning: Nonconforming tab character in column 1 of line 36
+Warning: Nonconforming tab character in column 4 of line 37
+Warning: Nonconforming tab character in column 2 of line 39
+Warning: Nonconforming tab character in column 1 of line 40
+Warning: Nonconforming tab character in column 3 of line 42
+Warning: Nonconforming tab character in column 1 of line 43
+Warning: Nonconforming tab character in column 1 of line 44
+Warning: Nonconforming tab character in column 1 of line 45
+Warning: Nonconforming tab character in column 1 of line 46
+Warning: Nonconforming tab character in column 1 of line 47
+Warning: Nonconforming tab character in column 3 of line 49
+Warning: Nonconforming tab character in column 1 of line 50
+Warning: Nonconforming tab character in column 1 of line 51
+Warning: Nonconforming tab character in column 1 of line 52
+Warning: Nonconforming tab character in column 3 of line 54
+Warning: Nonconforming tab character in column 2 of line 56
+Warning: Nonconforming tab character in column 2 of line 57
+Warning: Nonconforming tab character in column 1 of line 59
+Warning: Nonconforming tab character in column 1 of line 60
+Warning: Nonconforming tab character in column 1 of line 62
+Warning: Nonconforming tab character in column 1 of line 63
+Warning: Nonconforming tab character in column 1 of line 64
+Warning: Nonconforming tab character in column 4 of line 65
+Warning: Nonconforming tab character in column 2 of line 68
+Warning: Nonconforming tab character in column 1 of line 70
+Warning: Nonconforming tab character in column 1 of line 71
+Warning: Nonconforming tab character in column 1 of line 72
+Warning: Nonconforming tab character in column 4 of line 73
+Warning: Nonconforming tab character in column 4 of line 75
+Warning: Nonconforming tab character in column 1 of line 76
+Warning: Nonconforming tab character in column 1 of line 78
+Warning: Nonconforming tab character in column 1 of line 79
+Warning: Nonconforming tab character in column 1 of line 80
+Warning: Nonconforming tab character in column 1 of line 81
+Warning: Nonconforming tab character in column 1 of line 82
+Warning: Nonconforming tab character in column 4 of line 83
+Warning: Nonconforming tab character in column 2 of line 86
+Warning: Nonconforming tab character in column 1 of line 88
+Warning: Nonconforming tab character in column 1 of line 89
+Warning: Nonconforming tab character in column 4 of line 90
+Warning: Nonconforming tab character in column 2 of line 92
+Warning: Nonconforming tab character in column 1 of line 94
+Warning: Nonconforming tab character in column 2 of line 96
+Warning: Nonconforming tab character in column 2 of line 97
+Warning: Nonconforming tab character in column 1 of line 99
+Warning: Nonconforming tab character in column 2 of line 101
+Warning: Nonconforming tab character in column 1 of line 103
+Warning: Nonconforming tab character in column 1 of line 104
+Warning: Nonconforming tab character in column 1 of line 105
+Warning: Nonconforming tab character in column 1 of line 106
+Warning: Nonconforming tab character in column 1 of line 107
+Warning: Nonconforming tab character in column 1 of line 108
+Warning: Nonconforming tab character in column 2 of line 110
+Warning: Nonconforming tab character in column 2 of line 111
+Warning: Nonconforming tab character in column 2 of line 112
+Warning: Nonconforming tab character in column 2 of line 113
+Warning: Nonconforming tab character in column 4 of line 116
+Warning: Nonconforming tab character in column 1 of line 117
+Warning: Nonconforming tab character in column 1 of line 119
+Warning: Nonconforming tab character in column 1 of line 120
+Warning: Nonconforming tab character in column 1 of line 121
+Warning: Nonconforming tab character in column 1 of line 122
+Warning: Nonconforming tab character in column 1 of line 123
+Warning: Nonconforming tab character in column 1 of line 124
+Warning: Nonconforming tab character in column 4 of line 125
+Warning: Nonconforming tab character in column 2 of line 127
+Warning: Nonconforming tab character in column 2 of line 128
+Warning: Nonconforming tab character in column 2 of line 129
+Warning: Nonconforming tab character in column 1 of line 131
+Warning: Nonconforming tab character in column 1 of line 132
+Warning: Nonconforming tab character in column 1 of line 133
+Warning: Nonconforming tab character in column 4 of line 134
+Warning: Nonconforming tab character in column 1 of line 135
+Warning: Nonconforming tab character in column 4 of line 137
+Warning: Nonconforming tab character in column 2 of line 138
+Warning: Nonconforming tab character in column 2 of line 139
+Warning: Nonconforming tab character in column 2 of line 140
+Warning: Nonconforming tab character in column 1 of line 142
+Warning: Nonconforming tab character in column 1 of line 143
+Warning: Nonconforming tab character in column 1 of line 144
+Warning: Nonconforming tab character in column 1 of line 145
+Warning: Nonconforming tab character in column 1 of line 146
+Warning: Nonconforming tab character in column 2 of line 148
+Warning: Nonconforming tab character in column 1 of line 150
+Warning: Nonconforming tab character in column 1 of line 151
+Warning: Nonconforming tab character in column 1 of line 152
+Warning: Nonconforming tab character in column 4 of line 153
+Warning: Nonconforming tab character in column 4 of line 156
+Warning: Nonconforming tab character in column 1 of line 157
+Warning: Nonconforming tab character in column 1 of line 158
+trelis.f:73.15:
+
+180   CONTINUE                                                          
+               1
+Warning: Nonconforming tab character at (1)
+trelis.f:117.18:
+
+      IP=IPNOD(1)                                                       
+                  1
+Warning: Nonconforming tab character at (1)
+trelis.f:27.14:
+
+      ISAVG = XSAVG                                                     
+              1
+Warning: Possible change of value in conversion from REAL(4) to INTEGER(4) at (1)
+trelis.f:28.15:
+
+      NDLAVG = XDLAVG                                                   
+               1
+Warning: Possible change of value in conversion from REAL(4) to INTEGER(4) at (1)
+trelis.f:81.16:
+
+      IPNOD(IP)=PTHTRL(I,IPNOD(IP))                                     
+                1
+Warning: Possible change of value in conversion from REAL(4) to INTEGER(4) at (1)
+trelis.f:124.9:
+
+      IP=PTHTRL(I,IP)                                                   
+         1
+Warning: Possible change of value in conversion from REAL(4) to INTEGER(4) at (1)
+trelis.f: In function ‘trelis’:
+trelis.f:27:0: warning: ‘xsavg’ may be used uninitialized in this function [-Wuninitialized]
+trelis.f:28:0: warning: ‘xdlavg’ may be used uninitialized in this function [-Wuninitialized]
+trelis.f:43:0: warning: ‘ndel’ is used uninitialized in this function [-Wuninitialized]
+trelis.f:99:0: warning: ‘ndelst’ may be used uninitialized in this function [-Wuninitialized]
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 2 of line 3
+Warning: Nonconforming tab character in column 2 of line 4
+Warning: Nonconforming tab character in column 2 of line 5
+Warning: Nonconforming tab character in column 2 of line 6
+Warning: Nonconforming tab character in column 2 of line 7
+Warning: Nonconforming tab character in column 2 of line 8
+Warning: Nonconforming tab character in column 2 of line 9
+Warning: Nonconforming tab character in column 2 of line 10
+Warning: Nonconforming tab character in column 2 of line 11
+Warning: Nonconforming tab character in column 2 of line 12
+Warning: Nonconforming tab character in column 2 of line 13
+Warning: Nonconforming tab character in column 2 of line 14
+Warning: Nonconforming tab character in column 2 of line 15
+Warning: Nonconforming tab character in column 2 of line 16
+Warning: Nonconforming tab character in column 2 of line 17
+Warning: Nonconforming tab character in column 2 of line 18
+Warning: Nonconforming tab character in column 1 of line 21
+Warning: Nonconforming tab character in column 1 of line 22
+Warning: Nonconforming tab character in column 1 of line 23
+Warning: Nonconforming tab character in column 2 of line 25
+Warning: Nonconforming tab character in column 1 of line 27
+Warning: Nonconforming tab character in column 1 of line 29
+Warning: Nonconforming tab character in column 1 of line 30
+Warning: Nonconforming tab character in column 3 of line 31
+Warning: Nonconforming tab character in column 1 of line 32
+Warning: Nonconforming tab character in column 3 of line 34
+Warning: Nonconforming tab character in column 2 of line 37
+Warning: Nonconforming tab character in column 1 of line 38
+Warning: Nonconforming tab character in column 1 of line 39
+Warning: Nonconforming tab character in column 2 of line 41
+Warning: Nonconforming tab character in column 1 of line 43
+Warning: Nonconforming tab character in column 1 of line 44
+Warning: Nonconforming tab character in column 1 of line 45
+Warning: Nonconforming tab character in column 1 of line 46
+Warning: Nonconforming tab character in column 1 of line 47
+Warning: Nonconforming tab character in column 1 of line 48
+Warning: Nonconforming tab character in column 1 of line 50
+Warning: Nonconforming tab character in column 4 of line 51
+Warning: Nonconforming tab character in column 1 of line 53
+Warning: Nonconforming tab character in column 1 of line 54
+Warning: Nonconforming tab character in column 4 of line 55
+Warning: Nonconforming tab character in column 4 of line 56
+Warning: Nonconforming tab character in column 1 of line 57
+Warning: Nonconforming tab character in column 1 of line 1
+Warning: Nonconforming tab character in column 2 of line 3
+Warning: Nonconforming tab character in column 2 of line 4
+Warning: Nonconforming tab character in column 2 of line 5
+Warning: Nonconforming tab character in column 2 of line 6
+Warning: Nonconforming tab character in column 2 of line 7
+Warning: Nonconforming tab character in column 2 of line 8
+Warning: Nonconforming tab character in column 2 of line 9
+Warning: Nonconforming tab character in column 2 of line 10
+Warning: Nonconforming tab character in column 2 of line 11
+Warning: Nonconforming tab character in column 1 of line 14
+Warning: Nonconforming tab character in column 1 of line 15
+Warning: Nonconforming tab character in column 1 of line 16
+Warning: Nonconforming tab character in column 2 of line 18
+Warning: Nonconforming tab character in column 2 of line 19
+Warning: Nonconforming tab character in column 2 of line 20
+Warning: Nonconforming tab character in column 1 of line 22
+Warning: Nonconforming tab character in column 1 of line 23
+Warning: Nonconforming tab character in column 1 of line 24
+Warning: Nonconforming tab character in column 1 of line 25
+Warning: Nonconforming tab character in column 1 of line 26
+Warning: Nonconforming tab character in column 1 of line 27
+Warning: Nonconforming tab character in column 1 of line 28
+Warning: Nonconforming tab character in column 1 of line 29
+Warning: Nonconforming tab character in column 3 of line 31
+Warning: Nonconforming tab character in column 1 of line 32
+Warning: Nonconforming tab character in column 3 of line 34
+Warning: Nonconforming tab character in column 4 of line 36
+Warning: Nonconforming tab character in column 1 of line 37
+Warning: Nonconforming tab character in column 1 of line 38
+Warning: Nonconforming tab character in column 1 of line 39
+Warning: Nonconforming tab character in column 4 of line 41
+Warning: Nonconforming tab character in column 1 of line 42
+Warning: Nonconforming tab character in column 1 of line 43
+Warning: Nonconforming tab character in column 1 of line 44
+Warning: Nonconforming tab character in column 4 of line 46
+Warning: Nonconforming tab character in column 1 of line 47
+Warning: Nonconforming tab character in column 1 of line 48
+Warning: Nonconforming tab character in column 4 of line 50
+Warning: Nonconforming tab character in column 1 of line 51
