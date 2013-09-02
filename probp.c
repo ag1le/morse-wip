@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Subroutine */ int probp_(real *p, real *pin, integer *isave, real *lkhd)
@@ -40,8 +37,8 @@ extern "C" {
     --p;
 
     /* Function Body */
-    pmax = (float)0.;
-    psum = (float)0.;
+    pmax = 0.f;
+    psum = 0.f;
 /* 	FOR EACH SAVED PATH, EACH TRANSITION: */
     i__1 = *isave;
     for (i__ = 1; i__ <= i__1; ++i__) {
@@ -71,6 +68,3 @@ L100:
     return 0;
 } /* probp_ */
 
-#ifdef __cplusplus
-	}
-#endif

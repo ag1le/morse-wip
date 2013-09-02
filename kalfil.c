@@ -10,11 +10,8 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
-
+#include <math.h> 
 /* Common Block Declarations */
 
 struct blksv1_1_ {
@@ -28,15 +25,10 @@ struct blksv1_1_ {
 struct {
     real e_1[50];
     integer fill_2[1500];
-    } blksv1_ = { (float).5, (float).5, (float).5, (float).5, (float).5, (
-	    float).5, (float).5, (float).5, (float).5, (float).5, (float).5, (
-	    float).5, (float).5, (float).5, (float).5, (float).5, (float).5, (
-	    float).5, (float).5, (float).5, (float).5, (float).5, (float).5, (
-	    float).5, (float).5, (float).1, (float).1, (float).1, (float).1, (
-	    float).1, (float).1, (float).1, (float).1, (float).1, (float).1, (
-	    float).1, (float).1, (float).1, (float).1, (float).1, (float).1, (
-	    float).1, (float).1, (float).1, (float).1, (float).1, (float).1, (
-	    float).1, (float).1, (float).1 };
+    } blksv1_ = { .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, 
+	    .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, 
+	    .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, 
+	    .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f };
 
 
 /* Table of constant values */
@@ -49,7 +41,7 @@ static integer c__1 = 1;
 {
     /* Initialized data */
 
-    static real pinmin = (float)1e-4;
+    static real pinmin = 1e-4f;
 
     /* Format strings */
     static char fmt_3[] = "(1x,\002KALFIL:\002,i3,2x,12(f9.3,1x))";
@@ -58,8 +50,8 @@ static integer c__1 = 1;
     real r__1;
 
     /* Builtin functions */
-    double exp(doublereal), sqrt(doublereal);
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe();
+    //double exp(doublereal), sqrt(doublereal);
+    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
     /* Local variables */
     static real a, g, qa, hz, pz, zr, phi, pkk, ykk, expa, pest;
@@ -98,7 +90,7 @@ static integer c__1 = 1;
     if (*pin > pinmin) {
 	goto L100;
     }
-    *lkhdj = (float)0.;
+    *lkhdj = 0.f;
     goto L400;
 
 /*   OBTAIN STATE-DEPENDENT MODEL PARAMETERS: */
@@ -116,26 +108,26 @@ L100:
     ypred = phi * ykk;
     ppred = phi * pkk * phi + qa;
     pz = hz * ppred + *rn;
-    pzinv = (float)1. / pz;
+    pzinv = 1.f / pz;
     g = ppred * hz * pzinv;
-    pest = ((float)1. - g * hz) * ppred;
+    pest = (1.f - g * hz) * ppred;
     zr = *z__ - hz * ypred;
     blksv1_1.ykksv[*jnode - 1] = ypred + g * zr;
     blksv1_1.pkksv[*jnode - 1] = pest;
-    if (blksv1_1.ykksv[*jnode - 1] <= (float).01) {
-	blksv1_1.ykksv[*jnode - 1] = (float).01;
+    if (blksv1_1.ykksv[*jnode - 1] <= .01f) {
+	blksv1_1.ykksv[*jnode - 1] = .01f;
     }
 /* Computing 2nd power */
     r__1 = zr;
-    a = pzinv * (float).5 * (r__1 * r__1);
-    if (a <= (float)1e3) {
+    a = pzinv * .5f * (r__1 * r__1);
+    if (a <= 1e3f) {
 	goto L200;
     }
-    *lkhdj = (float)0.;
+    *lkhdj = 0.f;
     goto L400;
 L200:
     expa = exp(-a);
-    *lkhdj = (float)1. / sqrt(pz) * exp(-a);
+    *lkhdj = 1.f / sqrt(pz) * exp(-a);
     goto L400;
     s_wsfe(&io___16);
     do_fio(&c__1, (char *)&(*ip), (ftnlen)sizeof(integer));
@@ -156,6 +148,3 @@ L400:
     return 0;
 } /* kalfil_ */
 
-#ifdef __cplusplus
-	}
-#endif

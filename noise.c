@@ -10,62 +10,36 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Subroutine */ int noise_(real *zin, real *rn, real *z__)
 {
     /* Initialized data */
 
-    static real ylong[200] = { (float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1. };
-    static real yshort[50] = { (float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1. };
+    static real ylong[200] = { 1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f };
+    static real yshort[50] = { 1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f };
     static integer kl = 1;
     static integer kkl = 1;
     static integer ks = 1;
     static integer kks = 1;
-    static real ymin1 = (float)1.;
-    static real ymin2 = (float)1.;
-    static real ymavg = (float).05;
+    static real ymin1 = 1.f;
+    static real ymin2 = 1.f;
+    static real ymavg = .05f;
 
     /* System generated locals */
     integer i__1;
@@ -128,15 +102,12 @@ L200:
     if (ymin2 < ymin1) {
 	ymin = ymin2;
     }
-    ymavg += (ymin - ymavg) * (float).004;
-    *rn = ymavg * (float).3;
-    if (*rn < (float).005) {
-	*rn = (float).005;
+    ymavg += (ymin - ymavg) * .004f;
+    *rn = ymavg * .3f;
+    if (*rn < .005f) {
+	*rn = .005f;
     }
-    *z__ = (*zin - ymavg * (float)2.4 - (float).05) * (float)1.1;
+    *z__ = (*zin - ymavg * 2.4f - .05f) * 1.1f;
     return 0;
 } /* noise_ */
 
-#ifdef __cplusplus
-	}
-#endif

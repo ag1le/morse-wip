@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 doublereal xtrans_(integer *ielem, real *d0, integer *irate)
@@ -20,7 +17,7 @@ doublereal xtrans_(integer *ielem, real *d0, integer *irate)
     /* Initialized data */
 
     static integer kimap[6] = { 1,3,1,3,7,14 };
-    static real aparm[3] = { (float)3.,(float)1.5,(float)1. };
+    static real aparm[3] = { 3.f,1.5f,1.f };
 
     /* System generated locals */
     real ret_val;
@@ -46,9 +43,9 @@ doublereal xtrans_(integer *ielem, real *d0, integer *irate)
 /* 	SCALE DURATION AND OBTAIN DENSITY PARAMETER: */
 
     mscale = kimap[(0 + (0 + (*ielem - 1 << 2))) / 4];
-    rscale = (float)1200. / *irate;
+    rscale = 1200.f / *irate;
     b0 = *d0 / (mscale * rscale);
-    b1 = (*d0 + (float)5.) / (mscale * rscale);
+    b1 = (*d0 + 5.f) / (mscale * rscale);
     if (*ielem == 6) {
 	goto L20;
     }
@@ -58,32 +55,29 @@ doublereal xtrans_(integer *ielem, real *d0, integer *irate)
     alpha = mscale * aparm[0];
     goto L100;
 L10:
-    alpha = aparm[1] * (float)7.;
+    alpha = aparm[1] * 7.f;
     goto L100;
 L20:
-    alpha = aparm[2] * (float)14.;
+    alpha = aparm[2] * 14.f;
 L100:
-    if (b1 <= (float)1.) {
+    if (b1 <= 1.f) {
 	goto L200;
     }
-    if (b0 < (float)1. && b1 > (float)1.) {
+    if (b0 < 1.f && b1 > 1.f) {
 	goto L300;
     }
     ret_val = exp(-alpha * (b1 - b0));
     goto L400;
 L200:
-    p1 = (float)1. - exp(alpha * (b1 - (float)1.)) * (float).5;
-    p0 = (float)1. - exp(alpha * (b0 - (float)1.)) * (float).5;
+    p1 = 1.f - exp(alpha * (b1 - 1.f)) * .5f;
+    p0 = 1.f - exp(alpha * (b0 - 1.f)) * .5f;
     ret_val = p1 / p0;
     goto L400;
 L300:
-    p1 = exp(-alpha * (b1 - (float)1.)) * (float)-.5;
-    p0 = (float)1. - exp(alpha * (b0 - (float)1.)) * (float).5;
+    p1 = exp(-alpha * (b1 - 1.f)) * -.5f;
+    p0 = 1.f - exp(alpha * (b0 - 1.f)) * .5f;
     ret_val = p1 / p0;
 L400:
     return ret_val;
 } /* xtrans_ */
 
-#ifdef __cplusplus
-	}
-#endif

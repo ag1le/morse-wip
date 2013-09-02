@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Subroutine */ int sprob_(real *p, integer *isave, integer *ilrsav, real *
@@ -43,12 +40,12 @@ extern "C" {
     --p;
 
     /* Function Body */
-    *spdhat = (float)0.;
-    *px = (float)0.;
+    *spdhat = 0.f;
+    *px = 0.f;
 /* 	FOR EACH STATE EXTENSION OF PATH M: */
 /* 	OBTAIN ELEMENT STATE PROBS,KEYSTATE PROBS,SPEED EST: */
     for (k = 1; k <= 6; ++k) {
-	pselem[k - 1] = (float)0.;
+	pselem[k - 1] = 0.f;
 	for (i__ = 1; i__ <= 5; ++i__) {
 	    n = (i__ - 1) * 6 + k;
 	    i__1 = *isave;
@@ -65,7 +62,7 @@ L100:
 	    }
 	}
     }
-    *pelm = (float)0.;
+    *pelm = 0.f;
     for (k = 1; k <= 6; ++k) {
 	if (pselem[k - 1] < *pelm) {
 	    goto L200;
@@ -78,6 +75,3 @@ L200:
     return 0;
 } /* sprob_ */
 
-#ifdef __cplusplus
-	}
-#endif

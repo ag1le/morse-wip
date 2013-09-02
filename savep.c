@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Common Block Declarations */
@@ -29,7 +26,7 @@ struct {
 {
     /* Initialized data */
 
-    static real popt = (float).9;
+    static real popt = .9f;
 
     /* System generated locals */
     integer i__1, i__2;
@@ -84,10 +81,10 @@ struct {
 
     /* Function Body */
     nsav = 0;
-    psum = (float)0.;
+    psum = 0.f;
 /* 	SELECT SIX HIGHEST PROB ELEMENT STATE NODES: */
     for (k = 1; k <= 6; ++k) {
-	*pmax = (float)0.;
+	*pmax = 0.f;
 	i__1 = *isave;
 	for (ip = 1; ip <= i__1; ++ip) {
 	    for (i__ = 1; i__ <= 5; ++i__) {
@@ -103,7 +100,7 @@ L100:
 	    }
 	}
 /* 	IF FOLLOWING TWO LINES COMMENTED OUT WE GET NSAV = 7 */
-	if (*pmax >= (float)1e-6) {
+	if (*pmax >= 1e-6f) {
 	    goto L150;
 	}
 	goto L200;
@@ -119,7 +116,7 @@ L200:
 /* 	SELECT ENOUGH ADDITIONAL NODES TO MAKE TOTAL */
 /* 	PROBABILITY SAVED EQUAL TO POPT, OR A MAX OF 25: */
 L520:
-    *pmax = (float)0.;
+    *pmax = 0.f;
     i__1 = *isave;
     for (ip = 1; ip <= i__1; ++ip) {
 	for (n = 1; n <= 30; ++n) {
@@ -204,7 +201,7 @@ L810:
 L800:
 	;
     }
-    psum = (float)0.;
+    psum = 0.f;
     n = 1;
     i__1 = *isave;
     for (i__ = 2; i__ <= i__1; ++i__) {
@@ -226,7 +223,7 @@ L900:
     }
 /* 	ALSO OBTAIN HIGHEST PROBABILITY NODE: */
     *isave = n;
-    *pmax = (float)0.;
+    *pmax = 0.f;
     i__1 = *isave;
     for (i__ = 1; i__ <= i__1; ++i__) {
 	p[i__] /= psum;
@@ -241,6 +238,3 @@ L950:
     return 0;
 } /* savep_ */
 
-#ifdef __cplusplus
-	}
-#endif

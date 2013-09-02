@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Common Block Declarations */
@@ -58,9 +55,9 @@ doublereal spdtr_(integer *isrt, integer *ilrt, integer *iselm, integer *
     if (*ilelm != *iselm) {
 	goto L100;
     }
-    ret_val = (float)1.;
+    ret_val = 1.f;
     if (*isrt != 3) {
-	ret_val = (float)0.;
+	ret_val = 0.f;
     }
     goto L300;
 
@@ -72,22 +69,19 @@ L100:
     if (ind1 != 0) {
 	goto L200;
     }
-    ret_val = (float)0.;
+    ret_val = 0.f;
     goto L300;
 L200:
     idelsp = (*isrt - 3) * idel;
     ret_val = blkspd_1.rtrans[*isrt + ind1 * 5 - 6];
     israte = *ilrt + idelsp;
     if (israte > 60) {
-	ret_val = (float)0.;
+	ret_val = 0.f;
     }
     if (israte < 10) {
-	ret_val = (float)0.;
+	ret_val = 0.f;
     }
 L300:
     return ret_val;
 } /* spdtr_ */
 
-#ifdef __cplusplus
-	}
-#endif

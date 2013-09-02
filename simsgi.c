@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Common Block Declarations */
@@ -31,18 +28,18 @@ struct {
 
 /* Table of constant values */
 
-static real c_b2 = (float)6.28319;
+static real c_b2 = 6.28319f;
 
 /* Subroutine */ int simsgi_(real *x, real *sig)
 {
     /* Initialized data */
 
-    static real xlast = (float)1.;
-    static real beta = (float)1.;
-    static real amp = (float)1.;
-    static real bfade = (float)0.;
-    static real theta = (float)1.;
-    static real phi = (float)1.;
+    static real xlast = 1.f;
+    static real beta = 1.f;
+    static real amp = 1.f;
+    static real bfade = 0.f;
+    static real theta = 1.f;
+    static real phi = 1.f;
 
     /* Builtin functions */
     double exp(doublereal), r_mod(real *, real *), sin(doublereal);
@@ -56,23 +53,22 @@ static real c_b2 = (float)6.28319;
 
     dur = beta;
     key_(&dur, x);
-    beta = beta * ((float)1. - *x - xlast + *x * (float)2. * xlast) + (float)
-	    1.;
-    tk = *x * ((float)1. - xlast);
+    beta = beta * (1.f - *x - xlast + *x * 2.f * xlast) + 1.f;
+    tk = *x * (1.f - xlast);
     xlast = *x;
 /* 	CALL RANDN(W,1,0.,ASIGMA) */
     amp += tk * w;
-    if (amp < (float).01) {
-	amp = (float).01;
+    if (amp < .01f) {
+	amp = .01f;
     }
 /* 	CALL RANDN(W,1,0.,BSIGMA) */
     bfade = blk2_1.gamm * bfade + w;
     ampb = amp + bfade;
-    if (ampb < (float).001) {
-	bfade = (float).001 - amp;
+    if (ampb < .001f) {
+	bfade = .001f - amp;
     }
     ampb = amp + bfade;
-    tdur = blk1_1.tau * (float)1e3 * beta;
+    tdur = blk1_1.tau * 1e3f * beta;
     wchrp = *x * blk2_1.wchirp * exp(-tdur / blk2_1.tchirp);
     theta += (nc + wchrp) * blk1_1.tau;
     theta = r_mod(&theta, &c_b2);
@@ -86,6 +82,3 @@ static real c_b2 = (float)6.28319;
     return 0;
 } /* simsgi_ */
 
-#ifdef __cplusplus
-	}
-#endif

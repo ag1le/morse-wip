@@ -10,23 +10,19 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Subroutine */ int bpfdet_(real *zin, real *z__)
 {
     /* Initialized data */
 
-    static real a[4] = { (float)3.0051e-5,(float)2.9507982,(float)2.90396345,(
-	    float)-.953135172 };
-    static real ck1 = (float)1.37158;
-    static real ck2 = (float).9409;
-    static real cg = (float).015;
-    static real c1 = (float)1.2726;
-    static real c2 = (float).81;
-    static real c__ = (float).19;
+    static real a[4] = { 3.0051e-5f,2.9507982f,2.90396345f,-.953135172f };
+    static real ck1 = 1.37158f;
+    static real ck2 = .9409f;
+    static real cg = .015f;
+    static real c1 = 1.2726f;
+    static real c2 = .81f;
+    static real c__ = .19f;
 
     /* System generated locals */
     real r__1;
@@ -67,12 +63,9 @@ extern "C" {
     z3 = z2;
     z2 = z1;
     z1 = *z__;
-    *z__ = y0 + (y1 + y2) * (float)3. + y3;
+    *z__ = y0 + (y1 + y2) * 3.f + y3;
     *z__ = *z__ + a[1] * z1 - a[2] * z2 - a[3] * 23;
 /* L200: */
     return 0;
 } /* bpfdet_ */
 
-#ifdef __cplusplus
-	}
-#endif

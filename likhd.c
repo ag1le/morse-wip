@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Common Block Declarations */
@@ -37,11 +34,11 @@ static integer c__1 = 1;
 	 real *dur, integer *ilrate, real *p, real *lkhd)
 {
     /* Format strings */
-    static char fmt_110[] = "(1x,\002LIKHD:\002,i2,1x,i2,1x,f5.3,2x,i3,3(2x,\
-i2),4(3x,f8.3))";
+    static char fmt_110[] = "(1x,\002LIKHD:\002,i2,1x,i2,1x,f5.3,2x,i3,3(2x,"
+	    "i2),4(3x,f8.3))";
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe();
+    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
     /* Local variables */
     static integer i__, j, k, n;
@@ -102,7 +99,7 @@ i2),4(3x,f8.3))";
 		     &pin, &lkhdj);
 	    lkhd[j] = lkhdj;
 	    goto L100;
-	    if (pin <= (float)1e-6) {
+	    if (pin <= 1e-6f) {
 		goto L100;
 	    }
 	    s_wsfe(&io___11);
@@ -127,6 +124,3 @@ L200:
     return 0;
 } /* likhd_ */
 
-#ifdef __cplusplus
-	}
-#endif

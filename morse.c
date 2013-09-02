@@ -10,24 +10,21 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
-/* Main program */ int MAIN__()
+/* Main program */ int MAIN__(void)
 {
     /* Initialized data */
 
-    static real rn = (float).1;
+    static real rn = .1f;
     static integer np = 0;
 
     /* Format strings */
-    static char fmt_4[] = "(\002MORSE:, X, PMAX, IPMAX, ELMHAT, ZSIG,RN,SPDH\
-AT,ZDET\002)";
+    static char fmt_4[] = "(\002MORSE:, X, PMAX, IPMAX, ELMHAT, ZSIG,RN,SPDH"
+	    "AT,ZDET\002)";
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), e_wsfe();
+    integer s_wsfe(cilist *), e_wsfe(void);
     /* Subroutine */ int s_stop(char *, ftnlen);
 
     /* Local variables */
@@ -39,7 +36,7 @@ AT,ZDET\002)";
     static real pmax, zdet, zsig;
     extern /* Subroutine */ int rcvr_(real *, real *);
     static real zrcv, zout;
-    extern /* Subroutine */ int noise_(real *, real *, real *), initl_(), 
+    extern /* Subroutine */ int noise_(real *, real *, real *), initl_(void), 
 	    stats_(real *, real *, real *, integer *, real *, real *, real *, 
 	    real *, integer *), bpfdet_(real *, real *);
     static integer elmhat;
@@ -48,7 +45,7 @@ AT,ZDET\002)";
 	    *, integer *, real *, integer *, integer *, real *, integer *, 
 	    real *);
     static integer ltrhat;
-    extern /* Subroutine */ int inputl_();
+    extern /* Subroutine */ int inputl_(void);
 
     /* Fortran I/O blocks */
     static cilist io___3 = { 0, 6, 0, fmt_4, 0 };
@@ -73,7 +70,7 @@ L1:
 	    np = 0;
 	    noise_(&zdet, &rn, &zout);
 /* 	RN = RAND() */
-	    rn = (float).01;
+	    rn = .01f;
 	    proces_(&x, &rn, &xhat, &px, &elmhat, &ltrhat, &spdhat, &imax, &
 		    pmax);
 L3:
@@ -92,6 +89,3 @@ L3:
 } /* MAIN__ */
 
 /* Main program alias */ int morse_ () { MAIN__ (); return 0; }
-#ifdef __cplusplus
-	}
-#endif

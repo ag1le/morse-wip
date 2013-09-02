@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Common Block Declarations */
@@ -62,7 +59,7 @@ struct {
     pin[*n] = *ptrx;
 /* 	HOWEVER, IF CURRENT DATA RATE STATE  = 3, THEN TRANS PROB = 0 ... WHY ? */
     if (*irate != 3) {
-	pin[*n] = (float)0.;
+	pin[*n] = 0.f;
     }
     goto L200;
 /* 	OTHERWISE: */
@@ -75,7 +72,7 @@ L100:
     prate = spdtr_(irate, ilrate, kelem, &blklam_1.ilami[blklam_1.ielmst[*
 	    lambda - 1] - 1]);
 /* 	TRANS IS THE PRODUCT: */
-    pin[*n] = ((float)1. - *ptrx) * pelem * prate;
+    pin[*n] = (1.f - *ptrx) * pelem * prate;
 L200:
     *psum += pin[*n];
 /* 	PRINT 50, N, KELEM, IRATE, ILAMI(IELMST(LAMBDA)), PIN(N), PTRX, PELEM, PRATE, PSUM */
@@ -83,6 +80,3 @@ L200:
     return 0;
 } /* ptrans_ */
 
-#ifdef __cplusplus
-	}
-#endif

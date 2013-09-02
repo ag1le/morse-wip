@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Table of constant values */
@@ -51,37 +48,34 @@ static doublereal c_b5 = 10.;
 /* 	COMPUTE MEASUREMENT COEFFICIENT: */
     *hz = (real) (*ixs);
 /* 	COMPUTE PHI AND AMPLITUDE STATE VARIANCE (Q): */
-    r1 = (float)1200. / *ilr;
+    r1 = 1200.f / *ilr;
     bauds = *dur / r1;
-    if (bauds >= (float)14.) {
-	bauds = (float)14.;
+    if (bauds >= 14.f) {
+	bauds = 14.f;
     }
     if (*ielm >= 3) {
 	goto L100;
     }
-    *qa = (float)1e-4;
-    *phi = (float)1.;
+    *qa = 1e-4f;
+    *phi = 1.f;
     goto L300;
 L100:
     if (*ixs == 0) {
 	goto L200;
     }
-    *phi = (float)1.;
-    *qa = exp((bauds - (float)14.) * (float).6) * (float).15;
-    *qa += bauds * (float).01 * exp(((float)1. - bauds) * (float).2);
+    *phi = 1.f;
+    *qa = exp((bauds - 14.f) * .6f) * .15f;
+    *qa += bauds * .01f * exp((1.f - bauds) * .2f);
     goto L300;
 L200:
-    xsamp = r1 * (float)22.4;
+    xsamp = r1 * 22.4f;
     d__1 = (doublereal) (-2 / xsamp);
     *phi = pow_dd(&c_b5, &d__1);
-    if (bauds >= (float)14.) {
-	*phi = (float)1.;
+    if (bauds >= 14.f) {
+	*phi = 1.f;
     }
-    *qa = (float)0.;
+    *qa = 0.f;
 L300:
     return 0;
 } /* model_ */
 
-#ifdef __cplusplus
-	}
-#endif

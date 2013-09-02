@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Common Block Declarations */
@@ -31,14 +28,14 @@ struct {
 
 /* Table of constant values */
 
-static real c_b2 = (float)6.28319;
+static real c_b2 = 6.28319f;
 
 /* Subroutine */ int rcvr_(real *zin, real *zout)
 {
     /* Initialized data */
 
-    static real theta = (float)0.;
-    static real thetlo = (float)0.;
+    static real theta = 0.f;
+    static real thetlo = 0.f;
 
     /* Builtin functions */
     double r_mod(real *, real *), cos(doublereal), sin(doublereal);
@@ -55,14 +52,11 @@ static real c_b2 = (float)6.28319;
     theta = r_mod(&theta, &c_b2);
     zi = *zin * cos(theta);
     zq = *zin * sin(theta);
-    zilp += (zi - zilp) * (float).07;
-    zqlp += (zq - zqlp) * (float).07;
-    thetlo += blk1_1.tau * (float)6283.2;
+    zilp += (zi - zilp) * .07f;
+    zqlp += (zq - zqlp) * .07f;
+    thetlo += blk1_1.tau * 6283.2f;
     thetlo = r_mod(&thetlo, &c_b2);
     *zout = zilp * cos(thetlo) + zqlp * sin(thetlo);
     return 0;
 } /* rcvr_ */
 
-#ifdef __cplusplus
-	}
-#endif

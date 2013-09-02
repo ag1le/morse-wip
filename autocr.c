@@ -10,171 +10,76 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Subroutine */ int autocr_(real *s5, real *rs)
 {
     /* Initialized data */
 
-    static real s[1000] = { (float)0.,(float)0.,(float)0.,(float)0.,(float)0.,
-	    (float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0. };
-    static real xn = (float)0.;
+    static real s[1000] = { 0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f };
+    static real xn = 0.f;
 
     static integer i__, k;
     static real rs1[500];
@@ -187,7 +92,7 @@ extern "C" {
     xn += 1;
     for (i__ = 1; i__ <= 500; ++i__) {
 	s[i__ - 1] = s5[i__];
-	rs1[i__ - 1] = (float)0.;
+	rs1[i__ - 1] = 0.f;
 /* L100: */
     }
     for (i__ = 1; i__ <= 500; ++i__) {
@@ -198,12 +103,9 @@ extern "C" {
 /* L200: */
     }
     for (i__ = 1; i__ <= 500; ++i__) {
-	rs[i__] = (rs[i__] * (xn - (float)1.) + rs1[i__ - 1]) / xn;
+	rs[i__] = (rs[i__] * (xn - 1.f) + rs1[i__ - 1]) / xn;
 /* L400: */
     }
     return 0;
 } /* autocr_ */
 
-#ifdef __cplusplus
-	}
-#endif

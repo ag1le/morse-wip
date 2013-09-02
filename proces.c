@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Table of constant values */
@@ -26,7 +23,7 @@ static integer c__1 = 1;
     static char fmt_20[] = "(\002  :\002,25(f6.1,1x))";
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe();
+    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
     /* Local variables */
     static integer j;
@@ -64,7 +61,7 @@ static integer c__1 = 1;
     integer i__1;
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe();
+    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
     /* Local variables */
     static integer j;
@@ -97,7 +94,7 @@ static integer c__1 = 1;
     static char fmt_20[] = "(i2,\002:\002,30(f7.2,1x))";
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe();
+    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
     /* Local variables */
     static integer i__, j;
@@ -136,7 +133,7 @@ static integer c__1 = 1;
     static char fmt_20[] = "(i2,\002:\002,30(i3,1x))";
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe();
+    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
     /* Local variables */
     static integer i__, j;
@@ -180,122 +177,54 @@ static integer c__1 = 1;
 	    5,5,5 };
     static integer ilrate[25] = { 10,10,10,10,10,20,20,20,20,20,30,30,30,30,
 	    30,40,40,40,40,40,50,50,50,50,50 };
-    static real p[750] = { (float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)
-	    1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(float)1.,(
-	    float)1.,(float)1.,(float)1.,(float)1. };
+    static real p[750] = { 1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+	    1.f,1.f };
     static integer lamsav[750] = { 5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
 	    5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
 	    5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
@@ -320,127 +249,57 @@ static integer c__1 = 1;
 	    5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
 	    5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
 	    5,5,5 };
-    static real dur[25] = { (float)1e3,(float)1e3,(float)1e3,(float)1e3,(
-	    float)1e3,(float)1e3,(float)1e3,(float)1e3,(float)1e3,(float)1e3,(
-	    float)1e3,(float)1e3,(float)1e3,(float)1e3,(float)1e3,(float)1e3,(
-	    float)1e3,(float)1e3,(float)1e3,(float)1e3,(float)1e3,(float)1e3,(
-	    float)1e3,(float)1e3,(float)1e3 };
-    static real dursav[750] = { (float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)
-	    0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(float)0.,(
-	    float)0.,(float)0.,(float)0.,(float)0.,(float)0. };
+    static real dur[25] = { 1e3f,1e3f,1e3f,1e3f,1e3f,1e3f,1e3f,1e3f,1e3f,1e3f,
+	    1e3f,1e3f,1e3f,1e3f,1e3f,1e3f,1e3f,1e3f,1e3f,1e3f,1e3f,1e3f,1e3f,
+	    1e3f,1e3f };
+    static real dursav[750] = { 0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,
+	    0.f,0.f,0.f };
     static integer ilrsav[750] = { 20,20,20,20,20,20,20,20,20,20,20,20,20,20,
 	    20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,
 	    20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,
@@ -578,7 +437,7 @@ static integer c__1 = 1;
 /* 	PRINT 111, Z, PX, SPDHAT, ELMHAT */
 /* 111	FORMAT('PROCES:',3(3X,F15.9), 3X,I3) */
     *xhat = 0;
-    if (*px > (float).5) {
+    if (*px > .5f) {
 	*xhat = 1;
     }
 /* 	SAVE THE PATHS WITH HIGHEST PROBABILITY, AND */
@@ -607,6 +466,3 @@ static integer c__1 = 1;
     return 0;
 } /* proces_ */
 
-#ifdef __cplusplus
-	}
-#endif

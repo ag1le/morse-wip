@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Common Block Declarations */
@@ -39,28 +36,27 @@ struct {
 
 struct {
     real e_1;
-    } blk1_ = { (float)1.25e-4 };
+    } blk1_ = { 1.25e-4f };
 
 struct {
     integer fill_1[1];
     real e_2[13];
-    } blk6_ = { {0}, (float)0., (float)1., (float)3., (float)1., (float)3., (
-	    float)7., (float)14., (float)0., (float)0., (float)0., (float)0., 
-	    (float)0., (float)0. };
+    } blk6_ = { {0}, 0.f, 1.f, 3.f, 1.f, 3.f, 7.f, 14.f, 0.f, 0.f, 0.f, 0.f, 
+	    0.f, 0.f };
 
 
-/* Subroutine */ int inputl_()
+/* Subroutine */ int inputl_(void)
 {
     /* Format strings */
-    static char fmt_100[] = "(1x,\002INPUT KEYING PARMS: RATE,MEAN ELEM DURA\
-TIONS\002)";
+    static char fmt_100[] = "(1x,\002INPUT KEYING PARMS: RATE,MEAN ELEM DURA"
+	    "TIONS\002)";
     static char fmt_150[] = "(1x,\002INPUT ELEM DURATION STD OEVIATIONS\002)";
-    static char fmt_300[] = "(1x,\002INPUT SIG PARMS- AVAR,BVAR,FCHIRP,TCHIR\
-P,PHIVAR\002)";
+    static char fmt_300[] = "(1x,\002INPUT SIG PARMS- AVAR,BVAR,FCHIRP,TCHIR"
+	    "P,PHIVAR\002)";
     static char fmt_400[] = "(1x,\002INPUT SIG PARMS: GAMMA,FREQ,NOISE\002)";
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), e_wsfe();
+    integer s_wsfe(cilist *), e_wsfe(void);
     double sqrt(doublereal);
 
     /* Local variables */
@@ -91,33 +87,30 @@ P,PHIVAR\002)";
 /* L220: */
 L600:
 /* 	ADDED BY MAURI */
-    avar = (float)4.;
-    bvar = (float)4.;
-    rate = (float)25.;
-    fc = (float)4e3;
-    fchirp = (float)20.;
-    rnoise = (float)4.;
-    phivar = (float)4.;
-    blk2_1.tchirp = (float)2.;
-    blk2_1.gamm = (float)1.;
+    avar = 4.f;
+    bvar = 4.f;
+    rate = 25.f;
+    fc = 4e3f;
+    fchirp = 20.f;
+    rnoise = 4.f;
+    phivar = 4.f;
+    blk2_1.tchirp = 2.f;
+    blk2_1.gamm = 1.f;
     blk2_1.asigma = sqrt(avar);
     blk2_1.bsigma = sqrt(bvar);
     blk2_1.phisgm = sqrt(phivar);
     blk2_1.rsigm = sqrt(rnoise);
-    blk6_1.dmean = (float)1200. / rate;
-    rc = fc * (float)6.28319;
-    blk2_1.wchirp = fchirp * (float)6.2831;
+    blk6_1.dmean = 1200.f / rate;
+    rc = fc * 6.28319f;
+    blk2_1.wchirp = fchirp * 6.2831f;
 /* 	IF (ESEP(1).NE.0.) GO TO 500 */
-    blk6_1.esep[0] = (float)1.;
-    blk6_1.esep[1] = (float)3.;
-    blk6_1.esep[2] = (float)1.;
-    blk6_1.esep[3] = (float)3.;
-    blk6_1.esep[4] = (float)7.;
-    blk6_1.esep[5] = (float)14.;
+    blk6_1.esep[0] = 1.f;
+    blk6_1.esep[1] = 3.f;
+    blk6_1.esep[2] = 1.f;
+    blk6_1.esep[3] = 3.f;
+    blk6_1.esep[4] = 7.f;
+    blk6_1.esep[5] = 14.f;
 /* L500: */
     return 0;
 } /* inputl_ */
 
-#ifdef __cplusplus
-	}
-#endif

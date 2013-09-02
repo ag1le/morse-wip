@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Common Block Declarations */
@@ -60,7 +57,7 @@ struct {
 	goto L20;
     }
     for (n = 1; n <= 30; ++n) {
-	p[*ip + n * 25] = (float)0.;
+	p[*ip + n * 25] = 0.f;
 /* L10: */
     }
     goto L200;
@@ -69,7 +66,7 @@ L20:
 /* 	COMPUTE KEYSTATE TRANSITION PROBABILITY: */
     ptrx = xtrans_(&ielem, dur, ilrate);
 /* 	FOR EACH STATE, COMPUTE STATE TRANSITION PROBABILITY: */
-    psum = (float)0.;
+    psum = 0.f;
     for (k = 1; k <= 6; ++k) {
 	for (i__ = 1; i__ <= 5; ++i__) {
 	    n = (i__ - 1) * 6 + k;
@@ -87,6 +84,3 @@ L200:
     return 0;
 } /* trprob_ */
 
-#ifdef __cplusplus
-	}
-#endif

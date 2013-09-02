@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Common Block Declarations */
@@ -52,7 +49,7 @@ static integer c__1 = 1;
     static char fmt_75[] = "(\002PATH:\002,3(i3,2x),2(f8.3,2x))";
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe();
+    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
     /* Local variables */
     static integer i__, j, k, n, ixl, ixs, ilelm;
@@ -110,7 +107,7 @@ L50:
 	    ixl = blklam_1.ilamx[ilelm - 1];
 	    ixs = blks_1.isx[k - 1];
 /* CALCULATE DURATION - ADD SAMPLE DURATION 5 ms FOR EACH VALID PATH */
-	    dursav[j] = *dur * (1 - ixs - ixl + (ixs << 1) * ixl) + (float)5.;
+	    dursav[j] = *dur * (1 - ixs - ixl + (ixs << 1) * ixl) + 5.f;
 /* 	NEW DATA RATE: */
 	    ilrsav[j] = *ilrate + (i__ - 3) * blkrat_1.memdel[ilelm + k * 6 - 
 		    7];
@@ -130,6 +127,3 @@ L100:
     return 0;
 } /* path_ */
 
-#ifdef __cplusplus
-	}
-#endif

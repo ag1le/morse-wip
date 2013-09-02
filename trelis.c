@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Common Block Declarations */
@@ -34,7 +31,7 @@ static integer c__1 = 1;
     static char fmt_1[] = "(i3,\002:\002,65(i3,1x))";
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe();
+    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
     /* Local variables */
     static integer i__, j;
@@ -73,7 +70,7 @@ static integer c__1 = 1;
     static char fmt_5[] = "(a3,\002:\002,25(i6,1x))";
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe();
+    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
     /* Local variables */
     static integer j;
@@ -103,7 +100,7 @@ static integer c__1 = 1;
     static char fmt_6[] = "(a3,\002:\002,200(i2))";
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe();
+    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
     /* Local variables */
     static integer j;
@@ -454,10 +451,10 @@ static integer c__1 = 1;
 	    0,0,0,0,0,0 };
 
     /* Format strings */
-    static char fmt_2000[] = "(\002AVG # OF PATHS SAVED:\002,i2,\002 AVG DEC\
-ODE DELAY:\002,i3)";
-    static char fmt_330[] = "(\002PERCENT OF TIME PATHS = 25: \002,f3.2,\002\
- PERCENT OF TIME DELAY = 200: \002,f3.2)";
+    static char fmt_2000[] = "(\002AVG # OF PATHS SAVED:\002,f4.2,\002 AVG D"
+	    "ECODE DELAY:\002,f4.2)";
+    static char fmt_330[] = "(\002PERCENT OF TIME PATHS = 25: \002,f3.2,\002"
+	    " PERCENT OF TIME DELAY = 200: \002,f3.2)";
     static char fmt_2001[] = "(a1)";
     static char fmt_1000[] = "(\002SAME DELAY AS LAST:\002,i3)";
     static char fmt_1100[] = "(\002REVERSE ORDER:\002,i3)";
@@ -467,8 +464,8 @@ ODE DELAY:\002,i3)";
     integer i__1;
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(), 
-	    s_rsfe(cilist *), e_rsfe();
+    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void),
+	     s_rsfe(cilist *), e_rsfe(void);
 
     /* Local variables */
     static integer i__, k, ip, ieq, ltr, ndel;
@@ -514,8 +511,8 @@ ODE DELAY:\002,i3)";
     ndlavg = xdlavg;
     blkend_1.iend = 0;
     s_wsfe(&io___24);
-    do_fio(&c__1, (char *)&isavg, (ftnlen)sizeof(integer));
-    do_fio(&c__1, (char *)&ndlavg, (ftnlen)sizeof(integer));
+    do_fio(&c__1, (char *)&xsavg, (ftnlen)sizeof(real));
+    do_fio(&c__1, (char *)&xdlavg, (ftnlen)sizeof(real));
     e_wsfe();
     s_wsfe(&io___25);
     do_fio(&c__1, (char *)&xmmax, (ftnlen)sizeof(real));
@@ -671,6 +668,3 @@ L800:
     return 0;
 } /* trelis_ */
 
-#ifdef __cplusplus
-	}
-#endif

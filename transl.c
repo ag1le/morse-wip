@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Common Block Declarations */
@@ -38,14 +35,16 @@ static integer c__1 = 1;
 {
     /* Initialized data */
 
-    static char ispace[1+1] = " ";
+    static char ispace[1] = " ";
     static integer spflag = 0;
     static integer nchar = 0;
     static integer lstltr = 5;
+    static integer ixlast = 0;
+    static integer lstelm = 6;
 
     /* Format strings */
-    static char fmt_5000[] = "(\002ELMHAT, NCHAR, I, LTR, LTRHAT, LTROUT:\
-\002,1x,i1,4(1x,i3),\002:\002,a1)";
+    static char fmt_5000[] = "(\002ELMHAT, NCHAR, I, LTR, LTRHAT, LTROUT:"
+	    "\002,1x,i1,4(1x,i3),\002:\002,a1)";
     static char fmt_1500[] = "(2x,a1,/)";
     static char fmt_1000[] = "(1x,a1,s)";
     static char fmt_1100[] = "(1x,a2,$)";
@@ -60,10 +59,10 @@ static integer c__1 = 1;
 
     /* Builtin functions */
     /* Subroutine */ int s_copy(char *, char *, ftnlen, ftnlen);
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe();
+    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
     /* Local variables */
-    static integer i__, ixl, nblank, elmhat, ltrhat, lstelm, ixlast;
+    static integer i__, ixl, nblank, elmhat, ltrhat;
     static char ltrout[1];
 
     /* Fortran I/O blocks */
@@ -271,6 +270,3 @@ L700:
     return 0;
 } /* transl_ */
 
-#ifdef __cplusplus
-	}
-#endif

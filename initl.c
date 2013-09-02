@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Common Block Declarations */
@@ -99,32 +96,22 @@ struct {
 
 struct {
     real e_1[96];
-    } blkelm_ = { (float).55, (float).5, (float).5, (float).5, (float).55, (
-	    float).5, (float).5, (float).5, (float)0., (float)0., (float)0., (
-	    float)0., (float)0., (float)0., (float)0., (float)0., (float).45, 
-	    (float).5, (float).5, (float).5, (float).45, (float).5, (float).5,
-	     (float).5, (float)0., (float)0., (float)0., (float)0., (float)0.,
-	     (float)0., (float)0., (float)0., (float)0., (float)0., (float)0.,
-	     (float)0., (float)0., (float)0., (float)0., (float)0., (float)
-	    .581, (float).54, (float).923, (float).923, (float).923, (float)
-	    .923, (float).95, (float).95, (float)0., (float)0., (float)0., (
-	    float)0., (float)0., (float)0., (float)0., (float)0., (float).335,
-	     (float).376, (float).062, (float).062, (float).062, (float).062, 
-	    (float).04, (float).04, (float)0., (float)0., (float)0., (float)
-	    0., (float)0., (float)0., (float)0., (float)0., (float).069, (
-	    float).069, (float).012, (float).012, (float).012, (float).012, (
-	    float).009, (float).009, (float)0., (float)0., (float)0., (float)
-	    0., (float)0., (float)0., (float)0., (float)0., (float).015, (
-	    float).015, (float).003, (float).003, (float).003, (float).003, (
-	    float).001, (float).001 };
+    } blkelm_ = { .55f, .5f, .5f, .5f, .55f, .5f, .5f, .5f, 0.f, 0.f, 0.f, 
+	    0.f, 0.f, 0.f, 0.f, 0.f, .45f, .5f, .5f, .5f, .45f, .5f, .5f, .5f,
+	     0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 
+	    0.f, 0.f, 0.f, .581f, .54f, .923f, .923f, .923f, .923f, .95f, 
+	    .95f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, .335f, .376f, .062f,
+	     .062f, .062f, .062f, .04f, .04f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 
+	    0.f, 0.f, .069f, .069f, .012f, .012f, .012f, .012f, .009f, .009f, 
+	    0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, .015f, .015f, .003f, 
+	    .003f, .003f, .003f, .001f, .001f };
 
 struct {
     real e_1[10];
     integer e_2[36];
-    } blkspd_ = { (float).1, (float).2, (float).4, (float).2, (float).1, (
-	    float).15, (float).2, (float).3, (float).2, (float).15, 0, 0, 1, 
-	    2, 1, 2, 0, 0, 1, 2, 1, 2, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 
-	    0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0 };
+    } blkspd_ = { .1f, .2f, .4f, .2f, .1f, .15f, .2f, .3f, .2f, .15f, 0, 0, 1,
+	     2, 1, 2, 0, 0, 1, 2, 1, 2, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1,
+	     0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0 };
 
 struct {
     integer e_1[2400];
@@ -282,19 +269,15 @@ struct {
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, {'A', 'B', 'C', 'D', 'E', 'F', 'G', 
-	    'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 
-	    'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', 
-	    '8', '9', '0', ';', ':', '%', '&', ' ', ' ', ' ', ' ', ' ', ' ', 
-	    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 
-	    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '} };
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567"
+	    "890;:%&                              " };
 
 
 /* Table of constant values */
 
 static integer c__1 = 1;
 
-/* Subroutine */ int initl_()
+/* Subroutine */ int initl_(void)
 {
     /* Format strings */
     static char fmt_30[] = "(8i3)";
@@ -307,7 +290,8 @@ static integer c__1 = 1;
 
     /* Builtin functions */
     integer f_open(olist *), s_rsfe(cilist *), do_fio(integer *, char *, 
-	    ftnlen), e_rsfe(), f_end(alist *), s_wsfe(cilist *), e_wsfe();
+	    ftnlen), e_rsfe(void), f_end(alist *), s_wsfe(cilist *), e_wsfe(
+	    void);
 
     /* Local variables */
     static integer i__, k, iarray[8];
@@ -417,6 +401,3 @@ static integer c__1 = 1;
     return 0;
 } /* initl_ */
 
-#ifdef __cplusplus
-	}
-#endif

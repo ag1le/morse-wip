@@ -10,9 +10,6 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "f2c.h"
 
 /* Subroutine */ int stats_(real *xin1, real *xin2, real *xin3, real *xin4, 
@@ -32,6 +29,3 @@ extern "C" {
     return 0;
 } /* stats_ */
 
-#ifdef __cplusplus
-	}
-#endif
