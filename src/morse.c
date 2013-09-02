@@ -12,6 +12,8 @@
 
 #include "f2c.h"
 #include <stdio.h>
+#include <math.h>
+#include "morse.h"
  
 /* Main program */ int MAIN__(void)
 {
@@ -20,7 +22,7 @@
     static real rn = .1f;
     static integer np = 0;
 
-    /* Subroutine */ int s_stop(char *, ftnlen);
+	int s_stop(char *, ftnlen);
 
     /* Local variables */
     static integer n;
@@ -29,34 +31,37 @@
     static real s1[512], s2[512], s3[512], s4[512], px;
     static integer imax, xhat;
     static real pmax, zdet, zsig;
-    extern /* Subroutine */ int rcvr_(real *, real *);
     static real zrcv, zout;
-    extern /* Subroutine */ int noise_(real *, real *, real *), initl_(void), 
-	    stats_(real *, real *, real *, integer *, real *, real *, real *, 
-	    real *, integer *), bpfdet_(real *, real *);
     static integer elmhat;
     static real spdhat;
-    extern /* Subroutine */ int simsgi_(real *, real *), proces_(real *, real 
-	    *, integer *, real *, integer *, integer *, real *, integer *, 
-	    real *);
     static integer ltrhat;
-    extern /* Subroutine */ int inputl_(void);
+    int res; 
 
+	FILE *fp; 
 
-
-/* 	CALL SRAND(86456) */
+/* 	INITIALIZE DATA STRUCTURES */
     initl_();
     inputl_();
+    
+   fp = fopen("x.txt","r"); 
+    	
+    
 
 L1:
     for (n1 = 1; n1 <= 512; ++n1) {
 	for (n2 = 1; n2 <= 18; ++n2) {
 	    simsgi_(&x, &zsig);
+	    res = fscanf(fp,"%f",&x); 
+	    if ( res != 1) { 
+			fclose(fp); 
+			fp = fopen("x.txt","r");
+			x = 0.0;
+	    }
 	    rcvr_(&zsig, &zrcv);
 	    bpfdet_(&zrcv, &zdet);
 	    ++np;
 /* 	DECIMATE 4 kHz by 40  down to 100Hz - 5 ms sample time for PROCES */
-	    if (np < 40) {
+	    if (np < 20) {
 		goto L3;
 	    }
 	    np = 0;
@@ -64,6 +69,9 @@ L1:
 /* 	RN = RAND() */
 	    rn = .01f;
 	    proces_(&x, &rn, &xhat, &px, &elmhat, &ltrhat, &spdhat, &imax, &pmax);
+//	    printf("\n %f %d %f %d %f ",x,xhat,px, elmhat, spdhat); 
+
+
 L3:
 	    ;
 	}
