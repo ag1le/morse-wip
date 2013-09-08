@@ -1,0 +1,64 @@
+PROJECT IDEA
+
+1. Build a simple to use C/C++ advanced Bayesian Morse decoder library
+
+	Basic use case example: 
+		#include "morse.h"
+		...
+		morse_init(modelparams);
+		...
+		...
+		decode_process(double value) {
+			char *morsechr; 
+		...
+		// detected signal value after AGC and filtering 
+			if ( morse_decode(value, morsechr) ) 
+				printf("%s", morsechr); 
+		...
+		}
+		
+	This can be integrated to any system, even as embedded code.
+	FLDIGI as the first integration target.
+	
+	
+2.  Build an automated test framework and a test gallery of datasets.
+
+		Input 
+			Wav or MP3 files and transcript files
+			Synthetic test datasets (known SNR, timing, speed)
+			Real world datasets 
+			Model parameters
+			
+		Output 
+			CER  vs. SNR  graphs 
+			CER  vs. timing variations
+			CER  vs. speed variations 
+			CER  per character 
+			
+			Misrecognition distribution (input chr vs. output chr)
+				- i.e. A recognized as U 
+			Symbol Error Rate 
+				- 
+			Path length vs. SNR 
+			Estimated speed  vs. actual speed distribution
+			
+			
+			
+		examples: 
+			http://www.yorku.ca/mack/IWC99.html
+		
+		Test cases repository
+			regression testing 
+			test results by software version
+			
+		http://orgmode.org/worg/org-contrib/babel/examples/data-collection-analysis.html
+
+
+
+INSTALL FROM SCRATCH 
+aclocal
+autoconf
+autoheader
+automake --add-missing
+./configure 
+make 

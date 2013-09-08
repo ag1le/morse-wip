@@ -11,14 +11,14 @@
 */
 
 #include "f2c.h"
+#include "morse.h"
 
 /* Table of constant values */
 
 static integer c__1 = 1;
 
 
-/* Subroutine */ int proces_(real *z, real *rn, integer *xhat, real *px, 
-	integer *elmhat, integer *ltrhat, real *spdhat, integer *imax, real *
+int proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat,  real *spdhat, integer *imax, real *
 	pmax)
 {
     /* Initialized data */
@@ -193,24 +193,14 @@ static integer c__1 = 1;
     integer i1;
 
     /* Local variables */
-    static integer i;
+    static integer i, retstat;
     static real pin[750]	/* was [25][30] */, lkhd[750];
-    extern /* Subroutine */ int path_(integer *, integer *, real *, integer *,
-	     integer *, real *, integer *);
     static real pelm;
     static integer sort[25];
-    extern /* Subroutine */ int likhd_(real *, real *, integer *, integer *, 
-	    real *, integer *, real *, real *);
     static integer ipath;
-    extern /* Subroutine */ int savep_(real *, integer *, integer *, integer *
-	    , integer *, real *, integer *, integer *, real *, integer *, 
-	    integer *, real *);
+
     static integer ipmax;
-    extern /* Subroutine */ int probp_(real *, real *, integer *, real *), 
-	    sprob_(real *, integer *, integer *, real *, integer *, real *, 
-	    real *), trelis_(integer *, integer *, integer *, integer *, 
-	    integer *), trprob_(integer *, integer *, real *, integer *, real 
-	    *);
+ 
 
 /* 	THIS SUBROUTINE IMPLEMENTS THE PROCESSING ALGORITHM */
 /* 	FOR JOINT DEMODULATION, DECODING, AND TRANSLATION OF */
@@ -249,7 +239,7 @@ static integer c__1 = 1;
 /* 	PROBP- COMPUTES POSTERIOR PROBS OF EACH NEW PATH */
 /* 	SPROB- COMPUTES POSTERIOR PROBS OF EACH STATE */
 /* 	SAVE- SAVES THE HIGHEST PROB PATHS */
-/* 	TRELIS- FORMS A TRELIS OF SAVED PATHS */
+/* 	TRELIS- FORMS A TRELLIS OF SAVED PATHS */
 /* 	TRANSL- TRANSLATES THE LETTER ESTIMATE */
 
 /* 	ALL TABLES OF CONSTANTS ARE STORED IN COMMON. */
@@ -286,8 +276,8 @@ static integer c__1 = 1;
 /* 	UPDATE TRELLIS WITH NEW SAVED NODES, AND */
 /* 	OBTAIN LETTER STATE ESTIMATE: */
 
-    trelis_(&isave, pathsv, lambda, imax, &ipmax);
+    retstat=trelis_(&isave, pathsv, lambda, imax, &ipmax);
 
-    return 0;
+    return retstat;
 } /* proces_ */
 

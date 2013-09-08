@@ -12,6 +12,7 @@
 
 #include "f2c.h"
 #include <stdio.h> 
+#include "morse.h"
 
 //#define DEBUG 1
 
@@ -28,8 +29,7 @@ struct {
 static integer c__1 = 1;
 
 
-/* Subroutine */ int trelis_(integer *isave, integer *pathsv, integer *lambda,
-	 integer *imax, integer *ipmax)
+int trelis_(integer *isave, integer *pathsv, integer *lambda, integer *imax, integer *ipmax)
 {
     /* Initialized data */
 
@@ -365,15 +365,13 @@ static integer c__1 = 1;
 	     s_rsfe(cilist *), e_rsfe(void);
 
     /* Local variables */
-    static int i, k, ip, ieq, ltr, ndel;
+    static int i, k, ip, ieq, ltr, ndel, retstat;
     static char wait[1];
     static int isavg;
     static real xsavg, xmmax, xnmax;
     static int ndlavg;
     static real xdlavg;
-    extern /* Subroutine */ int transl_(int *);
-
-
+    static char *chrp; 
 
 /*    THIS SUBROUTINE STORES THE SAVED NODES AT EACH */
 /*    STAGE AND FORMS THE TREE OF SAVED PATHS LINKING */
@@ -392,6 +390,7 @@ static integer c__1 = 1;
 /* 	KEEP AVERAGE OF ISAVE, NDEL FOR DATA ANALYSIS: */
 /* 	CALL VISBUI('PSV', PATHSV) */
 /* 	CALL VISBUI('LBD', LAMBDA) */
+	retstat = 1;
     ++ncall;
     if (blkend_1.iend != 1) {
 	goto L10;
@@ -485,7 +484,7 @@ L190:
 #ifdef DEBUG
 printf("\nSAME DELAY AS LAST: %d",ltr);
 #endif
-    transl_(&ltr);
+    retstat = transl_(&ltr);
     goto L800;
 /* 	OTHERWISE,POINT OF CONVERGENCE HAS OCCURED */
 /* 	EARLIER ON THIS CALL, SO NEED TO TRANSLATE */
@@ -514,7 +513,7 @@ L350:
 #ifdef DEBUG
 printf("\nIN REVERSE ORDER: %d",ltr);
 #endif
-	transl_(&ltr);
+    retstat = transl_(&ltr);
 /* L500: */
     }
     goto L800;
@@ -531,7 +530,7 @@ L700:
 #ifdef DEBUG
 printf("\nHIGHEST PROB: %d", ltr);
 #endif
-    transl_(&ltr);
+    retstat = transl_(&ltr);
 /* 	PRUNE AWAY NODES WHICH ARE NOT ON THIS PATH: */
     i1 = *isave;
     for (k = 1; k <= i1; ++k) {
@@ -544,6 +543,6 @@ L750:
     }
 L800:
     ndelst = ndel;
-    return 0;
+    return retstat;
 } /* trelis_ */
 

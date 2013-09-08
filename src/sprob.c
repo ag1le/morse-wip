@@ -11,15 +11,15 @@
 */
 
 #include "f2c.h"
+#include <stdio.h>
 
-/* Subroutine */ int sprob_(real *p, integer *isave, integer *ilrsav, real *
-	pelm, integer *khat, real *spdhat, real *px)
+int sprob_(real *p, integer *isave, integer *ilrsav, real *pelm, integer *khat, real *spdhat, real *px)
 {
     /* System generated locals */
-    integer i__1;
+    integer i1;
 
     /* Local variables */
-    static integer i__, j, k, m, n;
+    static integer i, j, k, m, n;
     static real pselem[6];
 
 
@@ -32,7 +32,7 @@
 /*    ISAVE- 	NUMBER OF PATHS SAVED */
 /*    PSELEM-	OUTPUT ELEMENT PROB */
 /*    SPDHAT-	OUTPUT SPEED ESTIMATE (DATA RATE WPM) */
-/*    PX- 	OUTPUT KEYSTATE PROBABILITY */
+/*    PX- 		OUTPUT KEYSTATE PROBABILITY */
 
 /* 	INITIALIZE: */
     /* Parameter adjustments */
@@ -45,32 +45,29 @@
 /* 	FOR EACH STATE EXTENSION OF PATH M: */
 /* 	OBTAIN ELEMENT STATE PROBS,KEYSTATE PROBS,SPEED EST: */
     for (k = 1; k <= 6; ++k) {
-	pselem[k - 1] = 0.f;
-	for (i__ = 1; i__ <= 5; ++i__) {
-	    n = (i__ - 1) * 6 + k;
-	    i__1 = *isave;
-	    for (m = 1; m <= i__1; ++m) {
-		j = (m - 1) * 30 + n;
-		pselem[k - 1] += p[j];
-		*spdhat += ilrsav[j] * p[j];
-		if (k > 2) {
-		    goto L100;
+		pselem[k - 1] = 0.f;
+		for (i = 1; i <= 5; ++i) {
+			n = (i - 1) * 6 + k;
+			i1 = *isave;
+			for (m = 1; m <= i1; ++m) {
+				j = (m - 1) * 30 + n;
+				pselem[k - 1] += p[j];
+				*spdhat += ilrsav[j] * p[j];
+				if (k <= 2) {
+					*px += p[j];
+				}
+			}
 		}
-		*px += p[j];
-L100:
-		;
-	    }
-	}
     }
     *pelm = 0.f;
+
     for (k = 1; k <= 6; ++k) {
-	if (pselem[k - 1] < *pelm) {
-	    goto L200;
-	}
-	*pelm = pselem[k - 1];
-	*khat = k;
-L200:
-	;
+// IF WANT ELEMENT PROBABILITIES BY SAMPLE UNCOMMENT BELOW 
+//    printf("\t%f",pselem[k - 1]);
+		if (pselem[k - 1] >= *pelm) {
+			*pelm = pselem[k - 1];
+			*khat = k;
+		}
     }
     return 0;
 } /* sprob_ */

@@ -15,7 +15,9 @@
 #include <math.h>
 #include "morse.h"
  
-/* Main program */ int MAIN__(void)
+int MAIN__(void){};
+
+int main(int argc, char**argv)
 {
     /* Initialized data */
 
@@ -25,7 +27,7 @@
 	int s_stop(char *, ftnlen);
 
     /* Local variables */
-    static integer n;
+    static integer n,retstat;
     static real x, z;
     static integer n1, n2;
     static real s1[512], s2[512], s3[512], s4[512], px;
@@ -34,51 +36,61 @@
     static real zrcv, zout;
     static integer elmhat;
     static real spdhat;
-    static integer ltrhat;
     int res; 
-
+	int debug = 0; 
 	FILE *fp; 
+
 
 /* 	INITIALIZE DATA STRUCTURES */
     initl_();
     inputl_();
     
-   fp = fopen("x.txt","r"); 
-    	
+    switch (argc) {
+    case 1:
+        printf("\nusage: %s [debug] filename\n", argv[0]);
+    	return 0;
+    case 2: 
+    	fp = fopen(argv[1],"r");
+    	break; 
+    case 3: 
+		debug = 1;
+    	fp = fopen(argv[2],"r");
+		
+    }
     
-
+    if (debug) 
+		printf("\nretstat\timax\telmhat\txhat\tltrhat\tx\tpx\tpmax\tspdhat");
 L1:
     for (n1 = 1; n1 <= 512; ++n1) {
-	for (n2 = 1; n2 <= 18; ++n2) {
-	    simsgi_(&x, &zsig);
-	    res = fscanf(fp,"%f",&x); 
-	    if ( res != 1) { 
-			fclose(fp); 
-			fp = fopen("x.txt","r");
-			x = 0.0;
-	    }
-	    rcvr_(&zsig, &zrcv);
-	    bpfdet_(&zrcv, &zdet);
-	    ++np;
-/* 	DECIMATE 4 kHz by 40  down to 100Hz - 5 ms sample time for PROCES */
-	    if (np < 20) {
-		goto L3;
-	    }
-	    np = 0;
-	    noise_(&zdet, &rn, &zout);
-/* 	RN = RAND() */
-	    rn = .01f;
-	    proces_(&x, &rn, &xhat, &px, &elmhat, &ltrhat, &spdhat, &imax, &pmax);
-//	    printf("\n %f %d %f %d %f ",x,xhat,px, elmhat, spdhat); 
-
-
-L3:
-	    ;
-	}
+		for (n2 = 1; n2 <= 18; ++n2) {
+			//simsgi_(&x, &zsig);
+			res = fscanf(fp,"%f",&x); 
+			if ( res != 1) { 
+				fclose(fp); 
+				printf("\n");
+				return 0;
+				fp = fopen(argv[1],"r");
+				x = 0.0;
+			}
+			//rcvr_(&zsig, &zrcv);
+			//bpfdet_(&zrcv, &zdet);
+			++np;
+	/* 	DECIMATE 4 kHz by 40  down to 100Hz - 5 ms sample time for PROCES */
+		   if (np < 30) {
+			goto L3;
+			}
+			np = 0;
+			//noise_(&zdet, &rn, &zout);
+			/* 	RN = RAND() */
+			rn = .01f;
+			retstat = proces_(&x, &rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax);
+			printf("\n%f",x);
+			if (debug) 
+				printf("\n%d\t%d\t%d\t%d\t%f\t%f\t%f\t%f",(int)retstat,(int)imax,(int)elmhat,(int)xhat,x,px,pmax,spdhat); 
+	L3:
+			;
+		}
 	n = n1;
-#ifdef DEBUG
-printf("\nMORSE: %f %f %d %d %f %f %f",x,pmax,imax,elmhat,zsig,rn,spdhat);
-#endif
 	stats_(&zdet, &z, &px, &xhat, s1, s2, s3, s4, &n);
 /* L2: */
     }
@@ -88,4 +100,4 @@ printf("\nMORSE: %f %f %d %d %f %f %f",x,pmax,imax,elmhat,zsig,rn,spdhat);
     return 0;
 } /* MAIN__ */
 
-/* Main program alias */ int morse_ () { MAIN__ (); return 0; }
+// int morse_ () { MAIN__ (); return 0; }
