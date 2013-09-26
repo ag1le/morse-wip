@@ -29,10 +29,10 @@ struct {
     static real popt = .9f;
 
     /* System generated locals */
-    integer i__1, i__2;
+    integer i1, i2;
 
     /* Local variables */
-    static integer i__, j, k, n, ip, jsav, nsav;
+    static integer i, j, k, n, ip, jsav, nsav;
     static real psav[25], psum;
     static integer iconv[25], ipsav, isavm1, nplus1;
 
@@ -84,156 +84,129 @@ struct {
     psum = 0.f;
 /* 	SELECT SIX HIGHEST PROB ELEMENT STATE NODES: */
     for (k = 1; k <= 6; ++k) {
-	*pmax = 0.f;
-	i__1 = *isave;
-	for (ip = 1; ip <= i__1; ++ip) {
-	    for (i__ = 1; i__ <= 5; ++i__) {
-		j = (ip - 1) * 30 + (i__ - 1) * 6 + k;
-		if (p[j] < *pmax) {
-		    goto L100;
+		*pmax = 0.f;
+		i1 = *isave;
+		for (ip = 1; ip <= i1; ++ip) {
+			for (i = 1; i <= 5; ++i) {
+				j = (ip - 1) * 30 + (i - 1) * 6 + k;
+				if (p[j] >= *pmax) {
+					*pmax = p[j];
+					jsav = j;
+					ipsav = ip;
+				}
+			}
 		}
-		*pmax = p[j];
-		jsav = j;
-		ipsav = ip;
-L100:
-		;
-	    }
-	}
-/* 	IF FOLLOWING TWO LINES COMMENTED OUT WE GET NSAV = 7 */
-	if (*pmax >= 1e-6f) {
-	    goto L150;
-	}
-	goto L200;
-L150:
-	++nsav;
-	psum += *pmax;
-	psav[nsav - 1] = *pmax;
-	pathsv[nsav] = ipsav;
-	sort[nsav] = jsav;
-L200:
-	;
+	/* 	IF FOLLOWING TWO LINES COMMENTED OUT WE GET NSAV = 7 */
+		if (*pmax >= 1e-6f) {
+			++nsav;
+			psum += *pmax;
+			psav[nsav - 1] = *pmax;
+			pathsv[nsav] = ipsav;
+			sort[nsav] = jsav;
+		}
     }
 /* 	SELECT ENOUGH ADDITIONAL NODES TO MAKE TOTAL */
 /* 	PROBABILITY SAVED EQUAL TO POPT, OR A MAX OF 25: */
-L520:
-    *pmax = 0.f;
-    i__1 = *isave;
-    for (ip = 1; ip <= i__1; ++ip) {
-	for (n = 1; n <= 30; ++n) {
-	    j = (ip - 1) * 30 + n;
-	    i__2 = nsav;
-	    for (i__ = 1; i__ <= i__2; ++i__) {
-		if (j == sort[i__]) {
-		    goto L500;
+	do {
+		*pmax = 0.f;
+		i1 = *isave;
+		for (ip = 1; ip <= i1; ++ip) {
+			for (n = 1; n <= 30; ++n) {
+				j = (ip - 1) * 30 + n;
+				i2 = nsav;
+				for (i = 1; i <= i2; ++i) {
+					if (j == sort[i]) {
+						goto L500;
+					}
+				}
+				if (p[j] > *pmax) {
+					*pmax = p[j];
+					jsav = j;
+					ipsav = ip;
+				}
+		L500:
+				;
+			}
 		}
-/* L510: */
-	    }
-	    if (p[j] <= *pmax) {
-		goto L500;
-	    }
-	    *pmax = p[j];
-	    jsav = j;
-	    ipsav = ip;
-L500:
-	    ;
-	}
-    }
-    psum += *pmax;
-    ++nsav;
-    psav[nsav - 1] = *pmax;
-    pathsv[nsav] = ipsav;
-    sort[nsav] = jsav;
-    if (psum >= popt) {
-	goto L600;
-    }
-    if (nsav >= 25) {
-	goto L600;
-    }
-    goto L520;
+		psum += *pmax;
+		++nsav;
+		psav[nsav - 1] = *pmax;
+		pathsv[nsav] = ipsav;
+		sort[nsav] = jsav;
+		if (psum >= popt) {
+			break; 
+		}
+	}   while (nsav < 25); 
 /* 	NEW ISAVE EQUALS NO. OF NODES SAVED: */
-L600:
     *isave = nsav;
+
 /* 	SORT THE SAVED ARRAYS TO OBTAIN THE ARRAYS */
 /* 	TO BE USED FOR THE NEXT ITERATION: */
-    i__1 = *isave;
-    for (i__ = 1; i__ <= i__1; ++i__) {
-	p[i__] = psav[i__ - 1] / psum;
-	lambda[i__] = lamsav[sort[i__]];
-	dur[i__] = dursav[sort[i__]];
-	ilrate[i__] = ilrsav[sort[i__]];
-	blksv1_1.ykkip[i__ - 1] = blksv1_1.ykksv[sort[i__] - 1];
-	blksv1_1.pkkip[i__ - 1] = blksv1_1.pkksv[sort[i__] - 1];
-/* 	PRINT 650, I, ILRATE(I), SORT(I), LAMBDA(I), P(I), DUR(I), */
-/*     &YKKIP(I), PKKIP(I) */
-/* 650	FORMAT('SAVEP:',4(I4,1X), 4(F10.4,1X)) */
-/* L700: */
+    i1 = *isave;
+    for (i = 1; i <= i1; ++i) {
+		p[i] = psav[i - 1] / psum;
+		lambda[i] = lamsav[sort[i]];
+		dur[i] = dursav[sort[i]];
+		ilrate[i] = ilrsav[sort[i]];
+		blksv1_1.ykkip[i - 1] = blksv1_1.ykksv[sort[i] - 1];
+		blksv1_1.pkkip[i - 1] = blksv1_1.pkksv[sort[i] - 1];
     }
-    i__1 = *isave;
-    for (i__ = 1; i__ <= i__1; ++i__) {
-	iconv[i__ - 1] = 1;
-/* L790: */
+    i1 = *isave;
+    for (i = 1; i <= i1; ++i) {
+		iconv[i - 1] = 1;
     }
     isavm1 = *isave - 1;
-    i__1 = isavm1;
-    for (n = 1; n <= i__1; ++n) {
-	if (iconv[n - 1] == 0) {
-	    goto L800;
-	}
-	nplus1 = n + 1;
-	i__2 = *isave;
-	for (k = nplus1; k <= i__2; ++k) {
-	    if (iconv[k - 1] == 0) {
-		goto L810;
-	    }
-	    if (ilrate[k] != ilrate[n]) {
-		goto L810;
-	    }
-	    if (dur[k] != dur[n]) {
-		goto L810;
-	    }
-	    if (lambda[k] != lambda[n]) {
-		goto L810;
-	    }
-	    iconv[k - 1] = 0;
-L810:
-	    ;
-	}
-L800:
-	;
+    i1 = isavm1;
+    for (n = 1; n <= i1; ++n) {
+		if (iconv[n - 1] != 0) {
+			nplus1 = n + 1;
+			i2 = *isave;
+			for (k = nplus1; k <= i2; ++k) {
+				if (iconv[k - 1] == 0) {
+					goto L810;
+				}
+				if (ilrate[k] != ilrate[n]) {
+					goto L810;
+				}
+				if (dur[k] != dur[n]) {
+					goto L810;
+				}
+				if (lambda[k] != lambda[n]) {
+					goto L810;
+				}
+				iconv[k - 1] = 0;
+		L810:
+				;
+			}
+		}
     }
     psum = 0.f;
     n = 1;
-    i__1 = *isave;
-    for (i__ = 2; i__ <= i__1; ++i__) {
-	if (iconv[i__ - 1] == 0) {
-	    goto L900;
-	}
-	++n;
-	lambda[n] = lambda[i__];
-	dur[n] = dur[i__];
-	ilrate[n] = ilrate[i__];
-	blksv1_1.ykkip[n - 1] = blksv1_1.ykkip[i__ - 1];
-	blksv1_1.pkkip[n - 1] = blksv1_1.pkkip[i__ - 1];
-	pathsv[n] = pathsv[i__];
-	sort[n] = sort[i__];
-	p[n] = p[i__];
-	psum += p[n];
-L900:
-	;
+    i1 = *isave;
+    for (i = 2; i <= i1; ++i) {
+		if (iconv[i - 1] != 0) {
+			++n;
+			lambda[n] = lambda[i];
+			dur[n] = dur[i];
+			ilrate[n] = ilrate[i];
+			blksv1_1.ykkip[n - 1] = blksv1_1.ykkip[i - 1];
+			blksv1_1.pkkip[n - 1] = blksv1_1.pkkip[i - 1];
+			pathsv[n] = pathsv[i];
+			sort[n] = sort[i];
+			p[n] = p[i];
+			psum += p[n];
+		}
     }
 /* 	ALSO OBTAIN HIGHEST PROBABILITY NODE: */
     *isave = n;
     *pmax = 0.f;
-    i__1 = *isave;
-    for (i__ = 1; i__ <= i__1; ++i__) {
-	p[i__] /= psum;
-	if (p[i__] <= *pmax) {
-	    goto L950;
-	}
-	*pmax = p[i__];
-	*imax = i__;
-L950:
-	;
+    i1 = *isave;
+    for (i = 1; i <= i1; ++i) {
+		p[i] /= psum;
+		if (p[i] > *pmax) {
+			*pmax = p[i];
+			*imax = i;
+		}
     }
     return 0;
 } /* savep_ */

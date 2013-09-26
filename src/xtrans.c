@@ -46,38 +46,32 @@ doublereal xtrans_(integer *ielem, real *d0, integer *irate)
     rscale = 1200.f / *irate;
     b0 = *d0 / (mscale * rscale);
     b1 = (*d0 + 5.f) / (mscale * rscale);
-    if (*ielem == 6) {
-	goto L20;
+    
+    switch (*ielem) {
+    case 6:
+	    alpha = aparm[2] * 14.f;
+	    break;
+    case 5:
+	    alpha = aparm[1] * 7.f;    
+	    break;
+    default:
+	    alpha = mscale * aparm[0];
     }
-    if (*ielem == 5) {
-	goto L10;
-    }
-    alpha = mscale * aparm[0];
-    goto L100;
-L10:
-    alpha = aparm[1] * 7.f;
-    goto L100;
-L20:
-    alpha = aparm[2] * 14.f;
-L100:
+
     if (b1 <= 1.f) {
-	goto L200;
+		p1 = 1.f - exp(alpha * (b1 - 1.f)) * .5f;
+		p0 = 1.f - exp(alpha * (b0 - 1.f)) * .5f;
+		ret_val = p1 / p0;
+	    return ret_val;
     }
     if (b0 < 1.f && b1 > 1.f) {
-	goto L300;
+		p1 = exp(-alpha * (b1 - 1.f)) * -.5f;
+		p0 = 1.f - exp(alpha * (b0 - 1.f)) * .5f;
+		ret_val = p1 / p0;
+	    return ret_val;
     }
+
     ret_val = exp(-alpha * (b1 - b0));
-    goto L400;
-L200:
-    p1 = 1.f - exp(alpha * (b1 - 1.f)) * .5f;
-    p0 = 1.f - exp(alpha * (b0 - 1.f)) * .5f;
-    ret_val = p1 / p0;
-    goto L400;
-L300:
-    p1 = exp(-alpha * (b1 - 1.f)) * -.5f;
-    p0 = 1.f - exp(alpha * (b0 - 1.f)) * .5f;
-    ret_val = p1 / p0;
-L400:
     return ret_val;
 } /* xtrans_ */
 

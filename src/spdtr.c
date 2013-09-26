@@ -27,8 +27,7 @@ struct {
 
 #define blkrat_1 blkrat_
 
-doublereal spdtr_(integer *isrt, integer *ilrt, integer *iselm, integer *
-	ilelm)
+doublereal spdtr_(integer *isrt, integer *ilrt, integer *iselm, integer *ilelm)
 {
     /* System generated locals */
     real ret_val;
@@ -53,11 +52,11 @@ doublereal spdtr_(integer *isrt, integer *ilrt, integer *iselm, integer *
 /* 	THEN THERE CAN BE NO SPEED CHANGE: */
 
     if (*ilelm != *iselm) {
-	goto L100;
+		goto L100;
     }
     ret_val = 1.f;
     if (*isrt != 3) {
-	ret_val = 0.f;
+		ret_val = 0.f;
     }
     goto L300;
 
@@ -67,7 +66,7 @@ L100:
     idel = blkrat_1.memdel[*ilelm + *iselm * 6 - 7];
     ind1 = blkspd_1.mempr[*ilelm + *iselm * 6 - 7];
     if (ind1 != 0) {
-	goto L200;
+		goto L200;
     }
     ret_val = 0.f;
     goto L300;
@@ -76,10 +75,10 @@ L200:
     ret_val = blkspd_1.rtrans[*isrt + ind1 * 5 - 6];
     israte = *ilrt + idelsp;
     if (israte > 60) {
-	ret_val = 0.f;
+		ret_val = 0.f;
     }
     if (israte < 10) {
-	ret_val = 0.f;
+		ret_val = 0.f;
     }
 L300:
     return ret_val;

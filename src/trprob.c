@@ -23,7 +23,7 @@ struct {
 /* Subroutine */ int trprob_(integer *ip, integer *lambda, real *dur, integer 
 	*ilrate, real *p)
 {
-    static integer i__, k, n;
+    static integer i, k, n;
     static real pin[30];
     static integer kelm;
     static real psum, ptrx;
@@ -53,33 +53,31 @@ struct {
     p -= 26;
 
     /* Function Body */
-    if (*lambda != 0) {
-	goto L20;
+    if (*lambda == 0) {
+		for (n = 1; n <= 30; ++n) {
+			p[*ip + n * 25] = 0.f;
+		}
+		return 0;
     }
-    for (n = 1; n <= 30; ++n) {
-	p[*ip + n * 25] = 0.f;
-/* L10: */
-    }
-    goto L200;
-L20:
+
     ielem = blklam_1.ilami[blklam_1.ielmst[*lambda - 1] - 1];
 /* 	COMPUTE KEYSTATE TRANSITION PROBABILITY: */
     ptrx = xtrans_(&ielem, dur, ilrate);
+
 /* 	FOR EACH STATE, COMPUTE STATE TRANSITION PROBABILITY: */
     psum = 0.f;
     for (k = 1; k <= 6; ++k) {
-	for (i__ = 1; i__ <= 5; ++i__) {
-	    n = (i__ - 1) * 6 + k;
-	    kelm = k;
-	    irate = i__;
-	    ptrans_(&kelm, &irate, lambda, ilrate, &ptrx, &psum, pin, &n);
-/* L100: */
-	}
+		for (i = 1; i <= 5; ++i) {
+			n = (i - 1) * 6 + k;
+			kelm = k;
+			irate = i;
+			ptrans_(&kelm, &irate, lambda, ilrate, &ptrx, &psum, pin, &n);
+		}
     }
     for (n = 1; n <= 30; ++n) {
-	p[*ip + n * 25] = pin[n - 1] / psum;
-/* L300: */
+		p[*ip + n * 25] = pin[n - 1] / psum;
     }
+
 L200:
     return 0;
 } /* trprob_ */

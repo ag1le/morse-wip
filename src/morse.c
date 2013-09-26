@@ -9,6 +9,7 @@
 
 		http://www.netlib.org/f2c/libf2c.zip
 */
+char debug = '0'; 
 
 #include "f2c.h"
 #include <stdio.h>
@@ -37,7 +38,6 @@ int main(int argc, char**argv)
     static integer elmhat;
     static real spdhat;
     int res; 
-	int debug = 0; 
 	FILE *fp; 
 
 
@@ -53,12 +53,12 @@ int main(int argc, char**argv)
     	fp = fopen(argv[1],"r");
     	break; 
     case 3: 
-		debug = 1;
+		debug = *argv[1];
     	fp = fopen(argv[2],"r");
 		
     }
-    
-    if (debug) 
+  
+    if (debug=='d') 
 		printf("\nretstat\timax\telmhat\txhat\tltrhat\tx\tpx\tpmax\tspdhat");
 L1:
     for (n1 = 1; n1 <= 512; ++n1) {
@@ -76,7 +76,7 @@ L1:
 			//bpfdet_(&zrcv, &zdet);
 			++np;
 	/* 	DECIMATE 4 kHz by 40  down to 100Hz - 5 ms sample time for PROCES */
-		   if (np < 30) {
+		   if (np < DECIMATE) {
 			goto L3;
 			}
 			np = 0;
@@ -84,8 +84,8 @@ L1:
 			/* 	RN = RAND() */
 			rn = .01f;
 			retstat = proces_(&x, &rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax);
-			printf("\n%f",x);
-			if (debug) 
+//			printf("\n%f",x);
+			if (debug=='d') 
 				printf("\n%d\t%d\t%d\t%d\t%f\t%f\t%f\t%f",(int)retstat,(int)imax,(int)elmhat,(int)xhat,x,px,pmax,spdhat); 
 	L3:
 			;

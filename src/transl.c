@@ -1,11 +1,11 @@
 #include "f2c.h"
 #include <stdio.h>
 #include "morse.h" 
-
+extern char debug; 
 struct TREE {
  int dit,dah; 
  char chr[5]; 
-} tree[] = {
+} tree[] = {	// check  http://en.wikipedia.org/wiki/Morse_code
 //dit,dah, chr
  {1,2, '*'},	// null state
  {3,4, 'E'}, 	// .
@@ -25,7 +25,7 @@ struct TREE {
  {31,32,'H'},	// ....
  {33,34,'V'},	// ...-
  {35,36,'F'},	// ..-.
- {37,38,'Ü'},	// ..--
+ {37,38,'..--'},// ..--
  {39,40,'L'},	// .-..
  {41,42,'Ä'},	// .-.-
  {43,44,'P'},	// .--.
@@ -33,14 +33,14 @@ struct TREE {
  {47,48,'B'},	// -...
  {49,50,'X'},	// -..-
  {51,52,'C'},	// -.-.
- {53,54,'Y'},	// -.--
+ {53,00,'Y'},	// -.--
  {55,00,'Z'},	// --..
  {57,00,'Q'},	// --.-
  {54,00,'Ö'},	// ---.
  {56,57,'Š'},	// ----
  {00,00,'5'},	// .....
  {00,00,'4'},	// ....-
- {00,00,'*'},	// ...-.
+ {00,60,'*'},	// ...-.
  {00,00,'3'},	// ...--
  {00,00,'É'},	// ..-..
  {00,00,'*'},	// ..-.-
@@ -48,24 +48,29 @@ struct TREE {
  {00,00,'2'},	// ..---
  {00,00,'*'},	// 
  {00,00,'È'},	// 
- {00,00,'+'},	// 
- {00,00,'*'},	//
- {00,00,'*'},	//
- {00,00,'*'},	// J ? 
+ {00,63,'+'},	// .-.-.
+ {00,00,'*'},	// .-.--
+ {00,00,'*'},	// .--..
+ {59,00,'à'},	// .--.-
  {00,00,'*'},	// .----
- {00,00,'1'},
- {00,00,'6'},
- {00,00,'/'},
- {00,00,'*'},
- {00,00,'Ç'},
- {00,00,'*'},
- {00,00,'Ĥ'},
- {00,00,'Ṅ'},
- {00,00,'8'},
- {00,00,'7'},
- {00,00,'9'},
- {00,00,'0'},
- {00,00,'?'}
+ {00,00,'1'},	// .---.
+ {00,00,'6'},	// -....
+ {61,00,'='},	// -...-
+ {00,00,'/'},	// -..-.
+ {00,00,'*'},	// -..--
+ {00,00,'*'},	// -.-..
+ {00,00,'Ĥ'},	// -.-.-
+ {00,00,'Ṅ'},	// -.--.
+ {00,00,'8'},	// ---..
+ {00,00,'7'},	// --...
+ {00,00,'9'},	// ----.
+ {00,00,'0'},	// -----
+ {00,00,'?'},	// ..--..
+ {00,00,'@'},	// .--.-.
+ {00,00,'SK'},	// ...-.-
+ {00,62,'*'},	// -...-.
+ {00,00,'BK'},	// -...-.-
+ {00,00,'.'}	// .-.-.-
 }; 
 
 /* Common Block Declarations */
@@ -136,6 +141,86 @@ int transl_(int *ltr)
 	goto L700;
     }
 
+if (debug == 't') { // print received tokens 
+	switch (*ltr)
+	{
+/* 	 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 */
+/* 	.^ .~ .w .p -^ -~ -w -p ^. ^- ~. ~- w. w- p. p- */
+	case 16:	// p-
+		printf("p-");
+		newstate = tree[curstate].dah;		
+		break;		
+	case 15:	// p.
+		printf("p.");
+		newstate = tree[curstate].dit;		
+		break;
+	case 14:	// w-	
+		printf("w-");
+		newstate = tree[curstate].dah;		
+		break;
+	case 13:	// w.
+		printf("w.");
+		newstate = tree[curstate].dit;		
+		break;
+	case 12:	// ~- 
+		printf("~-");
+		newstate = tree[curstate].dah;		
+		break;
+	case 11:	// ~.
+		printf("~.");
+		newstate = tree[curstate].dit;		
+		break;
+	case 10:	// ^-
+		printf("^-");
+		newstate = tree[curstate].dah;		
+		break;
+	case 9:  	// ^.
+		printf("^.");
+		newstate = tree[curstate].dit;		
+		break;
+	case 8:
+		printf("-p");
+		printf("%s ",tree[curstate].chr);
+		newstate = 0;		
+		break;
+	case 7:
+		printf("-w");
+		printf("%s ",tree[curstate].chr);
+		newstate = 0;
+		break;
+	case 6:
+		printf("-~");
+		printf("%s",tree[curstate].chr);
+		newstate = 0;		
+		break;
+	case 5:
+		printf("-^");
+		break;
+	case 4:
+		printf(".p");
+		printf("%s ",tree[curstate].chr);
+		newstate = 0;
+		break;
+	case 3:
+		printf(".w");
+		printf("%s ",tree[curstate].chr);
+		newstate = 0;
+		break;
+	case 2:
+		printf(".~");
+		printf("%s",tree[curstate].chr);
+		newstate = 0;		
+		break;
+	case 1:
+		printf(".^");
+		break;
+	default:
+		break;
+
+	}
+
+}
+else {
 //	printf("\nltr: %d %d :", *ltr, elmhat);
 	switch (*ltr)
 	{
@@ -172,6 +257,7 @@ int transl_(int *ltr)
 	//	ltrhat = 0; 
 		break;
 	}
+}
 L700:
 	curstate = newstate;
     ixlast = ixl;

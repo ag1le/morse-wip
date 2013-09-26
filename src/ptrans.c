@@ -11,6 +11,7 @@
 */
 
 #include "f2c.h"
+#include "morse.h"
 
 /* Common Block Declarations */
 
@@ -26,11 +27,10 @@ struct {
 
 #define blkelm_1 blkelm_
 
-/* Subroutine */ int ptrans_(integer *kelem, integer *irate, integer *lambda, 
-	integer *ilrate, real *ptrx, real *psum, real *pin, integer *n)
+/* Subroutine */ int ptrans_(integer *kelem, integer *irate, integer *lambda, integer *ilrate, real *ptrx, real *psum, real *pin, integer *n)
 {
     static real pelem, prate;
-    extern doublereal spdtr_(integer *, integer *, integer *, integer *);
+
 
 /* 	THIS FUNCTION SUBROUTINE RETURNS THE PATH CONDITIONAL TRANSITION */
 /* 	PROBABILITIES TO EACH ALLOWABLE STATE N. */
@@ -54,29 +54,27 @@ struct {
 
     /* Function Body */
     if (*kelem != blklam_1.ilami[blklam_1.ielmst[*lambda - 1] - 1]) {
-	goto L100;
+		goto L100;
     }
     pin[*n] = *ptrx;
+
 /* 	HOWEVER, IF CURRENT DATA RATE STATE  = 3, THEN TRANS PROB = 0 ... WHY ? */
     if (*irate != 3) {
-	pin[*n] = 0.f;
+		pin[*n] = 0.f;
     }
     goto L200;
+
 /* 	OTHERWISE: */
 /* 	OBTAIN ELEM TRANS PROBS TABLE: */
 
 L100:
-    pelem = blkelm_1.elemtr[blklam_1.ielmst[*lambda - 1] + (*kelem << 4) - 17]
-	    ;
+    pelem = blkelm_1.elemtr[blklam_1.ielmst[*lambda - 1] + (*kelem << 4) - 17];
 /* 	NEXT COMPUTE ELEM-CONDITIONAL SPEED TRANS PROB: */
-    prate = spdtr_(irate, ilrate, kelem, &blklam_1.ilami[blklam_1.ielmst[*
-	    lambda - 1] - 1]);
+    prate = spdtr_(irate, ilrate, kelem, &blklam_1.ilami[blklam_1.ielmst[*lambda - 1] - 1]);
 /* 	TRANS IS THE PRODUCT: */
     pin[*n] = (1.f - *ptrx) * pelem * prate;
 L200:
     *psum += pin[*n];
-/* 	PRINT 50, N, KELEM, IRATE, ILAMI(IELMST(LAMBDA)), PIN(N), PTRX, PELEM, PRATE, PSUM */
-/* 50	FORMAT(1X,'PTRANS:',4(I3,2X),5(F8.3,2X)) */
     return 0;
 } /* ptrans_ */
 

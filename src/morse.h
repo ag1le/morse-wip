@@ -1,4 +1,4 @@
-
+                q 
 
 extern int rcvr_(real *, real *);
 extern int noise_(real *, real *, real *);
@@ -18,3 +18,8 @@ extern int trprob_(integer *, integer *, real *, integer *, real *);
 extern int savep_(real *, integer *, integer *, integer *, integer *, real *, integer *, integer *, real *, integer *, integer *, real *);
 extern int likhd_(real *, real *, integer *, integer *, real *, integer *, real *, real *);
 extern int path_(integer *, integer *, real *, integer *, integer *, real *, integer *);
+extern doublereal spdtr_(integer *, integer *, integer *, integer *);
+
+#define FSAMPLE 4000.0			// Sampling Frequency 
+#define DECIMATE 40 			// Decimation 
+#define SAMPLEDURATION  (1000. * DECIMATE) / FSAMPLE	// 1000*DECIMATE / FSAMPLE 

@@ -11,6 +11,7 @@
 */
 
 #include "f2c.h"
+#include "morse.h"
 
 /* Common Block Declarations */
 
@@ -42,8 +43,7 @@ struct {
 
 static integer c__1 = 1;
 
-/* Subroutine */ int path_(integer *ip, integer *lambda, real *dur, integer *
-	ilrate, integer *lamsav, real *dursav, integer *ilrsav)
+/* Subroutine */ int path_(integer *ip, integer *lambda, real *dur, integer *ilrate, integer *lamsav, real *dursav, integer *ilrsav)
 {
      /* Local variables */
     static integer i, j, k, n, ixl, ixs, ilelm;
@@ -73,41 +73,42 @@ static integer c__1 = 1;
 
     /* Function Body */
     for (k = 1; k <= 6; ++k) {
-	for (i = 1; i <= 5; ++i) {
+		for (i = 1; i <= 5; ++i) {
+
 /*  STATE IDENTITY N: */
-
-	    n = (i - 1) * 6 + k;
+			n = (i - 1) * 6 + k;
+			
 /*  NEW PATH IDENTITY: */
-
-	    j = (*ip - 1) * 30 + n;
+			j = (*ip - 1) * 30 + n;
+			
 /*  NEW LTR STATE: */
 
-	    if (*lambda != 0) {
-		goto L50;
-	    }
-	    lamsav[j] = 0;
-	    goto L100;
-L50:
-	    lamsav[j] = blkmem_1.memfcn[*lambda + k * 400 - 401];
-	    if (lamsav[j] == 0) {
-		goto L100;
-	    }
+			if (*lambda != 0) {
+				goto L50;
+			}
+			lamsav[j] = 0;
+			goto L100;
+	L50:
+			lamsav[j] = blkmem_1.memfcn[*lambda + k * 400 - 401];
+			if (lamsav[j] == 0) {
+				goto L100;
+			}
+
 /*  NEW DURATION: */
 /*  OBTAIN KEYSTATE OF SAVED PATH AND NEW STATE: */
-	    ilelm = blklam_1.ilami[blklam_1.ielmst[*lambda - 1] - 1];
-	    ixl = blklam_1.ilamx[ilelm - 1];
-	    ixs = blks_1.isx[k - 1];
+			ilelm = blklam_1.ilami[blklam_1.ielmst[*lambda - 1] - 1];
+			ixl = blklam_1.ilamx[ilelm - 1];
+			ixs = blks_1.isx[k - 1];
+
 /* CALCULATE DURATION - ADD SAMPLE DURATION 5 ms FOR EACH VALID PATH */
-	    dursav[j] = *dur * (1 - ixs - ixl + (ixs << 1) * ixl) + 5.f;
+			dursav[j] = *dur * (1 - ixs - ixl + (ixs << 1) * ixl) + SAMPLEDURATION;
+
 /* 	NEW DATA RATE: */
-	    ilrsav[j] = *ilrate + (i - 3) * blkrat_1.memdel[ilelm + k * 6 - 
-		    7];
-	    goto L100;
-L100:
-	    ;
-	}
+			ilrsav[j] = *ilrate + (i - 3) * blkrat_1.memdel[ilelm + k * 6 - 7];
+	L100:
+			;
+		}
     }
-/* L200: */
     return 0;
 } /* path_ */
 
