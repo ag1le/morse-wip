@@ -12,6 +12,7 @@
 
 #include "f2c.h"
 #include <stdio.h>
+extern char debug; 
 
 int sprob_(real *p, integer *isave, integer *ilrsav, real *pelm, integer *khat, real *spdhat, real *px)
 {
@@ -62,8 +63,10 @@ int sprob_(real *p, integer *isave, integer *ilrsav, real *pelm, integer *khat, 
     *pelm = 0.f;
 
     for (k = 1; k <= 6; ++k) {
-// IF WANT ELEMENT PROBABILITIES BY SAMPLE UNCOMMENT BELOW 
-//    printf("\t%f",pselem[k - 1]);
+// IF WANT ELEMENT PROBABILITIES BY SAMPLE ENABLE debug flag 'd'
+if (debug == 'd') {
+    printf("\t%f",pselem[k - 1]);
+    }
 		if (pselem[k - 1] >= *pelm) {
 			*pelm = pselem[k - 1];
 			*khat = k;

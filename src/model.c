@@ -20,7 +20,7 @@ static doublereal c_b5 = 10.;
 	isr, integer *ixs, real *phi, real *qa, real *hz)
 {
     /* System generated locals */
-    doublereal d__1;
+    doublereal d1;
 
     /* Builtin functions */
     double exp(doublereal), pow_dd(doublereal *, doublereal *);
@@ -69,8 +69,8 @@ L100:
     goto L300;
 L200:
     xsamp = r1 * 22.4f;
-    d__1 = (doublereal) (-2 / xsamp);
-    *phi = pow_dd(&c_b5, &d__1);
+    d1 = (doublereal) (-2 / xsamp);
+    *phi = pow_dd(&c_b5, &d1);
     if (bauds >= 14.f) {
 	*phi = 1.f;
     }

@@ -47,7 +47,7 @@ int main(int argc, char**argv)
     
     switch (argc) {
     case 1:
-        printf("\nusage: %s [debug] filename\n", argv[0]);
+        printf("\nusage: %s [debug d or t] filename\n", argv[0]);
     	return 0;
     case 2: 
     	fp = fopen(argv[1],"r");
@@ -75,15 +75,14 @@ L1:
 			//rcvr_(&zsig, &zrcv);
 			//bpfdet_(&zrcv, &zdet);
 			++np;
-	/* 	DECIMATE 4 kHz by 40  down to 100Hz - 5 ms sample time for PROCES */
+	/* 	DECIMATE 4 kHz by 20  down to 200Hz - 5 ms sample time for PROCES */
 		   if (np < DECIMATE) {
 			goto L3;
 			}
 			np = 0;
-			//noise_(&zdet, &rn, &zout);
-			/* 	RN = RAND() */
-			rn = .01f;
-			retstat = proces_(&x, &rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax);
+			if (x > 1.0) x = 1.0; 
+			noise_(&x, &rn, &zout);
+			retstat = proces_(&zout, &rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax);
 //			printf("\n%f",x);
 			if (debug=='d') 
 				printf("\n%d\t%d\t%d\t%d\t%f\t%f\t%f\t%f",(int)retstat,(int)imax,(int)elmhat,(int)xhat,x,px,pmax,spdhat); 

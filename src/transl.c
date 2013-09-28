@@ -259,6 +259,7 @@ else {
 	}
 }
 L700:
+	fflush(stdout);
 	curstate = newstate;
     ixlast = ixl;
     lstelm = elmhat;

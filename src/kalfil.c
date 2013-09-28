@@ -35,7 +35,7 @@ struct {
 
 static integer c__1 = 1;
 
-/* Subroutine */ int kalfil_(real *z__, integer *ip, real *rn, integer *ilx, 
+/* Subroutine */ int kalfil_(real *z, integer *ip, real *rn, integer *ilx, 
 	integer *ixs, integer *kelem, integer *jnode, integer *israte, real *
 	dur, integer *ilrate, real *pin, real *lkhdj)
 {
@@ -43,25 +43,15 @@ static integer c__1 = 1;
 
     static real pinmin = 1e-4f;
 
-    /* Format strings */
-    static char fmt_3[] = "(1x,\002KALFIL:\002,i3,2x,12(f9.3,1x))";
 
     /* System generated locals */
-    real r__1;
+    real r1;
 
-    /* Builtin functions */
-    //double exp(doublereal), sqrt(doublereal);
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
 
     /* Local variables */
     static real a, g, qa, hz, pz, zr, phi, pkk, ykk, expa, pest;
-    extern /* Subroutine */ int model_(real *, integer *, integer *, integer *
-	    , integer *, real *, real *, real *);
+    extern /* Subroutine */ int model_(real *, integer *, integer *, integer *, integer *, real *, real *, real *);
     static real ppred, ypred, pzinv;
-
-    /* Fortran I/O blocks */
-    static cilist io___16 = { 0, 6, 0, fmt_3, 0 };
-
 
 
 /*   THIS SUBROUTINE COMPUTES THE ARRAY OF KALMAN FILTER */
@@ -111,15 +101,15 @@ L100:
     pzinv = 1.f / pz;
     g = ppred * hz * pzinv;
     pest = (1.f - g * hz) * ppred;
-    zr = *z__ - hz * ypred;
+    zr = *z - hz * ypred;
     blksv1_1.ykksv[*jnode - 1] = ypred + g * zr;
     blksv1_1.pkksv[*jnode - 1] = pest;
     if (blksv1_1.ykksv[*jnode - 1] <= .01f) {
 	blksv1_1.ykksv[*jnode - 1] = .01f;
     }
 /* Computing 2nd power */
-    r__1 = zr;
-    a = pzinv * .5f * (r__1 * r__1);
+    r1 = zr;
+    a = pzinv * .5f * (r1 * r1);
     if (a <= 1e3f) {
 	goto L200;
     }
@@ -129,21 +119,6 @@ L200:
     expa = exp(-a);
     *lkhdj = 1.f / sqrt(pz) * exp(-a);
     goto L400;
-    s_wsfe(&io___16);
-    do_fio(&c__1, (char *)&(*ip), (ftnlen)sizeof(integer));
-    do_fio(&c__1, (char *)&(*z__), (ftnlen)sizeof(real));
-    do_fio(&c__1, (char *)&hz, (ftnlen)sizeof(real));
-    do_fio(&c__1, (char *)&qa, (ftnlen)sizeof(real));
-    do_fio(&c__1, (char *)&phi, (ftnlen)sizeof(real));
-    do_fio(&c__1, (char *)&pz, (ftnlen)sizeof(real));
-    do_fio(&c__1, (char *)&zr, (ftnlen)sizeof(real));
-    do_fio(&c__1, (char *)&g, (ftnlen)sizeof(real));
-    do_fio(&c__1, (char *)&pest, (ftnlen)sizeof(real));
-    do_fio(&c__1, (char *)&ykk, (ftnlen)sizeof(real));
-    do_fio(&c__1, (char *)&blksv1_1.ykksv[*jnode - 1], (ftnlen)sizeof(real));
-    do_fio(&c__1, (char *)&a, (ftnlen)sizeof(real));
-    do_fio(&c__1, (char *)&(*lkhdj), (ftnlen)sizeof(real));
-    e_wsfe();
 L400:
     return 0;
 } /* kalfil_ */

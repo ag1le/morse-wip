@@ -30,18 +30,12 @@ struct {
 
 static integer c__1 = 1;
 
-/* Subroutine */ int likhd_(real *z__, real *rn, integer *ip, integer *lambda,
+/* Subroutine */ int likhd_(real *z, real *rn, integer *ip, integer *lambda,
 	 real *dur, integer *ilrate, real *p, real *lkhd)
 {
-    /* Format strings */
-    static char fmt_110[] = "(1x,\002LIKHD:\002,i2,1x,i2,1x,f5.3,2x,i3,3(2x,"
-	    "i2),4(3x,f8.3))";
-
-    /* Builtin functions */
-    integer s_wsfe(cilist *), do_fio(integer *, char *, ftnlen), e_wsfe(void);
-
+ 
     /* Local variables */
-    static integer i__, j, k, n;
+    static integer i, j, k, n;
     static real pin;
     static integer ilx, ixs;
     static real lkhdj;
@@ -50,9 +44,6 @@ static integer c__1 = 1;
 	    integer *, integer *, integer *, integer *, real *, integer *, 
 	    real *, real *);
     static integer israte;
-
-    /* Fortran I/O blocks */
-    static cilist io___11 = { 0, 6, 0, fmt_110, 0 };
 
 
 
@@ -87,38 +78,23 @@ static integer c__1 = 1;
     ilx = blklam_1.ilamx[kelem - 1];
 /* 	FOR EACH STATE: */
     for (k = 1; k <= 6; ++k) {
-	for (i__ = 1; i__ <= 5; ++i__) {
+		for (i = 1; i <= 5; ++i) {
 /* 	OBTAIN KEYSTATE, RATE STATE, STATE N, NEW NODE: */
-	    ixs = blks_1.isx[k - 1];
-	    israte = i__;
-	    n = (i__ - 1) * 6 + k;
-	    j = (*ip - 1) * 30 + n;
-	    pin = p[*ip + n * 25];
+			ixs = blks_1.isx[k - 1];
+			israte = i;
+			n = (i - 1) * 6 + k;
+			j = (*ip - 1) * 30 + n;
+			pin = p[*ip + n * 25];
 /* 	COMPUTE AND STORE LIKELIHOOD: */
-	    kalfil_(z__, ip, rn, &ilx, &ixs, &kelem, &j, &israte, dur, ilrate,
-		     &pin, &lkhdj);
-	    lkhd[j] = lkhdj;
-	    goto L100;
-	    if (pin <= 1e-6f) {
-		goto L100;
-	    }
-	    s_wsfe(&io___11);
-	    do_fio(&c__1, (char *)&(*ip), (ftnlen)sizeof(integer));
-	    do_fio(&c__1, (char *)&n, (ftnlen)sizeof(integer));
-	    do_fio(&c__1, (char *)&(*z__), (ftnlen)sizeof(real));
-	    do_fio(&c__1, (char *)&(*lambda), (ftnlen)sizeof(integer));
-	    do_fio(&c__1, (char *)&k, (ftnlen)sizeof(integer));
-	    do_fio(&c__1, (char *)&i__, (ftnlen)sizeof(integer));
-	    do_fio(&c__1, (char *)&(*ilrate), (ftnlen)sizeof(integer));
-	    do_fio(&c__1, (char *)&(*dur), (ftnlen)sizeof(real));
-	    do_fio(&c__1, (char *)&pin, (ftnlen)sizeof(real));
-	    do_fio(&c__1, (char *)&lkhdj, (ftnlen)sizeof(real));
-	    do_fio(&c__1, (char *)&(*rn), (ftnlen)sizeof(real));
-	    e_wsfe();
-/* 	2 F8.4,2X,F8.4) */
+			kalfil_(z, ip, rn, &ilx, &ixs, &kelem, &j, &israte, dur, ilrate,&pin, &lkhdj);
+			lkhd[j] = lkhdj;
+			goto L100;
+			if (pin <= 1e-6f) {
+			goto L100;
+			}
 L100:
-	    ;
-	}
+			;
+		}
     }
 L200:
     return 0;

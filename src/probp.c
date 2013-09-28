@@ -15,10 +15,10 @@
 /* Subroutine */ int probp_(real *p, real *pin, integer *isave, real *lkhd)
 {
     /* System generated locals */
-    integer i__1;
+    integer i1;
 
     /* Local variables */
-    static integer i__, j, n, ni;
+    static integer i, j, n, ni;
     static real pmax, psav[750], psum;
 
 
@@ -40,31 +40,28 @@
     pmax = 0.f;
     psum = 0.f;
 /* 	FOR EACH SAVED PATH, EACH TRANSITION: */
-    i__1 = *isave;
-    for (i__ = 1; i__ <= i__1; ++i__) {
-	for (n = 1; n <= 30; ++n) {
-/* 		COMPUTE IDENTITY OF NEW PATH: */
-	    j = (i__ - 1) * 30 + n;
-/*      PRODUCT OF PROBS, ADD TO PSUM */
-	    psav[j - 1] = p[i__] * pin[i__ + n * 25] * lkhd[j];
-	    psum += psav[j - 1];
-	    if (psav[j - 1] <= pmax) {
-		goto L100;
-	    }
-	    pmax = psav[j - 1];
+    i1 = *isave;
+    for (i = 1; i <= i1; ++i) {
+		for (n = 1; n <= 30; ++n) {
+	/* 		COMPUTE IDENTITY OF NEW PATH: */
+			j = (i - 1) * 30 + n;
+	/*      PRODUCT OF PROBS, ADD TO PSUM */
+			psav[j - 1] = p[i] * pin[i + n * 25] * lkhd[j];
+			psum += psav[j - 1];
+			if (psav[j - 1] <= pmax) {
+			goto L100;
+			}
+			pmax = psav[j - 1];
 L100:
-	    ;
-	}
+			;
+		}
     }
 /* 	NORMALIZE TO GET PROBABILITIES; SAVE: */
     ni = *isave * 30;
-    i__1 = ni;
-    for (j = 1; j <= i__1; ++j) {
-	p[j] = psav[j - 1] / psum;
-/* 	PRINT 50, J, P(J), PSAV(J), PMAX */
-/* 50	FORMAT('PROBP:',I3,3(2x,F8.3)) */
-/* L200: */
-    }
+    i1 = ni;
+    for (j = 1; j <= i1; ++j) {
+		p[j] = psav[j - 1] / psum;
+	}
     return 0;
 } /* probp_ */
 
