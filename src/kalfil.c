@@ -10,7 +10,8 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#include "f2c.h"
+//#include "f2c.h"
+#include "morse.h"
 #include <math.h> 
 /* Common Block Declarations */
 

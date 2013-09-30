@@ -1,5 +1,6 @@
 NEWS & BUGS 
 
+
 2013-Sept-26 
 	enabled decoding from FLDIGI data feed. clamping x value to 1.0 max as FLDIGI sends values over 20.0 during startup before AGC kicks in.
 	BUG: P(dah) abruptly goes from near 1.0 down and the bounces back => P(max) jumps to huge values 

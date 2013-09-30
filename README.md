@@ -4,12 +4,15 @@ This software is a Morse decoder orinally created by Dr. E. L. Bell in 1977.
 The software was manually entered from Fortran program listings and later converted to C++
 by AG1LE Mauri Niininen.  
 
-2013-Sept-26 
+2013-SEP-29 
+	
+
+2013-SEP-26 
 	enabled decoding from FLDIGI data feed. clamping x value to 1.0 max as FLDIGI sends values over 20.0 during startup before AGC kicks in.
 	BUG: P(dah) abruptly goes from near 1.0 down and the bounces back => P(max) jumps to huge values 
 	too long dahs?  
 	
-2013-Sept-25 
+2013-SEP-25 
 	BUG: missing word space /pause between words QUICK BROWN  when < 30 db SNR ?
 	FOUND: enabled  noise.c processing in morse.c 
 	changed to: 
@@ -17,7 +20,7 @@ by AG1LE Mauri Niininen.
 			retstat = proces_(&zout, &rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax);
 	much better decoding with low SNR test signals.
 
-2013-Sept-25  
+2013-SEP-25  
 	run "./morse t test/test20db.in | less"
 	BUG: QUICD  and FOB  when high 20 dB SNR?  
 	D should be K  and  B should be X 

@@ -71,11 +71,10 @@ am__dirstamp = $(am__leading_dot)dirstamp
 am_morse_OBJECTS = src/autocr.$(OBJEXT) src/initl.$(OBJEXT) \
 	src/likhd.$(OBJEXT) src/path.$(OBJEXT) src/spdtr.$(OBJEXT) \
 	src/trelis.$(OBJEXT) src/bpfdet.$(OBJEXT) src/inputl.$(OBJEXT) \
-	src/model.$(OBJEXT) src/probp.$(OBJEXT) src/rcvr.$(OBJEXT) \
-	src/sprob.$(OBJEXT) src/trprob.$(OBJEXT) src/kalfil.$(OBJEXT) \
-	src/morse.$(OBJEXT) src/proces.$(OBJEXT) src/savep.$(OBJEXT) \
-	src/stats.$(OBJEXT) src/xtrans.$(OBJEXT) src/key.$(OBJEXT) \
-	src/noise.$(OBJEXT) src/ptrans.$(OBJEXT) src/simsgi.$(OBJEXT) \
+	src/model.$(OBJEXT) src/probp.$(OBJEXT) src/sprob.$(OBJEXT) \
+	src/trprob.$(OBJEXT) src/kalfil.$(OBJEXT) src/morse.$(OBJEXT) \
+	src/proces.$(OBJEXT) src/savep.$(OBJEXT) src/stats.$(OBJEXT) \
+	src/xtrans.$(OBJEXT) src/noise.$(OBJEXT) src/ptrans.$(OBJEXT) \
 	src/transl.$(OBJEXT)
 morse_OBJECTS = $(am_morse_OBJECTS)
 morse_LDADD = $(LDADD)
@@ -135,7 +134,7 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lf2c -lm
+LIBS = -lm
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/mauri/Projects/morse/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
@@ -200,11 +199,10 @@ AM_CFLAGS = -ggdb
 morse_SOURCES = src/autocr.c	src/initl.c   src/likhd.c  src/path.c\
 				src/spdtr.c   src/trelis.c\
 				src/bpfdet.c  src/inputl.c  src/model.c  \
-				src/probp.c   src/rcvr.c    src/sprob.c   src/trprob.c\
+				src/probp.c   src/sprob.c   src/trprob.c\
 				src/kalfil.c  src/morse.c  src/proces.c  src/savep.c   \
 				src/stats.c   src/xtrans.c\
-				src/key.c     src/noise.c  src/ptrans.c\
-				src/simsgi.c  src/transl.c
+				src/noise.c  src/ptrans.c src/transl.c
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -320,7 +318,6 @@ src/inputl.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/model.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/probp.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/rcvr.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/sprob.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/trprob.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
@@ -333,11 +330,8 @@ src/savep.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/stats.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/xtrans.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/key.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/noise.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/ptrans.$(OBJEXT): src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
-src/simsgi.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/transl.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
@@ -352,7 +346,6 @@ mostlyclean-compile:
 	-rm -f src/initl.$(OBJEXT)
 	-rm -f src/inputl.$(OBJEXT)
 	-rm -f src/kalfil.$(OBJEXT)
-	-rm -f src/key.$(OBJEXT)
 	-rm -f src/likhd.$(OBJEXT)
 	-rm -f src/model.$(OBJEXT)
 	-rm -f src/morse.$(OBJEXT)
@@ -361,9 +354,7 @@ mostlyclean-compile:
 	-rm -f src/probp.$(OBJEXT)
 	-rm -f src/proces.$(OBJEXT)
 	-rm -f src/ptrans.$(OBJEXT)
-	-rm -f src/rcvr.$(OBJEXT)
 	-rm -f src/savep.$(OBJEXT)
-	-rm -f src/simsgi.$(OBJEXT)
 	-rm -f src/spdtr.$(OBJEXT)
 	-rm -f src/sprob.$(OBJEXT)
 	-rm -f src/stats.$(OBJEXT)
@@ -380,7 +371,6 @@ include src/$(DEPDIR)/bpfdet.Po
 include src/$(DEPDIR)/initl.Po
 include src/$(DEPDIR)/inputl.Po
 include src/$(DEPDIR)/kalfil.Po
-include src/$(DEPDIR)/key.Po
 include src/$(DEPDIR)/likhd.Po
 include src/$(DEPDIR)/model.Po
 include src/$(DEPDIR)/morse.Po
@@ -389,9 +379,7 @@ include src/$(DEPDIR)/path.Po
 include src/$(DEPDIR)/probp.Po
 include src/$(DEPDIR)/proces.Po
 include src/$(DEPDIR)/ptrans.Po
-include src/$(DEPDIR)/rcvr.Po
 include src/$(DEPDIR)/savep.Po
-include src/$(DEPDIR)/simsgi.Po
 include src/$(DEPDIR)/spdtr.Po
 include src/$(DEPDIR)/sprob.Po
 include src/$(DEPDIR)/stats.Po
@@ -759,6 +747,8 @@ uninstall-am: uninstall-binPROGRAMS
 	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
 	uninstall-am uninstall-binPROGRAMS
 
+
+#				src/simsgi.c src/key.c  src/rcvr.c      
 
 #dist_noinst_SCRIPTS = autogen.sh
 

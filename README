@@ -1,4 +1,4 @@
-PROJECT IDEA
+MORSE - PROJECT IDEAS
 
 1. Build a simple to use C/C++ advanced Bayesian Morse decoder library
 
@@ -52,8 +52,7 @@ PROJECT IDEA
 			test results by software version
 			
 		http://orgmode.org/worg/org-contrib/babel/examples/data-collection-analysis.html
-
-
+	
 
 INSTALL FROM SCRATCH 
 aclocal
@@ -62,3 +61,8 @@ autoheader
 automake --add-missing
 ./configure 
 make 
+
+
+
+
+

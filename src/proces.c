@@ -10,7 +10,7 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#include "f2c.h"
+//#include "f2c.h"
 #include "morse.h"
 
 /* Table of constant values */

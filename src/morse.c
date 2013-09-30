@@ -11,7 +11,7 @@
 */
 char debug = '0'; 
 
-#include "f2c.h"
+//#include "f2c.h"
 #include <stdio.h>
 #include <math.h>
 #include "morse.h"

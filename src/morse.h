@@ -1,4 +1,9 @@
 
+typedef long int integer;
+typedef unsigned long int uinteger;
+typedef float real;
+typedef double doublereal;
+typedef int ftnlen;
 
 extern int rcvr_(real *, real *);
 extern int noise_(real *, real *, real *);
@@ -24,3 +29,4 @@ extern doublereal spdtr_(integer *, integer *, integer *, integer *);
 #define DECIMATE  20			// Decimation     FLDIGI=40    MORSE.M=20 
 #define SAMPLEDURATION  (1000. * DECIMATE) / FSAMPLE	// 1000*DECIMATE / FSAMPLE SHOULD BE  5 msec
 #define NDELAY  200				// 200 SAMPLES * 5 msec = 1000 msec decoding delay 
+

@@ -1,4 +1,4 @@
-#include "f2c.h"
+//#include "f2c.h"
 #include <stdio.h>
 #include "morse.h" 
 extern char debug; 

@@ -10,7 +10,12 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#include "f2c.h"
+//#include "f2c.h"
+#include <math.h>
+#include "morse.h"
+
+
+
 
 /* Table of constant values */
 
@@ -23,7 +28,7 @@ static doublereal c_b5 = 10.;
     doublereal d1;
 
     /* Builtin functions */
-    double exp(doublereal), pow_dd(doublereal *, doublereal *);
+  //  double exp(doublereal), pow_dd(doublereal *, doublereal *);
 
     /* Local variables */
     static real r1, bauds, xsamp;
@@ -70,7 +75,8 @@ L100:
 L200:
     xsamp = r1 * 22.4f;
     d1 = (doublereal) (-2 / xsamp);
-    *phi = pow_dd(&c_b5, &d1);
+//    *phi = pow_dd(&c_b5, &d1);
+    *phi = pow(10.0, d1);
     if (bauds >= 14.f) {
 	*phi = 1.f;
     }

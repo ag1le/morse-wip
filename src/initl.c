@@ -10,7 +10,8 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#include "f2c.h"
+//#include "f2c.h"
+#include "morse.h"
 
 /* Common Block Declarations */
 
@@ -304,19 +305,17 @@ static integer c__1 = 1;
     static char fmt_70[] = "(i2)";
 
     /* System generated locals */
-    olist o__1;
-    alist al__1;
+//    olist o__1;
+//    alist al__1;
 
     /* Builtin functions */
-    integer f_open(olist *), s_rsfe(cilist *), do_fio(integer *, char *, 
-	    ftnlen), e_rsfe(void), f_end(alist *), s_wsfe(cilist *), e_wsfe(
-	    void);
+//    integer f_open(olist *), s_rsfe(cilist *), do_fio(integer *, char *, ftnlen), e_rsfe(void), f_end(alist*), s_wsfe(cilist *), e_wsfe(void);
 
     /* Local variables */
     static integer i__, k, iarray[8];
 
     /* Fortran I/O blocks */
-    static cilist io___2 = { 0, 20, 0, fmt_30, 0 };
+/*    static cilist io___2 = { 0, 20, 0, fmt_30, 0 };
     static cilist io___5 = { 0, 20, 0, fmt_40, 0 };
     static cilist io___6 = { 0, 20, 0, fmt_70, 0 };
 
@@ -336,7 +335,7 @@ static integer c__1 = 1;
 /* 	2	'IMI',0,0,0,0,'BT',0,0,0,'EEE'/ */
 /* 	PRINT 5, IALPH(1:36) */
 /* 5	FORMAT(1X,A36) */
-    o__1.oerr = 0;
+/*    o__1.oerr = 0;
     o__1.ounit = 20;
     o__1.ofnmlen = 6;
     o__1.ofnm = "MORSEM";
@@ -358,8 +357,8 @@ static integer c__1 = 1;
 /* 	IELMST(1..16) =  LAST TWO ELEMENTS */
 /* 	 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 */
 /* 	.^ .~ .w .p -^ -~ -w -p ^. ^- ~. ~- w. w- p. p- */
-	for (k = 1; k <= 6; ++k) {
-/* L11: */
+/*	for (k = 1; k <= 6; ++k) {
+
 	    blkmem_1.memfcn[i__ + k * 400 - 401] = iarray[k + 1];
 	}
 	blktrn_1.ltrmap[i__ - 1] = iarray[0];
@@ -370,7 +369,7 @@ static integer c__1 = 1;
 	if (blklam_1.ielmst[i__ - 1] == 8 || blklam_1.ielmst[i__ - 1] == 4) {
 	    blktrn_1.iblank[i__ - 1] = 2;
 	}
-/* L10: */
+
     }
     al__1.aerr = 0;
     al__1.aunit = 20;
@@ -392,7 +391,7 @@ static integer c__1 = 1;
 		    ftnlen)sizeof(integer));
 	}
 	e_wsfe();
-/* L50: */
+
     }
     al__1.aerr = 0;
     al__1.aunit = 20;
@@ -412,11 +411,12 @@ static integer c__1 = 1;
 	do_fio(&c__1, (char *)&blktxt_1.itext[i__ - 1], (ftnlen)sizeof(
 		integer));
 	e_rsfe();
-/* L60: */
+
     }
     al__1.aerr = 0;
     al__1.aunit = 20;
     f_end(&al__1);
+*/
     return 0;
 } /* initl_ */
 

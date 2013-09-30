@@ -10,7 +10,9 @@
 		http://www.netlib.org/f2c/libf2c.zip
 */
 
-#include "f2c.h"
+
+//#include "f2c.h"
+#include "morse.h"
 
 /* Common Block Declarations */
 
@@ -48,7 +50,7 @@ struct {
 /* Subroutine */ int inputl_(void)
 {
     /* Format strings */
-    static char fmt_100[] = "(1x,\002INPUT KEYING PARMS: RATE,MEAN ELEM DURA"
+/*    static char fmt_100[] = "(1x,\002INPUT KEYING PARMS: RATE,MEAN ELEM DURA"
 	    "TIONS\002)";
     static char fmt_150[] = "(1x,\002INPUT ELEM DURATION STD OEVIATIONS\002)";
     static char fmt_300[] = "(1x,\002INPUT SIG PARMS- AVAR,BVAR,FCHIRP,TCHIR"
@@ -56,33 +58,33 @@ struct {
     static char fmt_400[] = "(1x,\002INPUT SIG PARMS: GAMMA,FREQ,NOISE\002)";
 
     /* Builtin functions */
-    integer s_wsfe(cilist *), e_wsfe(void);
-    double sqrt(doublereal);
+//    integer s_wsfe(cilist *), e_wsfe(void);
+//    double sqrt(doublereal);
 
     /* Local variables */
     static real fc, rc, avar, bvar, rate, fchirp, phivar, rnoise;
 
     /* Fortran I/O blocks */
-    static cilist io___1 = { 0, 6, 0, fmt_100, 0 };
+ /*   static cilist io___1 = { 0, 6, 0, fmt_100, 0 };
     static cilist io___2 = { 0, 6, 0, fmt_150, 0 };
     static cilist io___3 = { 0, 6, 0, fmt_300, 0 };
     static cilist io___4 = { 0, 6, 0, fmt_400, 0 };
-
+*/
 
     goto L600;
-    s_wsfe(&io___1);
-    e_wsfe();
+//    s_wsfe(&io___1);
+//    e_wsfe();
 /* 	READ 200,RATE,(ESEP(K), K=1,6) */
-    s_wsfe(&io___2);
-    e_wsfe();
+//    s_wsfe(&io___2);
+//    e_wsfe();
 /* 	READ 200,(EDEV(K),K=1,6) */
 /* L200: */
-    s_wsfe(&io___3);
-    e_wsfe();
+//    s_wsfe(&io___3);
+//    e_wsfe();
 /* 	READ 210,AVAR,BVAR,FCHIRP,TCHIRP,PHIVAR */
 /* L210: */
-    s_wsfe(&io___4);
-    e_wsfe();
+//    s_wsfe(&io___4);
+//    e_wsfe();
 /* 	READ 220, GAMM,FC,RNOISE */
 /* L220: */
 L600:
