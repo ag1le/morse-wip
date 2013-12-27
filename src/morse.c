@@ -5,7 +5,9 @@
 //		     (C) Mauri Niininen, AG1LE
 //
 // This file is part of Morse.  
-
+//    Parts of this is adapted from sndfile-spectrogram 
+//	  Copyright (C) 2007-2009 Erik de Castro Lopo <erikd@mega-nerd.com>
+//
 // Morse is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
