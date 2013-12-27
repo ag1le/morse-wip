@@ -1,3 +1,24 @@
+// ----------------------------------------------------------------------------
+// morse.h --  morse code decoder 
+//
+// Copyright (C) 2012-2014
+//		     (C) Mauri Niininen, AG1LE
+//
+// This file is part of Morse.  
+
+// Morse is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Morse is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Morse.  If not, see <http://www.gnu.org/licenses/>.
+// ----------------------------------------------------------------------------
 
 typedef long int integer;
 typedef unsigned long int uinteger;
@@ -6,7 +27,7 @@ typedef double doublereal;
 typedef int ftnlen;
 
 extern int rcvr_(real *, real *);
-extern int noise_(real *, real *, real *);
+extern int noise_(double, real *, real *);
 extern  int initl_(void);
 extern  int stats_(real *, real *, real *, integer *, real *, real *, real *, real *, integer *);
 extern  int bpfdet_(real *, real *);
@@ -30,3 +51,16 @@ extern doublereal spdtr_(integer *, integer *, integer *, integer *);
 #define SAMPLEDURATION  (1000. * DECIMATE) / FSAMPLE	// 1000*DECIMATE / FSAMPLE SHOULD BE  5 msec
 #define NDELAY  200				// 200 SAMPLES * 5 msec = 1000 msec decoding delay 
 
+#define TRUE 	1 
+#define FALSE 	0 
+typedef struct
+{	int print_variables ;
+	int print_symbols; 
+	int process_textfile;
+	int print_text;
+	int width, speclen ;
+	double sample_duration; 
+	double sample_rate; 
+} PARAMS ;
+
+extern PARAMS params;

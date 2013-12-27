@@ -1,16 +1,25 @@
-/* path.f -- translated by f2c (version 20100827).
-   You must link the resulting object file with libf2c:
-	on Microsoft Windows system, link with libf2c.lib;
-	on Linux or Unix systems, link with .../path/to/libf2c.a -lm
-	or, if you install libf2c.a in a standard place, with -lf2c -lm
-	-- in that order, at the end of the command line, as in
-		cc *.o -lf2c -lm
-	Source for libf2c is in /netlib/f2c/libf2c.zip, e.g.,
+// ----------------------------------------------------------------------------
+// path.c --  morse code decoder 
+//
+// Copyright (C) 2012-2014
+//		     (C) Mauri Niininen, AG1LE
+//
+// This file is part of Morse.  
 
-		http://www.netlib.org/f2c/libf2c.zip
-*/
+// Morse is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Morse is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Morse.  If not, see <http://www.gnu.org/licenses/>.
+// ----------------------------------------------------------------------------
 
-//#include "f2c.h"
 #include "morse.h"
 
 /* Common Block Declarations */
@@ -101,7 +110,7 @@ static integer c__1 = 1;
 			ixs = blks_1.isx[k - 1];
 
 /* CALCULATE DURATION - ADD SAMPLE DURATION 5 ms FOR EACH VALID PATH */
-			dursav[j] = *dur * (1 - ixs - ixl + (ixs << 1) * ixl) + SAMPLEDURATION;
+			dursav[j] = *dur * (1 - ixs - ixl + (ixs << 1) * ixl) + params.sample_duration;
 
 /* 	NEW DATA RATE: */
 			ilrsav[j] = *ilrate + (i - 3) * blkrat_1.memdel[ilelm + k * 6 - 7];

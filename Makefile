@@ -33,10 +33,10 @@ am__make_dryrun = \
     esac; \
     test $$am__dry = yes; \
   }
-pkgdatadir = $(datadir)/morse
-pkgincludedir = $(includedir)/morse
-pkglibdir = $(libdir)/morse
-pkglibexecdir = $(libexecdir)/morse
+pkgdatadir = $(datadir)/full-package-name
+pkgincludedir = $(includedir)/full-package-name
+pkglibdir = $(libdir)/full-package-name
+pkglibexecdir = $(libexecdir)/full-package-name
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 install_sh_DATA = $(install_sh) -c -m 644
 install_sh_PROGRAM = $(install_sh) -c
@@ -68,14 +68,14 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_morse_OBJECTS = src/autocr.$(OBJEXT) src/initl.$(OBJEXT) \
-	src/likhd.$(OBJEXT) src/path.$(OBJEXT) src/spdtr.$(OBJEXT) \
-	src/trelis.$(OBJEXT) src/bpfdet.$(OBJEXT) src/inputl.$(OBJEXT) \
-	src/model.$(OBJEXT) src/probp.$(OBJEXT) src/sprob.$(OBJEXT) \
-	src/trprob.$(OBJEXT) src/kalfil.$(OBJEXT) src/morse.$(OBJEXT) \
-	src/proces.$(OBJEXT) src/savep.$(OBJEXT) src/stats.$(OBJEXT) \
-	src/xtrans.$(OBJEXT) src/noise.$(OBJEXT) src/ptrans.$(OBJEXT) \
-	src/transl.$(OBJEXT)
+am_morse_OBJECTS = src/initl.$(OBJEXT) src/likhd.$(OBJEXT) \
+	src/path.$(OBJEXT) src/spdtr.$(OBJEXT) src/trelis.$(OBJEXT) \
+	src/bpfdet.$(OBJEXT) src/inputl.$(OBJEXT) src/model.$(OBJEXT) \
+	src/probp.$(OBJEXT) src/sprob.$(OBJEXT) src/trprob.$(OBJEXT) \
+	src/kalfil.$(OBJEXT) src/morse.$(OBJEXT) src/proces.$(OBJEXT) \
+	src/savep.$(OBJEXT) src/stats.$(OBJEXT) src/xtrans.$(OBJEXT) \
+	src/noise.$(OBJEXT) src/ptrans.$(OBJEXT) src/transl.$(OBJEXT) \
+	src/window.$(OBJEXT)
 morse_OBJECTS = $(am_morse_OBJECTS)
 morse_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.
@@ -119,14 +119,20 @@ AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
+CPP = gcc -E
 CPPFLAGS = 
+CXX = g++
+CXXDEPMODE = depmode=gcc3
+CXXFLAGS = -g -O2
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
+EGREP = /bin/grep -E
 EXEEXT = 
+GREP = /bin/grep
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
@@ -134,28 +140,29 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lm
+LIBS = -lm -lsndfile -lfftw3
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/mauri/Projects/morse/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 OBJEXT = o
-PACKAGE = morse
-PACKAGE_BUGREPORT = http://ag1le.blogspot.com
-PACKAGE_NAME = morse
-PACKAGE_STRING = morse 1.0
-PACKAGE_TARNAME = morse
+PACKAGE = full-package-name
+PACKAGE_BUGREPORT = BUG-REPORT-ADDRESS
+PACKAGE_NAME = FULL-PACKAGE-NAME
+PACKAGE_STRING = FULL-PACKAGE-NAME VERSION
+PACKAGE_TARNAME = full-package-name
 PACKAGE_URL = 
-PACKAGE_VERSION = 1.0
+PACKAGE_VERSION = VERSION
 PATH_SEPARATOR = :
 SET_MAKE = 
 SHELL = /bin/bash
 STRIP = 
-VERSION = 1.0
+VERSION = VERSION
 abs_builddir = /home/mauri/Projects/morse
 abs_srcdir = /home/mauri/Projects/morse
 abs_top_builddir = /home/mauri/Projects/morse
 abs_top_srcdir = /home/mauri/Projects/morse
 ac_ct_CC = gcc
+ac_ct_CXX = g++
 am__include = include
 am__leading_dot = .
 am__quote = 
@@ -196,13 +203,14 @@ top_srcdir = .
 AUTOMAKE_OPTIONS = subdir-objects
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
 AM_CFLAGS = -ggdb
-morse_SOURCES = src/autocr.c	src/initl.c   src/likhd.c  src/path.c\
+morse_SOURCES = src/initl.c   src/likhd.c  src/path.c\
 				src/spdtr.c   src/trelis.c\
 				src/bpfdet.c  src/inputl.c  src/model.c  \
 				src/probp.c   src/sprob.c   src/trprob.c\
 				src/kalfil.c  src/morse.c  src/proces.c  src/savep.c   \
 				src/stats.c   src/xtrans.c\
-				src/noise.c  src/ptrans.c src/transl.c
+				src/noise.c  src/ptrans.c src/transl.c \
+				src/window.c
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -304,8 +312,6 @@ src/$(am__dirstamp):
 src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/$(DEPDIR)
 	@: > src/$(DEPDIR)/$(am__dirstamp)
-src/autocr.$(OBJEXT): src/$(am__dirstamp) \
-	src/$(DEPDIR)/$(am__dirstamp)
 src/initl.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/likhd.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/path.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
@@ -335,13 +341,14 @@ src/ptrans.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/transl.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
+src/window.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 morse$(EXEEXT): $(morse_OBJECTS) $(morse_DEPENDENCIES) $(EXTRA_morse_DEPENDENCIES) 
 	@rm -f morse$(EXEEXT)
 	$(LINK) $(morse_OBJECTS) $(morse_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
-	-rm -f src/autocr.$(OBJEXT)
 	-rm -f src/bpfdet.$(OBJEXT)
 	-rm -f src/initl.$(OBJEXT)
 	-rm -f src/inputl.$(OBJEXT)
@@ -361,12 +368,12 @@ mostlyclean-compile:
 	-rm -f src/transl.$(OBJEXT)
 	-rm -f src/trelis.$(OBJEXT)
 	-rm -f src/trprob.$(OBJEXT)
+	-rm -f src/window.$(OBJEXT)
 	-rm -f src/xtrans.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
 
-include src/$(DEPDIR)/autocr.Po
 include src/$(DEPDIR)/bpfdet.Po
 include src/$(DEPDIR)/initl.Po
 include src/$(DEPDIR)/inputl.Po
@@ -386,6 +393,7 @@ include src/$(DEPDIR)/stats.Po
 include src/$(DEPDIR)/transl.Po
 include src/$(DEPDIR)/trelis.Po
 include src/$(DEPDIR)/trprob.Po
+include src/$(DEPDIR)/window.Po
 include src/$(DEPDIR)/xtrans.Po
 
 .c.o:
