@@ -22,37 +22,8 @@
 
 #include "morse.h"
 
-/* Common Block Declarations */
 
-struct {
-    integer ielmst[400], ilami[16], ilamx[6];
-} blklam_;
-
-#define blklam_1 blklam_
-
-struct {
-    integer memfcn[2400]	/* was [400][6] */;
-} blkmem_;
-
-#define blkmem_1 blkmem_
-
-struct {
-    integer isx[6];
-} blks_;
-
-#define blks_1 blks_
-
-struct {
-    integer memdel[36]	/* was [6][6] */;
-} blkrat_;
-
-#define blkrat_1 blkrat_
-
-/* Table of constant values */
-
-static integer c__1 = 1;
-
-/* Subroutine */ int path_(integer *ip, integer *lambda, real *dur, integer *ilrate, integer *lamsav, real *dursav, integer *ilrsav)
+int path_(integer *ip, integer *lambda, real *dur, integer *ilrate, integer *lamsav, real *dursav, integer *ilrsav)
 {
      /* Local variables */
     static integer i, j, k, n, ixl, ixs, ilelm;
@@ -98,22 +69,22 @@ static integer c__1 = 1;
 			lamsav[j] = 0;
 			goto L100;
 	L50:
-			lamsav[j] = blkmem_1.memfcn[*lambda + k * 400 - 401];
+			lamsav[j] = blkmem.memfcn[*lambda + k * 400 - 401];
 			if (lamsav[j] == 0) {
 				goto L100;
 			}
 
 /*  NEW DURATION: */
 /*  OBTAIN KEYSTATE OF SAVED PATH AND NEW STATE: */
-			ilelm = blklam_1.ilami[blklam_1.ielmst[*lambda - 1] - 1];
-			ixl = blklam_1.ilamx[ilelm - 1];
-			ixs = blks_1.isx[k - 1];
+			ilelm = blklam.ilami[blklam.ielmst[*lambda - 1] - 1];
+			ixl = blklam.ilamx[ilelm - 1];
+			ixs = blks.isx[k - 1];
 
 /* CALCULATE DURATION - ADD SAMPLE DURATION 5 ms FOR EACH VALID PATH */
 			dursav[j] = *dur * (1 - ixs - ixl + (ixs << 1) * ixl) + params.sample_duration;
 
 /* 	NEW DATA RATE: */
-			ilrsav[j] = *ilrate + (i - 3) * blkrat_1.memdel[ilelm + k * 6 - 7];
+			ilrsav[j] = *ilrate + (i - 3) * blkrat.memdel[ilelm + k * 6 - 7];
 	L100:
 			;
 		}

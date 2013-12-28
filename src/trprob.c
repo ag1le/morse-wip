@@ -22,16 +22,7 @@
 
 #include "morse.h"
 
-/* Common Block Declarations */
-
-struct {
-    integer ielmst[400], ilami[16], ilamx[6];
-} blklam_;
-
-#define blklam_1 blklam_
-
-/* Subroutine */ int trprob_(integer *ip, integer *lambda, real *dur, integer 
-	*ilrate, real *p)
+int trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate, real *p)
 {
     static integer i, k, n;
     static real pin[30];
@@ -70,7 +61,7 @@ struct {
 		return 0;
     }
 
-    ielem = blklam_1.ilami[blklam_1.ielmst[*lambda - 1] - 1];
+    ielem = blklam.ilami[blklam.ielmst[*lambda - 1] - 1];
 /* 	COMPUTE KEYSTATE TRANSITION PROBABILITY: */
     ptrx = xtrans_(&ielem, dur, ilrate);
 

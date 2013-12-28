@@ -40,7 +40,32 @@
 #define	MAX_WIDTH	65536
 #define	MAX_HEIGHT	4096
 
-PARAMS params = { FALSE, FALSE, FALSE, FALSE,  16384, 16, 0, 0};
+PARAMS params = { FALSE, FALSE, FALSE, FALSE, FALSE, 16384, 16, 5, 0};
+
+double filter(double a, int len)
+{
+	static double  in[10];
+	static double  out;
+	static int	i, pint;
+	static int empty = 1;
+
+        if (!in) {
+                return a;
+        }
+        if (empty) {
+                empty = 0;
+                for (i = 0; i < len; i++) {
+                        in[i] = a;
+                }
+                out = a * len;
+                pint = 0;
+                return a;
+        }
+        out = out - in[pint] + a;
+        in[pint] = a;
+        if (++pint >= len) pint = 0;
+        return out / len;
+}
 
 
 
@@ -91,10 +116,11 @@ sf_count_t sfx_mix_mono_read_double (SNDFILE * file, double * data, sf_count_t d
 
 static void read_mono_audio (SNDFILE * file, sf_count_t filelen, double * data, int datalen, int indx, int total)
 {
-	sf_count_t start ;
-
+	sf_count_t start;
+	
 	memset (data, 0, datalen * sizeof (data [0])) ;
-
+	
+		
 	start = (indx * filelen) / total - datalen / 2 ;
 
 	if (start >= 0)
@@ -183,7 +209,7 @@ void process_data(double x)
   static real pmax, zout, spdhat, px;
   static int init = 1; 
 
-	if (params.print_variables && init) { 
+	if (params.print_variables && init) { //print variable labels first (only once) iu
 		printf("\nretstat\timax\telmhat\txhat\tx\tpx\tpmax\tspdhat\trn\tzout\tp1\tp2\tp3\tp4\tp5\tp6\n");
 		init = 0; 
 		}
@@ -192,6 +218,7 @@ void process_data(double x)
 //		if (sample_counter % DECIMATE == 0) { /* 	DECIMATE 4 kHz by 20  down to 200Hz - 5 ms sample time for PROCES */
 
 			noise_(x, &rn, &zout);
+
 			if (zout > 1.0) zout = 1.0; 
 			if (zout < 0.0) zout = 0.0;
 			
@@ -217,24 +244,26 @@ decode_sndfile (SNDFILE *infile, int samplerate, sf_count_t filelen)
 	double max_mag = 0.0 ;
 	int width = 8192, height= 32, w, speclen ;
 
-	width = params.width; 
+	printf("\nfilelen:%d",(int)filelen);
+
 	/*
 	**	Choose a speclen value that is long enough to represent frequencies down
 	**	to 20Hz, and then increase it slightly so it is a multiple of 0x40  (64) so that
 	**	FFTW calculations will be quicker.
 	*/
 
-	speclen = 16; 	// 16 ok for 4000 Hz test60db.wav @16384 width
+	//qspeclen = 16; 	// 16 ok for 4000 Hz test60db.wav @16384 width
 	speclen = params.speclen;  //  64  for 48000 Hz capture.wav @4096 w or 2048
-	
+	width = params.width; 
+
 	params.sample_rate = samplerate; 
-	params.sample_duration = 2000.*speclen/samplerate; 
+	//params.sample_duration = 2000.*speclen/samplerate; 
 	
 	if (2 * speclen > ARRAY_LEN (time_domain))
 	{	printf ("%s : 2 * speclen > ARRAY_LEN (time_domain)\n", __func__) ;
 		exit (1) ;
 		} ;
-	printf("\nsamplerate:%d speclen:%d", samplerate, speclen);
+	fprintf(stderr,"\nsamplerate:%d\nwidth:%d\nspeclen:%d\nsample duration:%f\n", samplerate,width, speclen,params.sample_duration);
 
 	plan = fftw_plan_r2r_1d (2 * speclen, time_domain, freq_domain, FFTW_R2HC, FFTW_MEASURE | FFTW_PRESERVE_INPUT) ;
 	if (plan == NULL)
@@ -245,6 +274,7 @@ decode_sndfile (SNDFILE *infile, int samplerate, sf_count_t filelen)
 	for (w = 0 ; w < width ; w++)
 	{	double single_max ;
 
+
 		read_mono_audio (infile, filelen, time_domain, 2 * speclen, w, width) ;
 
 		apply_window (time_domain, 2 * speclen) ;
@@ -253,10 +283,13 @@ decode_sndfile (SNDFILE *infile, int samplerate, sf_count_t filelen)
 
 		single_max = calc_magnitude (freq_domain, 2 * speclen, single_mag_spec) ;
 		max_mag = MAX (max_mag, single_max) ;
+		if (params.print_xplot)
+			printf("\n%f",single_max);
 		
+	//	single_max = filter(single_max,10); 
 		process_data(single_max/max_mag); // decode Morse code here 
 		
-		interp_spec (mag_spec [w], height, single_mag_spec, speclen) ;
+	//	interp_spec (mag_spec [w], height, single_mag_spec, speclen) ;
 		} ;
 
 	fftw_destroy_plan (plan) ;
@@ -269,7 +302,6 @@ process_sndfile (char * filename)
 	SNDFILE *infile ;
 	SF_INFO info ;
 
-
 	memset (&info, 0, sizeof (info)) ;
 
 	infile = sf_open (filename, SFM_READ, &info) ;
@@ -277,8 +309,8 @@ process_sndfile (char * filename)
 	{	printf ("Error : failed to open sound file '%s' : \n%s\n", filename, sf_strerror (NULL)) ;
 		return ;
 		} ;
-
-	decode_sndfile ( infile, info.samplerate, info.frames) ;
+	
+	decode_sndfile ( infile, info.samplerate, info.frames) ;	
 
 	sf_close (infile);
 
@@ -290,6 +322,7 @@ void process_textfile(char *filename)
 	FILE *fp; 
 	float x; 
 	int res; 
+	static int samplecounter =0; 
 	
 	fp = fopen(filename, "r");
 	if (fp == NULL) {
@@ -303,7 +336,12 @@ void process_textfile(char *filename)
 			printf("\n");
 			exit(0);
 		}
-		process_data((double)x); 
+		samplecounter++;
+		if ((samplecounter % 20) == 0) {  // assuming that text envelope files have 4000 Hz sampling rate, decimate by 20 to get to 200 Hz (5ms sample time)
+			if (params.print_xplot)
+				printf("\n%f",x);
+			process_data((double)x); 
+		}
 	}	
 }
 
@@ -325,8 +363,11 @@ static void usage_exit (const char * argv0)
 		"        -sym				Print symbols before translation (default off). \n"
 		"        -txt				Print decoded and translated text (default off).\n"
 		"        -txf				Process text file instead of soundfile.\n"
+		"		 -plt				Print sndfile values for xplot ./morse -plt <sndfile> | xplot \n"
 		"        -len	<length>		Window length for FFT [8,16,32,64,128...].\n"
 		"        -wid	<width>			Width of buffer to read & process [8192, 16384].\n"
+		"        -dur	<duration>		Sample duration in msec [5.0].\n"
+				
 
 
 		) ;
@@ -377,6 +418,11 @@ int main(int argc, char**argv)
 			params.speclen = atoi (argv [k]) ;
 			continue ;
 		} 
+		if (strcmp (argv [k], "-dur") == 0){
+			k++ ;
+			params.sample_duration = atof (argv [k]) ;
+			continue ;
+		}
 		if (strcmp (argv [k], "-var") == 0){
 			params.print_variables = TRUE;
 			continue ;
@@ -391,6 +437,10 @@ int main(int argc, char**argv)
 			}
 		if (strcmp (argv [k], "-txf") == 0){
 			params.process_textfile = TRUE;
+			continue ;
+			}
+		if (strcmp (argv [k], "-plt") == 0){
+			params.print_xplot = TRUE;
 			continue ;
 			}
 		} ;

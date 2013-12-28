@@ -20,23 +20,10 @@
 // along with Morse.  If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------------------------------------------------------
 
-#include "f2c.h"
+#include "morse.h"
 #include <stdio.h>
 
-/* Common Block Declarations */
 
-struct {
-    real rtrans[10]	/* was [5][2] */;
-    integer mempr[36]	/* was [6][6] */;
-} blkspd_;
-
-#define blkspd_1 blkspd_
-
-struct {
-    integer memdel[36]	/* was [6][6] */;
-} blkrat_;
-
-#define blkrat_1 blkrat_
 
 doublereal spdtr_(integer *isrt, integer *ilrt, integer *iselm, integer *ilelm)
 {
@@ -74,8 +61,8 @@ doublereal spdtr_(integer *isrt, integer *ilrt, integer *iselm, integer *ilelm)
 /* 	OTHERWISE, OBTAIN SPEED TRANSITION PROB */
 
 L100:
-    idel = blkrat_1.memdel[*ilelm + *iselm * 6 - 7];
-    ind1 = blkspd_1.mempr[*ilelm + *iselm * 6 - 7];
+    idel = blkrat.memdel[*ilelm + *iselm * 6 - 7];
+    ind1 = blkspd.mempr[*ilelm + *iselm * 6 - 7];
     if (ind1 != 0) {
 		goto L200;
     }
@@ -83,7 +70,7 @@ L100:
     goto L300;
 L200:
     idelsp = (*isrt - 3) * idel;
-    ret_val = blkspd_1.rtrans[*isrt + ind1 * 5 - 6];
+    ret_val = blkspd.rtrans[*isrt + ind1 * 5 - 6];
     israte = *ilrt + idelsp;
     if (israte > 60) {
 		ret_val = 0.f;

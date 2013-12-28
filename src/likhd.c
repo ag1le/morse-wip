@@ -22,25 +22,8 @@
 
 #include "morse.h"
 
-/* Common Block Declarations */
 
-struct {
-    integer ielmst[400], ilami[16], ilamx[6];
-} blklam_;
-
-#define blklam_1 blklam_
-
-struct {
-    integer isx[6];
-} blks_;
-
-#define blks_1 blks_
-
-/* Table of constant values */
-
-static integer c__1 = 1;
-
-/* Subroutine */ int likhd_(real *z, real *rn, integer *ip, integer *lambda,
+int likhd_(real *z, real *rn, integer *ip, integer *lambda,
 	 real *dur, integer *ilrate, real *p, real *lkhd)
 {
  
@@ -84,13 +67,13 @@ static integer c__1 = 1;
     if (*lambda == 0) {
 	goto L200;
     }
-    kelem = blklam_1.ilami[blklam_1.ielmst[*lambda - 1] - 1];
-    ilx = blklam_1.ilamx[kelem - 1];
+    kelem = blklam.ilami[blklam.ielmst[*lambda - 1] - 1];
+    ilx = blklam.ilamx[kelem - 1];
 /* 	FOR EACH STATE: */
     for (k = 1; k <= 6; ++k) {
 		for (i = 1; i <= 5; ++i) {
 /* 	OBTAIN KEYSTATE, RATE STATE, STATE N, NEW NODE: */
-			ixs = blks_1.isx[k - 1];
+			ixs = blks.isx[k - 1];
 			israte = i;
 			n = (i - 1) * 6 + k;
 			j = (*ip - 1) * 30 + n;

@@ -22,19 +22,7 @@
 
 #include "morse.h"
 
-/* Common Block Declarations */
 
-struct {
-    integer ielmst[400], ilami[16], ilamx[6];
-} blklam_;
-
-#define blklam_1 blklam_
-
-struct {
-    real elemtr[96]	/* was [16][6] */;
-} blkelm_;
-
-#define blkelm_1 blkelm_
 
 /* Subroutine */ int ptrans_(integer *kelem, integer *irate, integer *lambda, integer *ilrate, real *ptrx, real *psum, real *pin, integer *n)
 {
@@ -62,7 +50,7 @@ struct {
     --pin;
 
     /* Function Body */
-    if (*kelem != blklam_1.ilami[blklam_1.ielmst[*lambda - 1] - 1]) {
+    if (*kelem != blklam.ilami[blklam.ielmst[*lambda - 1] - 1]) {
 		goto L100;
     }
     pin[*n] = *ptrx;
@@ -77,9 +65,9 @@ struct {
 /* 	OBTAIN ELEM TRANS PROBS TABLE: */
 
 L100:
-    pelem = blkelm_1.elemtr[blklam_1.ielmst[*lambda - 1] + (*kelem << 4) - 17];
+    pelem = blkelm.elemtr[blklam.ielmst[*lambda - 1] + (*kelem << 4) - 17];
 /* 	NEXT COMPUTE ELEM-CONDITIONAL SPEED TRANS PROB: */
-    prate = spdtr_(irate, ilrate, kelem, &blklam_1.ilami[blklam_1.ielmst[*lambda - 1] - 1]);
+    prate = spdtr_(irate, ilrate, kelem, &blklam.ilami[blklam.ielmst[*lambda - 1] - 1]);
 /* 	TRANS IS THE PRODUCT: */
     pin[*n] = (1.f - *ptrx) * pelem * prate;
 L200:

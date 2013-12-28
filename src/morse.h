@@ -58,9 +58,39 @@ typedef struct
 	int print_symbols; 
 	int process_textfile;
 	int print_text;
+	int print_xplot;
 	int width, speclen ;
 	double sample_duration; 
 	double sample_rate; 
 } PARAMS ;
 
 extern PARAMS params;
+
+
+/* Common Block Declarations */
+struct BLKSPD {
+    real rtrans[10]	/* was [5][2] */;
+    integer mempr[36]	/* was [6][6] */;
+} blkspd;
+
+struct BLKRAT {
+    integer memdel[36]	/* was [6][6] */;
+} blkrat;
+
+struct BLKLAM {
+    integer ielmst[400], ilami[16], ilamx[6];
+} blklam;
+
+
+struct BLKS {
+    integer isx[6];
+} blks;
+
+struct BLKELM {
+    real elemtr[96]	/* was [16][6] */;
+} blkelm;
+
+struct BLKMEM {
+    integer memfcn[2400]	/* was [400][6] */;
+} blkmem;
+

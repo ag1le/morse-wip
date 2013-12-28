@@ -22,14 +22,12 @@
 
 #include <stdio.h>
 #include "morse.h" 
-
-
 struct TREE {
  int dit,dah; 
  char chr[12]; 
 } tree[] = {	// check  http://en.wikipedia.org/wiki/Morse_code
 //dit,dah, chr
- {1,2, "<NULL>"},	// null state
+ {1,2, "#"},	// null state
  {3,4, "E"}, 	// .
  {5,6, "T"},	// - 
  {7,8, "I"},	// ..
@@ -47,9 +45,9 @@ struct TREE {
  {31,32,"H"},	// ....
  {33,34,"V"},	// ...-
  {35,36,"F"},	// ..-.
- {37,38,"*..--*"},// ..--
+ {37,38,"*"},// ..--
  {39,40,"L"},	// .-..
- {41,42,"Ä>"},	// .-.-   Ä
+ {41,42,"Ä"},	// .-.-   Ä
  {43,44,"P"},	// .--.
  {45,46,"J"},	// .---
  {47,48,"B"},	// -...
@@ -68,10 +66,10 @@ struct TREE {
  {00,00,"*..-.-*"},	// ..-.-
  {58,00,"*..--.*"}, 	// ..--. D? 
  {00,00,"2"},	// ..---
- {00,00,"*.-...*"},	// .-...
+ {00,00,"*"},	// .-...
  {00,00,"e"},	// .-..-
  {00,63,"+"},	// .-.-.
- {00,00,"*.-.--*"},	// .-.--
+ {00,00,"*"},	// .-.--
  {00,00,"*.--..*"},	// .--..
  {59,00,"a"},	// .--.-
  {00,00,"*"},	// .----
@@ -95,24 +93,8 @@ struct TREE {
  {00,00,"."}	// .-.-.-
 }; 
 
-/* Common Block Declarations */
 
-struct {
-    integer ltrmap[400], iblank[400];
-    char ialph[70];
-} blktrn_;
 
-#define blktrn_1 blktrn_
-
-struct {
-    integer ielmst[400], ilami[16], ilamx[6];
-} blklam_;
-
-#define blklam_1 blklam_
-
-/* Table of constant values */
-
-static integer c__1 = 1;
 
 //***********************************************************************************
 // (c) 2013  AG1LE Mauri Niininen
@@ -153,9 +135,10 @@ int transl_(int *ltr)
 
 /* 	DETERMINE IF A CSP,WSP, OR PAUSE TO MARK TRASITION */
 /* 	HAS OCCURED; IF SO LTR IS READY FOR OUTPUT: */
-    elmhat = blklam_1.ilami[(1600 + (0 + (blklam_1.ielmst[(0 + (0 + (*ltr - 1 
-	    << 2))) / 4] - 1 << 2)) - 1600) / 4];
-    ixl = blklam_1.ilamx[elmhat - 1];
+    // elmhat = blklam_1.ilami[(1600 + (0 + (blklam_1.ielmst[(0 + (0 + (*ltr - 1 << 2))) / 4] - 1 << 2)) - 1600) / 4];
+    
+	elmhat = blklam.ilami[*ltr-1];
+    ixl = blklam.ilamx[elmhat - 1];
 
 /* 	NO CHANGE FROM LAST - CONTINUE */
 
