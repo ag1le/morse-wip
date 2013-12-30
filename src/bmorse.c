@@ -1,0 +1,674 @@
+// ----------------------------------------------------------------------------
+// bmorse.c --  bayesian morse code decoder 
+//
+// Copyright (C) 2012-2014
+//		     (C) Mauri Niininen, AG1LE
+//
+// This file is part of Bayesian Morse code decoder   
+//    Parts of this is adapted from sndfile-spectrogram 
+//	  Copyright (C) 2007-2009 Erik de Castro Lopo <erikd@mega-nerd.com>
+//
+// bmorse is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// bmorse is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with bmorse.  If not, see <http://www.gnu.org/licenses/>.
+// ---------------------------------------------------------------------------
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+#include <math.h>
+#include "bmorse.h"
+#include <sndfile.h>
+#include <fftw3.h>
+#include "window.h"
+
+#define ARRAY_LEN(x)    ((int) (sizeof (x) / sizeof (x [0])))
+#define MAX(x,y)                ((x) > (y) ? (x) : (y))
+#define MIN(x,y)                ((x) < (y) ? (x) : (y))
+#define	MIN_WIDTH	640
+#define	MIN_HEIGHT	480
+#define	MAX_WIDTH	65536
+#define	MAX_HEIGHT	4096
+
+/*
+{	int print_variables ;  	// FALSE
+	int print_symbols; 		// FALSE 
+	int process_textfile;	// FALSE
+	int print_text;			// FALSE
+	int print_xplot;		// FALSE
+	int width; 				// 8192
+	int speclen ;			// 32 
+	int bfv;				// 0 
+	double sample_duration; // 5
+	double sample_rate; 	// 0
+	double delta;			// 10.0
+	double amplify;			// 0.0
+	int fft;				// 0 
+	int agc;				// 0 
+*/
+PARAMS params = { 
+FALSE, FALSE, FALSE, FALSE, FALSE, 8192, 32, 0, 5, 0, 10.0, 0.0, 0, 0};
+
+
+
+double filter(double a, int len)
+{
+	static double  in[2000];
+	static double  out;
+	static int	i, pint;
+	static int empty = 1;
+
+        if ((len == 0) || (len ==1)) {
+                return a;
+        }
+        if (empty) {
+                empty = 0;
+                for (i = 0; i < len; i++) {
+                        in[i] = a;
+                }
+                out = a * len;
+                pint = 0;
+                return a;
+        }
+        out = out - in[pint] + a;
+        in[pint] = a;
+        if (++pint >= len) pint = 0;
+        return out / len;
+}
+
+double decayavg(double average, double input, double weight)
+{
+	if (weight <= 1.0) return input;
+	return input * (1.0 / weight) + average * (1.0 - (1.0 / weight));
+}
+
+sf_count_t sfx_mix_mono_read_double (SNDFILE * file, double * data, sf_count_t datalen)
+{
+	SF_INFO info ;
+
+#if HAVE_SF_GET_INFO
+	/*
+	**	The function sf_get_info was in a number of 1.0.18 pre-releases but was removed
+	**	before 1.0.18 final and replaced with the SFC_GET_CURRENT_SF_INFO command.
+	*/
+	sf_get_info (file, &info) ;
+#else
+	sf_command (file, SFC_GET_CURRENT_SF_INFO, &info, sizeof (info)) ;
+#endif
+
+	if (info.channels == 1)
+		return sf_read_double (file, data, datalen) ;
+
+	static double multi_data [2048] ;
+	int k, ch, frames_read ;
+	sf_count_t dataout = 0 ;
+
+	while (dataout < datalen)
+	{	int this_read ;
+		
+		this_read = MIN (ARRAY_LEN (multi_data) / info.channels, datalen) ;
+
+		frames_read = sf_readf_double (file, multi_data, this_read) ;
+		if (frames_read == 0)
+			break ;
+
+		for (k = 0 ; k < frames_read ; k++)
+		{	double mix = 0.0 ;
+
+			for (ch = 0 ; ch < info.channels ; ch++)
+				mix += multi_data [k * info.channels + ch] ;
+			data [dataout + k] = mix / info.channels ;
+			} ;
+
+		dataout += this_read ;
+		} ;
+
+	return dataout ;
+} /* sfx_mix_mono_read_double */
+
+
+static void read_mono_audio (SNDFILE * file, sf_count_t filelen, double * data, int datalen, int indx, int total)
+{
+	sf_count_t start;
+	
+	memset (data, 0, datalen * sizeof (data [0])) ;
+	
+		
+	start = (indx * filelen) / total - datalen / 2 ;
+
+	if (start >= 0)
+		sf_seek (file, start, SEEK_SET) ;
+	else
+	{	start = -start ;
+		sf_seek (file, 0, SEEK_SET) ;
+		data += start ;
+		datalen -= start ;
+		} ;
+
+	sfx_mix_mono_read_double (file, data, datalen) ;
+
+	return ;
+} /* read_mono_audio */
+
+static double calc_magnitude (const double * freq, int freqlen, double * magnitude)
+{
+	int k ;
+	double max = 0.0 ;
+
+	for (k = 1 ; k < freqlen / 2 ; k++)
+	{	magnitude [k] = sqrt (freq [k] * freq [k] + freq [freqlen - k - 1] * freq [freqlen - k - 1]) ;
+		max = MAX (max, magnitude [k]) ;
+		} ;
+	magnitude [0] = 0.0 ;
+
+	return max ;
+} /* calc_magnitude */
+
+
+#define PEAKS_SIZE 2000
+
+struct PEAKS {
+	double 	mx[PEAKS_SIZE];
+	double 	mn[PEAKS_SIZE];
+	int 	mxpos[PEAKS_SIZE];
+	int 	mnpos[PEAKS_SIZE];
+	int 	mxcount;
+	int		mncount;
+	double	delta;
+};
+
+
+//	peak_detect() detects peaks in a vector  *******************************************************************************
+//	Finds the local maxima and minima ("peaks") in the vector V.
+//  A point is considered a maximum peak if it has the maximal
+//  value, and was preceded (to the left) by a value lower by DELTA.
+
+void peak_detect(double *v, int length, struct PEAKS *p)
+{
+
+	int i, lookformax; 
+	double this, mn,mx;
+	int mnpos,mxpos;
+
+	p->mxcount = 0;
+	p->mncount = 0;
+
+	  
+	if (p->delta <= 0) {
+		printf ("%s : line %d :Input argument DELTA must be positive.\n", __FILE__, __LINE__) ;
+			exit (1) ;
+	}
+
+	mn = 1.0/0.0; 
+	mx = -1.0/0.0;
+	mnpos = -10000; mxpos = 10000;
+	lookformax = 1;
+	
+	for (i=0; i< length; i++) {
+		  this = v[i];
+		  if (this > mx) {mx = this; mxpos = i;}
+		  if (this < mn) {mn = this; mnpos = i;}
+		  
+		  if (lookformax){
+				if (this < mx-p->delta) {
+				  p->mx[p->mxcount] = mx;
+				  p->mxpos[p->mxcount] = mxpos;
+				  p->mxcount += 1;
+				  mn = this; mnpos = i;
+				  lookformax = 0;
+				};
+			} else {
+				if (this > mn+p->delta) {
+				  p->mn[p->mncount] = mn;
+				  p->mnpos[p->mncount] = mnpos;
+				  p->mncount += 1;
+				  mx = this; mxpos = i;
+				  lookformax = 1;
+				};
+			}
+	}
+}
+
+static void apply_window (double * data, int datalen)
+{
+	static double window [10 * MAX_HEIGHT] ;
+	static int window_len = 0 ;
+	int k ;
+
+	if (window_len != datalen)
+	{
+		window_len = datalen ;
+		if (datalen > ARRAY_LEN (window))
+		{
+			printf ("%s : datalen >  MAX_HEIGHT\n", __func__) ;
+			exit (1) ;
+		} ;
+
+		calc_kaiser_window (window, datalen, 20.0) ;
+//		calc_nuttall_window (window, datalen);
+	} ;
+
+	for (k = 0 ; k < datalen ; k++)
+		data [k] *= window [k] ;
+
+	return ;
+} /* apply_window */
+
+static void interp_spec (float * mag, int maglen, const double *spec, int speclen)
+{
+	int k, lastspec = 0 ;
+
+	mag [0] = spec [0] ;
+
+	for (k = 1 ; k < maglen ; k++) {
+		double sum = 0.0 ;
+		int count = 0 ;
+
+		do	{	
+			sum += spec [lastspec] ;
+			lastspec ++ ;
+			count ++ ;
+			}
+		while (lastspec <= ceil ((k * speclen) / maglen)) ;
+
+		mag [k] = sum / count ;
+
+	} ;
+
+	return ;
+} /* interp_spec */
+
+void process_data(double x)
+{
+	static integer sample_counter = 0;
+	static real rn = .1f;
+	static integer retstat, n1, n2, imax, xhat, elmhat;
+	static real pmax, zout, spdhat, px;
+	static int init = 1; 
+	static double agc_peak = 0.1;
+
+	if (params.amplify != 0.0) 
+		x = params.amplify * x; 
+
+	if (params.agc) {
+
+		if (x > agc_peak)
+			agc_peak = decayavg(agc_peak, x, 20);
+		else
+			agc_peak = decayavg(agc_peak, x, 800);
+	
+		if (agc_peak != 0.0)
+			x /= agc_peak;
+		else
+			x = 0.0;
+	}
+
+	
+	if (params.print_xplot)
+		printf("\n%f",x);
+
+	if (params.print_variables && init) { //print variable labels first (only once) iu
+		printf("\nretstat\timax\telmhat\txhat\tx\tpx\tpmax\tspdhat\trn\tzout\tp1\tp2\tp3\tp4\tp5\tp6\n");
+		init = 0; 
+	}
+
+	noise_(x, &rn, &zout);
+
+	if (zout > 1.0) zout = 1.0; 
+	if (zout < 0.0) zout = 0.0;
+	
+	retstat = proces_(&zout, &rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax);
+	if (params.print_variables) 
+		printf("\n%d\t%d\t%d\t%d\t%f\t%f\t%f\t%f\t%f\t%f",(int)retstat,(int)imax,(int)elmhat,(int)xhat,x,px,pmax,spdhat,rn,zout); 
+	
+
+}
+
+
+static void
+decode_sndfile (SNDFILE *infile, SF_INFO info)
+{
+
+
+	static double time_domain [10 * MAX_HEIGHT] ;
+	static double freq_domain [10 * MAX_HEIGHT] ;
+	static double single_mag_spec [5 * MAX_HEIGHT] ;
+	static float mag_spec [MAX_WIDTH][MAX_HEIGHT] ;
+	static struct PEAKS p;
+
+	static int once=1;
+	
+	fftw_plan plan ;
+	double x, max_mag = 0.0 ;
+	int width = 8192, height= 32, w, speclen ;
+ 
+	int f,sr,sc =0,c,num_items,num,i,j;
+	double *buf;
+	int bfv;   // bit filter value 
+	int dec_ratio;  // decimation ratio  samplerate / bayes decoder rate  
+	
+	//  speclen should be multiple of 2^n but also keep time resolution < 5 ms 
+	//  for 48Khz sampling rate speclen 64 represents 2.6667 ms sample time??
+	//
+
+			
+	/* Print some of the info, and figure out how much data to read. */
+    f = info.frames;
+    sr = info.samplerate;
+    c = info.channels;
+    num_items = f*c;
+ 	dec_ratio = info.samplerate / BAYES_RATE; 
+ 	
+
+ 	// bit filter based on 10 msec rise time of CW waveform or manually set 
+ 	if (params.bfv !=0)
+ 		bfv = params.bfv;
+ 	else
+ 		bfv = sr/100;   //  Samplerate / 100 => bfv value required for 10 msec rise time
+
+	speclen = params.speclen; 
+	p.delta = params.delta; 	
+	//params.sample_duration= (2.0*speclen*1000.0)/((double)16*sr);
+    
+    printf("frames=%d\n",f);
+    printf("samplerate=%d\n",sr);
+    printf("channels=%d\n",c);
+    printf("bit filter=%d\n",bfv);
+    printf("dec_ratio=%d\n",dec_ratio);
+    printf("num_items=%d\n",num_items);
+    printf("sample_duration=%f\n",params.sample_duration);
+    
+  
+	if (params.fft) {
+			// speclen = 16; 			// 16 ok for 4000 Hz test60db.wav @16384 width
+			 //  64  for 48000 Hz capture.wav @4096 w or 2048
+			width = params.width; 
+
+			if (2 * speclen > ARRAY_LEN (time_domain))
+			{	printf ("%s : 2 * speclen > ARRAY_LEN (time_domain)\n", __func__) ;
+				exit (1) ;
+				} ;
+		//	fprintf(stderr,"\nsamplerate:%d\nwidth:%d\nspeclen:%d\nsample duration:%f\n", samplerate,width, speclen,params.sample_duration);
+
+			plan = fftw_plan_r2r_1d (2 * speclen, time_domain, freq_domain, FFTW_R2HC, FFTW_MEASURE | FFTW_PRESERVE_INPUT) ;
+			if (plan == NULL)
+			{	printf ("%s : line %d : create plan failed.\n", __FILE__, __LINE__) ;
+				exit (1) ;
+				} ;
+
+
+
+			for (w = 0 ; w < width ; w++)
+			{	double single_max ;
+
+				read_mono_audio (infile, info.frames, time_domain, 2 * speclen, w, width) ;
+				apply_window (time_domain, 2 * speclen) ;
+				fftw_execute (plan) ;
+
+				single_max = calc_magnitude (freq_domain, 2 * speclen, single_mag_spec) ;			
+		
+				// print one FFT row - just to check
+/*
+				if (once) {
+					for (int i=0; i< speclen; i++) 
+						printf("\n%f",single_mag_spec[i]);
+					once=0;
+				}	
+*/
+	
+				// detect peaks in the FFT spectrum 
+				peak_detect(single_mag_spec, speclen, &p);
+			
+				// print found freq peaks - only once
+				if (once ) {
+					for (i=0; i <p.mxcount; i++) {
+						int Hz = (p.mxpos[i]*(sr/2))/(speclen);
+						printf("peak[%d]:%f\tHz:%d\tmaxcount:%d\n",p.mxpos[i],p.mx[i],Hz,p.mxcount);
+					}
+					once=0;
+				}	
+
+	
+
+				max_mag = MAX (max_mag, single_max) ;
+				single_max = filter(single_max,bfv); 
+				process_data(single_max/max_mag); // decode Morse code here 
+		
+			//	interp_spec (mag_spec [w], height, single_mag_spec, speclen) ;
+			} ;
+
+			fftw_destroy_plan (plan) ;
+
+	} else {  // don't use FFT - just basic filtering - see http://octave.sourceforge.net/communications/function/filter.html
+		  
+			/* Allocate space for the data to be read, then read it. */
+			buf = (double *) malloc(num_items*sizeof(double));
+			num = sf_read_double(infile,buf,num_items);
+			printf("Read %d items\n",num);
+
+			for (i = 0; i < num; i += c){
+				for (j = 0; j < c; ++j) {
+					x = (buf[i+j]);
+					if (x < 0)  x = -x;
+					x = filter(x,bfv);   					
+					sc++;
+					if ((sc % dec_ratio)==0) {   // 48 kHz to 200 Hz - decimate samples by 240
+
+     	
+
+						process_data(x);
+					}
+				}
+					
+			}
+	}
+	 
+
+	
+	
+}
+
+static void
+process_sndfile (char * filename)
+{
+	SNDFILE *infile ;
+	SF_INFO info ;
+
+	memset (&info, 0, sizeof (info)) ;
+
+	infile = sf_open (filename, SFM_READ, &info) ;
+	if (infile == NULL)
+	{	printf ("Error : failed to open sound file '%s' : \n%s\n", filename, sf_strerror (NULL)) ;
+		return ;
+		} ;
+	
+	decode_sndfile ( infile, info) ;	
+
+	sf_close (infile);
+
+	return ;
+} /* render_sndfile */
+
+
+
+
+
+static void process_textfile(char *filename)
+{
+	FILE *fp; 
+	float x; 
+	int res; 
+	static int samplecounter =0; 
+	
+	fp = fopen(filename, "r");
+	if (fp == NULL) {
+		printf("\nError : failed to open text file '%s' : \n", filename); 
+		return; 
+	}
+	while (1) { 
+ 		res = fscanf(fp,"%f",&x); 
+		if ( res != 1) { 
+			fclose(fp); 
+			printf("\n");
+			exit(0);
+		}
+		samplecounter++;
+		if ((samplecounter % 20) == 0) {  // assuming that text envelope files have 4000 Hz sampling rate, decimate by 20 to get to 200 Hz (5ms sample time)
+			process_data((double)x); 
+		}
+	}	
+}
+
+
+static void usage_exit (const char * argv0)
+{
+	const char * progname ;
+
+	progname = strrchr (argv0, '/') ;
+	progname = (progname == NULL) ? argv0 : progname + 1 ;
+
+	puts ("\nBayesian Morse Decoder program reads sound file and decodes CW to text.") ;
+
+	printf ("\nUsage :\n\n    %s  [options] <sound file> \n\n", progname) ;
+
+	puts (
+		"    Options include:\n\n"
+		"        -var				Print variables for post-analysis (default off).\n"
+		"        -sym				Print symbols before translation (default off). \n"
+		"        -txt				Print decoded and translated text (default off).\n"
+		"        -txf				Process text file instead of soundfile.\n"
+		"        -agc				Use Automatic Gain Control (default off).\n"
+		"        -bfv	<value>		Bit filter value (default 10 msec).\n"
+		"        -fft   <value>		Enable FFT filtering (default 0 - off)  \n"
+		"        -plt				Plot envelope using xplot: ./morse -plt <sndfile> | xplot \n"
+		"        -len	<length>		Window length for FFT [8,16,32,64,128...].\n"
+		"        -wid	<width>			Width of buffer to read & process [8192, 16384].\n"
+		"        -dur	<duration>		Sample duration in msec [5.0].\n"
+		"        -del	<delta>			Peak detection delta [10.0].\n"				
+
+
+		) ;
+
+	puts (
+		"    -txf: 		The text file contains real valued input (1 datapoint per line) to be decoded.\n"
+		"    Default: 	The sound file type is determined by the file name extension which should be one\n"
+		"    			of 'wav', 'aifc', 'aif', 'aiff', 'au', 'caf' and 'w64'.\n"
+		) ;
+
+	exit (0) ;
+} /* usage_exit */
+
+
+
+ 
+// MAIN PROGRAM = BAYESIAN MORSE DECODER 
+// (c) Mauri Niininen AG1LE 
+// 
+
+int main(int argc, char**argv)
+{
+    /* Initialized data */
+
+
+    int k;
+
+	int s_stop(char *, ftnlen);
+
+    /* Local variables */
+
+    int res; 
+	FILE *fp; 
+
+	/* 	PARSE PARAMETERS FROM COMMAND LINE  */
+    
+    if (argc < 2)
+		usage_exit (argv [0]) ;
+
+	for (k = 1 ; k < argc; k++) {
+		if (strcmp (argv [k], "-bfv") == 0){
+			k++ ;
+			params.bfv = atoi (argv [k]) ;
+			continue ;
+		}
+		if (strcmp (argv [k], "-wid") == 0){
+			k++ ;
+			params.width = atoi (argv [k]) ;
+			continue ;
+		}
+		if (strcmp (argv [k], "-len") == 0) {
+			k++ ;
+			params.speclen = atoi (argv [k]) ;
+			continue ;
+		} 
+		if (strcmp (argv [k], "-fft") == 0){
+			k++ ;
+			params.fft = atoi (argv [k]) ;
+			continue ;
+		}
+		if (strcmp (argv [k], "-dur") == 0){
+			k++ ;
+			params.sample_duration = atof (argv [k]) ;
+			continue ;
+		}
+		if (strcmp (argv [k], "-del") == 0){
+			k++ ;
+			params.delta = atof (argv [k]) ;
+			continue ;
+		}
+		if (strcmp (argv [k], "-amp") == 0){
+			k++ ;
+			params.amplify = atof (argv [k]) ;
+			continue ;
+		}
+		if (strcmp (argv [k], "-var") == 0){
+			params.print_variables = TRUE;
+			continue ;
+			}
+		if (strcmp (argv [k], "-sym") == 0){
+			params.print_symbols = TRUE;
+			continue ;
+			}
+		if (strcmp (argv [k], "-agc") == 0){
+			params.agc = TRUE;
+			continue ;
+			}
+		if (strcmp (argv [k], "-txt") == 0){
+			params.print_text = TRUE;
+			continue ;
+			}
+		if (strcmp (argv [k], "-txf") == 0){
+			params.process_textfile = TRUE;
+			continue ;
+			}
+		if (strcmp (argv [k], "-plt") == 0){
+			params.print_xplot = TRUE;
+			continue ;
+			}
+		} ;
+
+/* 	INITIALIZE DATA STRUCTURES */
+	initl_();
+	inputl_();
+	
+	if(params.process_textfile) 
+		process_textfile(argv[k-1]);
+	else 
+ 		process_sndfile(argv[k-1]);
+ 
+		
+} /* MAIN__ */
+
+
+
+
+
