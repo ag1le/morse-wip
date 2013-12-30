@@ -1,28 +1,28 @@
 // ----------------------------------------------------------------------------
-// noise.c --  morse code decoder 
+// noise.c --  bayesian morse code decoder 
 //
 // Copyright (C) 2012-2014
 //		     (C) Mauri Niininen, AG1LE
 //
-// This file is part of Morse.  
+// This file is part of Bayesian Morse code decoder   
 
-// Morse is free software: you can redistribute it and/or modify
+// bmorse is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Morse is distributed in the hope that it will be useful,
+// bmorse is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Morse.  If not, see <http://www.gnu.org/licenses/>.
+// along with bmorse.  If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------------------------------------------------------
 
-#include "morse.h"
+#include "bmorse.h"
 
-/* Subroutine */ int noise_(double zin, real *rn, real *z__)
+int noise_(double zin, real *rn, real *z)
 {
     /* Initialized data */
 
@@ -52,10 +52,10 @@
     static real ymavg = .05f;
 
     /* System generated locals */
-    integer i__1;
+    integer i1;
 
     /* Local variables */
-    static integer i__;
+    static integer i;
     static real fs, ymin;
 
 
@@ -90,21 +90,21 @@
     ymin1 = zin;
     ymin2 = zin;
 L10:
-    i__1 = kkl;
-    for (i__ = 1; i__ <= i__1; ++i__) {
-	if (ylong[i__ - 1] > ymin1) {
+    i1 = kkl;
+    for (i = 1; i <= i1; ++i) {
+	if (ylong[i - 1] > ymin1) {
 	    goto L100;
 	}
-	ymin1 = ylong[i__ - 1];
+	ymin1 = ylong[i - 1];
 L100:
 	;
     }
-    i__1 = kks;
-    for (i__ = 1; i__ <= i__1; ++i__) {
-	if (yshort[i__ - 1] > ymin2) {
+    i1 = kks;
+    for (i = 1; i <= i1; ++i) {
+	if (yshort[i - 1] > ymin2) {
 	    goto L200;
 	}
-	ymin2 = yshort[i__ - 1];
+	ymin2 = yshort[i - 1];
 L200:
 	;
     }
@@ -117,7 +117,7 @@ L200:
     if (*rn < .005f) {
 	*rn = .005f;
     }
-    *z__ = (zin - ymavg * 2.4f - .05f) * 1.1f;
+    *z = (zin - ymavg * 2.4f - .05f) * 1.1f;
     return 0;
 } /* noise_ */
 

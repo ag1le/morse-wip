@@ -33,10 +33,10 @@ am__make_dryrun = \
     esac; \
     test $$am__dry = yes; \
   }
-pkgdatadir = $(datadir)/full-package-name
-pkgincludedir = $(includedir)/full-package-name
-pkglibdir = $(libdir)/full-package-name
-pkglibexecdir = $(libexecdir)/full-package-name
+pkgdatadir = $(datadir)/bmorse
+pkgincludedir = $(includedir)/bmorse
+pkglibdir = $(libdir)/bmorse
+pkglibexecdir = $(libexecdir)/bmorse
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 install_sh_DATA = $(install_sh) -c -m 644
 install_sh_PROGRAM = $(install_sh) -c
@@ -49,7 +49,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = morse$(EXEEXT)
+bin_PROGRAMS = bmorse$(EXEEXT)
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
@@ -68,16 +68,16 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_morse_OBJECTS = src/initl.$(OBJEXT) src/likhd.$(OBJEXT) \
+am_bmorse_OBJECTS = src/initl.$(OBJEXT) src/likhd.$(OBJEXT) \
 	src/path.$(OBJEXT) src/spdtr.$(OBJEXT) src/trelis.$(OBJEXT) \
 	src/bpfdet.$(OBJEXT) src/inputl.$(OBJEXT) src/model.$(OBJEXT) \
 	src/probp.$(OBJEXT) src/sprob.$(OBJEXT) src/trprob.$(OBJEXT) \
-	src/kalfil.$(OBJEXT) src/morse.$(OBJEXT) src/proces.$(OBJEXT) \
+	src/kalfil.$(OBJEXT) src/bmorse.$(OBJEXT) src/proces.$(OBJEXT) \
 	src/savep.$(OBJEXT) src/stats.$(OBJEXT) src/xtrans.$(OBJEXT) \
 	src/noise.$(OBJEXT) src/ptrans.$(OBJEXT) src/transl.$(OBJEXT) \
 	src/window.$(OBJEXT)
-morse_OBJECTS = $(am_morse_OBJECTS)
-morse_LDADD = $(LDADD)
+bmorse_OBJECTS = $(am_bmorse_OBJECTS)
+bmorse_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -86,8 +86,8 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(morse_SOURCES)
-DIST_SOURCES = $(morse_SOURCES)
+SOURCES = $(bmorse_SOURCES)
+DIST_SOURCES = $(bmorse_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -116,12 +116,12 @@ AUTOCONF = ${SHELL} /home/mauri/Projects/morse/missing --run autoconf
 AUTOHEADER = ${SHELL} /home/mauri/Projects/morse/missing --run autoheader
 AUTOMAKE = ${SHELL} /home/mauri/Projects/morse/missing --run automake-1.11
 AWK = gawk
-CC = gcc
+CC = clang
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
-CPP = gcc -E
+CPP = clang -E
 CPPFLAGS = 
-CXX = g++
+CXX = clang++
 CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -g -O2
 CYGPATH_W = echo
@@ -145,24 +145,24 @@ LTLIBOBJS =
 MAKEINFO = ${SHELL} /home/mauri/Projects/morse/missing --run makeinfo
 MKDIR_P = /bin/mkdir -p
 OBJEXT = o
-PACKAGE = full-package-name
-PACKAGE_BUGREPORT = BUG-REPORT-ADDRESS
-PACKAGE_NAME = FULL-PACKAGE-NAME
-PACKAGE_STRING = FULL-PACKAGE-NAME VERSION
-PACKAGE_TARNAME = full-package-name
+PACKAGE = bmorse
+PACKAGE_BUGREPORT = ag1le@innomore.com
+PACKAGE_NAME = bmorse
+PACKAGE_STRING = bmorse 0.1
+PACKAGE_TARNAME = bmorse
 PACKAGE_URL = 
-PACKAGE_VERSION = VERSION
+PACKAGE_VERSION = 0.1
 PATH_SEPARATOR = :
 SET_MAKE = 
 SHELL = /bin/bash
 STRIP = 
-VERSION = VERSION
+VERSION = 0.1
 abs_builddir = /home/mauri/Projects/morse
 abs_srcdir = /home/mauri/Projects/morse
 abs_top_builddir = /home/mauri/Projects/morse
 abs_top_srcdir = /home/mauri/Projects/morse
-ac_ct_CC = gcc
-ac_ct_CXX = g++
+ac_ct_CC = clang
+ac_ct_CXX = 
 am__include = include
 am__leading_dot = .
 am__quote = 
@@ -203,11 +203,11 @@ top_srcdir = .
 AUTOMAKE_OPTIONS = subdir-objects
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
 AM_CFLAGS = -ggdb
-morse_SOURCES = src/initl.c   src/likhd.c  src/path.c\
+bmorse_SOURCES = src/initl.c   src/likhd.c  src/path.c\
 				src/spdtr.c   src/trelis.c\
 				src/bpfdet.c  src/inputl.c  src/model.c  \
 				src/probp.c   src/sprob.c   src/trprob.c\
-				src/kalfil.c  src/morse.c  src/proces.c  src/savep.c   \
+				src/kalfil.c  src/bmorse.c  src/proces.c  src/savep.c   \
 				src/stats.c   src/xtrans.c\
 				src/noise.c  src/ptrans.c src/transl.c \
 				src/window.c
@@ -329,7 +329,8 @@ src/trprob.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/kalfil.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/morse.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/bmorse.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/proces.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/savep.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
@@ -343,19 +344,19 @@ src/transl.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/window.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-morse$(EXEEXT): $(morse_OBJECTS) $(morse_DEPENDENCIES) $(EXTRA_morse_DEPENDENCIES) 
-	@rm -f morse$(EXEEXT)
-	$(LINK) $(morse_OBJECTS) $(morse_LDADD) $(LIBS)
+bmorse$(EXEEXT): $(bmorse_OBJECTS) $(bmorse_DEPENDENCIES) $(EXTRA_bmorse_DEPENDENCIES) 
+	@rm -f bmorse$(EXEEXT)
+	$(LINK) $(bmorse_OBJECTS) $(bmorse_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
+	-rm -f src/bmorse.$(OBJEXT)
 	-rm -f src/bpfdet.$(OBJEXT)
 	-rm -f src/initl.$(OBJEXT)
 	-rm -f src/inputl.$(OBJEXT)
 	-rm -f src/kalfil.$(OBJEXT)
 	-rm -f src/likhd.$(OBJEXT)
 	-rm -f src/model.$(OBJEXT)
-	-rm -f src/morse.$(OBJEXT)
 	-rm -f src/noise.$(OBJEXT)
 	-rm -f src/path.$(OBJEXT)
 	-rm -f src/probp.$(OBJEXT)
@@ -374,13 +375,13 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include src/$(DEPDIR)/bmorse.Po
 include src/$(DEPDIR)/bpfdet.Po
 include src/$(DEPDIR)/initl.Po
 include src/$(DEPDIR)/inputl.Po
 include src/$(DEPDIR)/kalfil.Po
 include src/$(DEPDIR)/likhd.Po
 include src/$(DEPDIR)/model.Po
-include src/$(DEPDIR)/morse.Po
 include src/$(DEPDIR)/noise.Po
 include src/$(DEPDIR)/path.Po
 include src/$(DEPDIR)/probp.Po

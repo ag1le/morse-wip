@@ -1,34 +1,28 @@
 // ----------------------------------------------------------------------------
-// savep.c --  morse code decoder 
+// savep.c --  bayesian morse code decoder 
 //
 // Copyright (C) 2012-2014
 //		     (C) Mauri Niininen, AG1LE
 //
-// This file is part of Morse.  
+// This file is part of Bayesian Morse code decoder   
 
-// Morse is free software: you can redistribute it and/or modify
+// bmorse is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Morse is distributed in the hope that it will be useful,
+// bmorse is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Morse.  If not, see <http://www.gnu.org/licenses/>.
+// along with bmorse.  If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------------------------------------------------------
 
-#include "morse.h"
+#include "bmorse.h"
 
-/* Common Block Declarations */
 
-struct {
-    real ykkip[25], pkkip[25], ykksv[750], pkksv[750];
-} blksv1_;
-
-#define blksv1_1 blksv1_
 
 /* Subroutine */ int savep_(real *p, integer *pathsv, integer *isave, integer 
 	*imax, integer *lamsav, real *dursav, integer *ilrsav, integer *
@@ -158,8 +152,8 @@ struct {
 		lambda[i] = lamsav[sort[i]];
 		dur[i] = dursav[sort[i]];
 		ilrate[i] = ilrsav[sort[i]];
-		blksv1_1.ykkip[i - 1] = blksv1_1.ykksv[sort[i] - 1];
-		blksv1_1.pkkip[i - 1] = blksv1_1.pkksv[sort[i] - 1];
+		blksv.ykkip[i - 1] = blksv.ykksv[sort[i] - 1];
+		blksv.pkkip[i - 1] = blksv.pkksv[sort[i] - 1];
     }
     i1 = *isave;
     for (i = 1; i <= i1; ++i) {
@@ -199,8 +193,8 @@ struct {
 			lambda[n] = lambda[i];
 			dur[n] = dur[i];
 			ilrate[n] = ilrate[i];
-			blksv1_1.ykkip[n - 1] = blksv1_1.ykkip[i - 1];
-			blksv1_1.pkkip[n - 1] = blksv1_1.pkkip[i - 1];
+			blksv.ykkip[n - 1] = blksv.ykkip[i - 1];
+			blksv.pkkip[n - 1] = blksv.pkkip[i - 1];
 			pathsv[n] = pathsv[i];
 			sort[n] = sort[i];
 			p[n] = p[i];

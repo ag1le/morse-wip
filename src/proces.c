@@ -1,26 +1,26 @@
 // ----------------------------------------------------------------------------
-// proces.c --  morse code decoder 
+// proces.c --  bayesian morse code decoder 
 //
 // Copyright (C) 2012-2014
 //		     (C) Mauri Niininen, AG1LE
 //
-// This file is part of Morse.  
+// This file is part of Bayesian Morse code decoder   
 
-// Morse is free software: you can redistribute it and/or modify
+// bmorse is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Morse is distributed in the hope that it will be useful,
+// bmorse is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Morse.  If not, see <http://www.gnu.org/licenses/>.
+// along with bmorse.  If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------------------------------------------------------
 
-#include "morse.h"
+#include "bmorse.h"
 
 int proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat,  real *spdhat, integer *imax, real *
 	pmax)
@@ -202,8 +202,8 @@ int proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat,  real *
     static real pelm;
     static integer sort[25];
     static integer ipath;
-
     static integer ipmax;
+    static int init =1;
  
 
 /* 	THIS SUBROUTINE IMPLEMENTS THE PROCESSING ALGORITHM */
@@ -252,7 +252,14 @@ int proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat,  real *
 /* 	IDENTITY OF EACH NEW PATH EXTENDED (PATH); */
 /* 	LIKELIHOOD OF EACH STATE EXTENSION (LIKHD); */
 
-
+/*	if (init) {
+		for (i=0; i<750; i++)
+			ilrsav[i]=10;
+		for(i=0;i<25;i++)
+			ilrate[i]=13;
+		init = 0;
+	}
+*/
     i1 = isave;
     for (i = 1; i <= i1; ++i) {
 		ipath = i;

@@ -4,7 +4,23 @@ This software is a Morse decoder orinally created by Dr. E. L. Bell in 1977.
 The software was manually entered from Fortran program listings and later converted to C++
 by AG1LE Mauri Niininen.  
 
-2013-SEP-29 
+2013-DEC-29
+	Added more options to enable debugging and testing bmorse decoder while using WAV audio files as source. 
+	Bit filter (-bfv) option does envelope smoothing - 10 msec rise time assumption based on experiences with FLDIGI.
+	Plot option (-plt) enables piping such as  "bmorse -plt <sndfile> | xplot" to visualize the CW envelope. 
+	AGC  option (-agc) has fast rise and slow decay in case original signal has very large dynamic range. 
+	AMP option  (-amp) allows to multiply envelope signal with a constant. 
+	DUR option  (-dur) allows manually to set Bayesian decoder sample duration (used in path.c). 
+	FFT option  (-fft) enables either FFT based signal recovery or just low pass filtering. 
+		- FFT has also peak_detection() to find if there are multiple signals in the audio frequency range. 
+		- Parameter "delta" sets peak detection threshold 
+		- Width (-wid) and length (-len) parameters can be used to set FFT size and chunking 
+	
+
+2013-DEC-28   
+	Renamed this program as "bmorse" - it stands for Bayesian Morse code decoder.  
+	Built new functionality and options for testing both sound files and text files. 
+	
 	
 
 2013-SEP-26 

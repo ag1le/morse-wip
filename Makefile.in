@@ -49,7 +49,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = morse$(EXEEXT)
+bin_PROGRAMS = bmorse$(EXEEXT)
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
@@ -68,16 +68,16 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_morse_OBJECTS = src/initl.$(OBJEXT) src/likhd.$(OBJEXT) \
+am_bmorse_OBJECTS = src/initl.$(OBJEXT) src/likhd.$(OBJEXT) \
 	src/path.$(OBJEXT) src/spdtr.$(OBJEXT) src/trelis.$(OBJEXT) \
 	src/bpfdet.$(OBJEXT) src/inputl.$(OBJEXT) src/model.$(OBJEXT) \
 	src/probp.$(OBJEXT) src/sprob.$(OBJEXT) src/trprob.$(OBJEXT) \
-	src/kalfil.$(OBJEXT) src/morse.$(OBJEXT) src/proces.$(OBJEXT) \
+	src/kalfil.$(OBJEXT) src/bmorse.$(OBJEXT) src/proces.$(OBJEXT) \
 	src/savep.$(OBJEXT) src/stats.$(OBJEXT) src/xtrans.$(OBJEXT) \
 	src/noise.$(OBJEXT) src/ptrans.$(OBJEXT) src/transl.$(OBJEXT) \
 	src/window.$(OBJEXT)
-morse_OBJECTS = $(am_morse_OBJECTS)
-morse_LDADD = $(LDADD)
+bmorse_OBJECTS = $(am_bmorse_OBJECTS)
+bmorse_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -86,8 +86,8 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(morse_SOURCES)
-DIST_SOURCES = $(morse_SOURCES)
+SOURCES = $(bmorse_SOURCES)
+DIST_SOURCES = $(bmorse_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -203,11 +203,11 @@ top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = subdir-objects
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
 AM_CFLAGS = -ggdb
-morse_SOURCES = src/initl.c   src/likhd.c  src/path.c\
+bmorse_SOURCES = src/initl.c   src/likhd.c  src/path.c\
 				src/spdtr.c   src/trelis.c\
 				src/bpfdet.c  src/inputl.c  src/model.c  \
 				src/probp.c   src/sprob.c   src/trprob.c\
-				src/kalfil.c  src/morse.c  src/proces.c  src/savep.c   \
+				src/kalfil.c  src/bmorse.c  src/proces.c  src/savep.c   \
 				src/stats.c   src/xtrans.c\
 				src/noise.c  src/ptrans.c src/transl.c \
 				src/window.c
@@ -329,7 +329,8 @@ src/trprob.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/kalfil.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/morse.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/bmorse.$(OBJEXT): src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 src/proces.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/savep.$(OBJEXT): src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
@@ -343,19 +344,19 @@ src/transl.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/window.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-morse$(EXEEXT): $(morse_OBJECTS) $(morse_DEPENDENCIES) $(EXTRA_morse_DEPENDENCIES) 
-	@rm -f morse$(EXEEXT)
-	$(LINK) $(morse_OBJECTS) $(morse_LDADD) $(LIBS)
+bmorse$(EXEEXT): $(bmorse_OBJECTS) $(bmorse_DEPENDENCIES) $(EXTRA_bmorse_DEPENDENCIES) 
+	@rm -f bmorse$(EXEEXT)
+	$(LINK) $(bmorse_OBJECTS) $(bmorse_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
+	-rm -f src/bmorse.$(OBJEXT)
 	-rm -f src/bpfdet.$(OBJEXT)
 	-rm -f src/initl.$(OBJEXT)
 	-rm -f src/inputl.$(OBJEXT)
 	-rm -f src/kalfil.$(OBJEXT)
 	-rm -f src/likhd.$(OBJEXT)
 	-rm -f src/model.$(OBJEXT)
-	-rm -f src/morse.$(OBJEXT)
 	-rm -f src/noise.$(OBJEXT)
 	-rm -f src/path.$(OBJEXT)
 	-rm -f src/probp.$(OBJEXT)
@@ -374,13 +375,13 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/bmorse.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/bpfdet.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/initl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/inputl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/kalfil.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/likhd.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/model.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/morse.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/noise.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/path.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/probp.Po@am__quote@
