@@ -32,7 +32,7 @@ extern  int initl_(void);
 extern  int stats_(real *, real *, real *, integer *, real *, real *, real *, real *, integer *);
 extern  int bpfdet_(real *, real *);
 extern  int simsgi_(real *, real *);
-extern int proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat, real *spdhat, integer *imax, real *pmax);
+extern int proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat, real *spdhat, integer *imax, real *pmax, int spd);
 extern  int inputl_(void);
 extern int transl_(int *ltr);
 extern int trelis_(integer *isave, integer *pathsv, integer *lambda, integer *imax, integer *ipmax);
@@ -68,6 +68,7 @@ typedef struct
 	double amplify;
 	int fft;
 	int agc;
+	int speed;
 } PARAMS ;
 
 extern PARAMS params;

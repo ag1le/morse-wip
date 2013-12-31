@@ -1,5 +1,14 @@
 MORSE - PROJECT IDEAS
 
+0. To build/install from scratch
+
+	aclocal
+	autoconf
+	autoheader
+	automake --add-missing
+	./configure 
+	make 
+
 1. Build a simple to use C/C++ advanced Bayesian Morse decoder library
 
 	Basic use case example: 
@@ -25,20 +34,22 @@ MORSE - PROJECT IDEAS
 
 		Input 
 			Wav or MP3 files and transcript files
+				- resampling code from here http://www.mega-nerd.com/SRC/index.html 
 			Synthetic test datasets (known SNR, timing, speed)
 			Real world datasets 
 			Model parameters
 			
 		Output 
-			CER  vs. SNR  graphs 
-			CER  vs. timing variations
-			CER  vs. speed variations 
-			CER  per character 
+			SER  vs. SNR  graphs 
+			SER  vs. timing variations
+			SER  vs. speed variations 
+			SER  per character 
 			
 			Misrecognition distribution (input chr vs. output chr)
 				- i.e. A recognized as U 
-			Symbol Error Rate 
-				- 
+			Symbol Error Rate (SER)
+				- print recognized symbols ". - ~ ^ w p"
+				- use Levenshtein distance calculation as error metric
 			Path length vs. SNR 
 			Estimated speed  vs. actual speed distribution
 			
@@ -54,13 +65,7 @@ MORSE - PROJECT IDEAS
 		http://orgmode.org/worg/org-contrib/babel/examples/data-collection-analysis.html
 	
 
-INSTALL FROM SCRATCH 
-aclocal
-autoconf
-autoheader
-automake --add-missing
-./configure 
-make 
+
 
 
 

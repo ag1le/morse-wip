@@ -55,9 +55,10 @@
 	double amplify;			// 0.0
 	int fft;				// 0 
 	int agc;				// 0 
+	int speed;				// 20
 */
 PARAMS params = { 
-FALSE, FALSE, FALSE, FALSE, FALSE, 8192, 32, 0, 5, 0, 10.0, 0.0, 0, 0};
+FALSE, FALSE, FALSE, FALSE, FALSE, 8192, 32, 0, 5, 0, 10.0, 0.0, 0, 0,20};
 
 
 
@@ -327,7 +328,7 @@ void process_data(double x)
 	if (zout > 1.0) zout = 1.0; 
 	if (zout < 0.0) zout = 0.0;
 	
-	retstat = proces_(&zout, &rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax);
+	retstat = proces_(&zout, &rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax, params.speed);
 	if (params.print_variables) 
 		printf("\n%d\t%d\t%d\t%d\t%f\t%f\t%f\t%f\t%f\t%f",(int)retstat,(int)imax,(int)elmhat,(int)xhat,x,px,pmax,spdhat,rn,zout); 
 	
@@ -551,9 +552,10 @@ static void usage_exit (const char * argv0)
 		"        -bfv	<value>		Bit filter value (default 10 msec).\n"
 		"        -fft   <value>		Enable FFT filtering (default 0 - off)  \n"
 		"        -plt				Plot envelope using xplot: ./morse -plt <sndfile> | xplot \n"
+		"        -spd   <value>		Set default speed in WPM for decoder (default 20 )  \n"
 		"        -len	<length>		Window length for FFT [8,16,32,64,128...].\n"
 		"        -wid	<width>			Width of buffer to read & process [8192, 16384].\n"
-		"        -dur	<duration>		Sample duration in msec [5.0].\n"
+		"        -dur	<duration>		Sample duration in msec [5.0] used in path.c.\n"
 		"        -del	<delta>			Peak detection delta [10.0].\n"				
 
 
@@ -623,6 +625,11 @@ int main(int argc, char**argv)
 		if (strcmp (argv [k], "-del") == 0){
 			k++ ;
 			params.delta = atof (argv [k]) ;
+			continue ;
+		}
+		if (strcmp (argv [k], "-spd") == 0){
+			k++ ;
+			params.speed = atoi (argv [k]) ;
 			continue ;
 		}
 		if (strcmp (argv [k], "-amp") == 0){
