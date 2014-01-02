@@ -22,17 +22,6 @@
 
 #include "bmorse.h"
 
-/* Common Block Declarations */
-
-
-
-
-
-struct {
-    integer itext[200];
-} blktxt_;
-
-#define blktxt_1 blktxt_
 
 /* Initialized data */
 
@@ -74,6 +63,7 @@ struct BLKELM blkelm = {
 	0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, .069f, .069f, .012f, .012f, .012f, .012f, .009f, .009f, 
 	0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, .015f, .015f, .003f, .003f, .003f, .003f, .001f, .001f };
 
+// used in spdtr.cxx - speed transition probabilities
 struct BLKSPD blkspd = { 
     .1f, .2f, .4f, .2f, .1f, 
     .15f, .2f, .3f, .2f, .15f, 
@@ -205,7 +195,13 @@ struct BLKMEM  blkmem = {
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 struct BLKS blks = { 1, 1, 0, 0, 0, 0 };
+/* Initialized data */
 
+struct BLKSV blksv = { .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, 
+	    .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, 
+	    .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, 
+	    .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f };
+	    
 
 /* Table of constant values */
 

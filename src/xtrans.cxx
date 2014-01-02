@@ -33,8 +33,6 @@ doublereal xtrans_(integer *ielem, real *d0, integer *irate)
     /* System generated locals */
     real ret_val;
 
-    /* Builtin functions */
-    double exp(doublereal);
 
     /* Local variables */
     static real b0, b1, p0, p1, alpha;

@@ -22,8 +22,7 @@
 
 #include "bmorse.h"
 
-int proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat,  real *spdhat, integer *imax, real *
-	pmax, int spd)
+int proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat,  real *spdhat, integer *imax, real *	pmax, int spd)
 {
     /* Initialized data */
 
@@ -101,7 +100,7 @@ int proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat,  real *
 		for(i=0;i<25;i++) {
 			lambda[i] = 5;
 			ilrate[i]= ((i/5+1)*10);
-			dur[i]=1e3f;
+			dur[i]=9e3f;
 			pathsv[i]=5;
 		}
 		for(i=0;i<750;i++) {

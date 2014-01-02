@@ -25,18 +25,6 @@
 
 //#define DEBUG 1
 
-/* Common Block Declarations */
-
-struct {
-    integer iend;
-} blkend_;
-
-#define blkend_1 blkend_
-
-/* Table of constant values */
-
-static integer c__1 = 1;
-
 
 int trelis_(integer *isave, integer *pathsv, integer *lambda, integer *imax, integer *ipmax)
 {
@@ -59,6 +47,7 @@ int trelis_(integer *isave, integer *pathsv, integer *lambda, integer *imax, int
     static integer kd = 0;
     static integer ndelst = 0;
     static integer pthtrl[25*NDELAY];	/* was [200][25] */
+    static integer iend = 0;
 
 
     /* System generated locals */
@@ -97,14 +86,13 @@ int trelis_(integer *isave, integer *pathsv, integer *lambda, integer *imax, int
     
     
 /* 	KEEP AVERAGE OF ISAVE, NDEL FOR DATA ANALYSIS: */
-/* 	CALL VISBUI('PSV', PATHSV) */
-/* 	CALL VISBUI('LBD', LAMBDA) */
+
 	retstat = 1;
     ++ncall;
-    if (blkend_1.iend == 1) {
+    if (iend == 1) {
 		isavg = xsavg;
 		ndlavg = xdlavg;
-		blkend_1.iend = 0;
+		iend = 0;
 		printf("\nAVG # OF PATHS SAVED:%4.2f,AVG DECODE DELAY:%4.2f)", xsavg, xdlavg);
 		printf("\nPERCENT OF TIME PATHS = 25: %3.2f, PERCENT OF TIME DELAY = 200: %3.2f", xmmax, xnmax);
     }

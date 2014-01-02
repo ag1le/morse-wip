@@ -43,8 +43,12 @@ extern int  sprob_(real *, integer *, integer *, real *, integer *, real *, real
 extern int trprob_(integer *, integer *, real *, integer *, real *);
 extern int savep_(real *, integer *, integer *, integer *, integer *, real *, integer *, integer *, real *, integer *, integer *, real *);
 extern int likhd_(real *, real *, integer *, integer *, real *, integer *, real *, real *);
+extern int kalfil_(real *, integer *, real *, integer *, integer *, integer *, integer *, integer *, real *, integer *, real *, real *);
 extern int path_(integer *, integer *, real *, integer *, integer *, real *, integer *);
 extern doublereal spdtr_(integer *, integer *, integer *, integer *);
+extern int ptrans_(integer *, integer *, integer *, integer *, real *, real *, real *, integer *);
+extern doublereal xtrans_(integer *, real *, integer *);
+extern int model_(real *, integer *, integer *, integer *, integer *, real *, real *, real *);
 
 #define FSAMPLE 4000.0			// Sampling Frequency  FLDIGI=8000   MORSE.M =4000
 #define DECIMATE  20			// Decimation     FLDIGI=40    MORSE.M=20 
@@ -62,6 +66,7 @@ typedef struct
 	int print_xplot;
 	int width, speclen ;
 	int bfv;
+	double frequency; 
 	double sample_duration; 
 	double sample_rate; 
 	double delta;
@@ -69,43 +74,45 @@ typedef struct
 	int fft;
 	int agc;
 	int speed;
+	int dec_ratio;
 } PARAMS ;
 
 extern PARAMS params;
 
 
 /* Common Block Declarations */
-struct BLKSPD {
+extern struct BLKSPD {
     real rtrans[10]	/* was [5][2] */;
     integer mempr[36]	/* was [6][6] */;
 } blkspd;
 
-struct BLKRAT {
+extern struct BLKRAT {
     integer memdel[36]	/* was [6][6] */;
 } blkrat;
 
-struct BLKLAM {
+extern struct BLKLAM {
     integer ielmst[400], ilami[16], ilamx[6];
 } blklam;
 
 
-struct BLKS {
+extern struct BLKS {
     integer isx[6];
 } blks;
 
-struct BLKELM {
+extern struct BLKELM {
     real elemtr[96]	/* was [16][6] */;
 } blkelm;
 
-struct BLKMEM {
+extern struct BLKMEM {
     integer memfcn[2400]	/* was [400][6] */;
 } blkmem;
 
 
-struct BLKSV {
+extern struct BLKSV {
     real ykkip[25], 
     pkkip[25], 
     ykksv[750], 
     pkksv[750];
 } blksv;
+
 

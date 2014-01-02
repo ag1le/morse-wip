@@ -29,9 +29,7 @@ int trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate, real *p)
     static integer kelm;
     static real psum, ptrx;
     static integer ielem, irate;
-    extern /* Subroutine */ int ptrans_(integer *, integer *, integer *, 
-	    integer *, real *, real *, real *, integer *);
-    extern doublereal xtrans_(integer *, real *, integer *);
+
 
 
 /* 		THIS SUBROUTINE COMPUTES THE TRANSITION PROBABILITY */

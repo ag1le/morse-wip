@@ -8,6 +8,10 @@ MORSE - PROJECT IDEAS
 	automake --add-missing
 	./configure 
 	make 
+	
+	
+	http://inti.sourceforge.net/tutorial/libinti/autotoolsproject.html
+	
 
 1. Build a simple to use C/C++ advanced Bayesian Morse decoder library
 

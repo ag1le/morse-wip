@@ -22,14 +22,7 @@
 
 #include "bmorse.h"
 #include <math.h> 
-
-
-/* Initialized data */
-
-struct BLKSV blksv = { .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, 
-	    .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, 
-	    .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, 
-	    .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f };
+#include <stdio.h>
 
 
 int kalfil_(real *z, integer *ip, real *rn, integer *ilx, 
@@ -46,8 +39,7 @@ int kalfil_(real *z, integer *ip, real *rn, integer *ilx,
 
 
     /* Local variables */
-    static real a, g, qa, hz, pz, zr, phi, pkk, ykk, expa, pest;
-    extern /* Subroutine */ int model_(real *, integer *, integer *, integer *, integer *, real *, real *, real *);
+    static real a, g, qa, hz, pz, zr, phi, pkk, ykk, pest;
     static real ppred, ypred, pzinv;
 
 
@@ -69,20 +61,17 @@ int kalfil_(real *z, integer *ip, real *rn, integer *ilx,
 
 /*   SUBROUTINES USED */
 /*       MODEL - OBTAINS THE SIGNAL-STATE-DEPENDENT LINEAR */
-/*       	MODEL FOR THE KALMAN FILTER RECURSIONS */
+/*       	     MODEL FOR THE KALMAN FILTER RECURSIONS */
 
 /*   IF TRANSITION PROBABILITY IS VERY SMALL, DON'T */
 /*   BOTHER WITH LIKELIHOOD CALCULATION: */
 
-    if (*pin > pinmin) {
-	goto L100;
+    if (*pin <= pinmin) {
+		*lkhdj = 0.f;
+		return 0;
     }
-    *lkhdj = 0.f;
-    goto L400;
 
 /*   OBTAIN STATE-DEPENDENT MODEL PARAMETERS: */
-
-L100:
     model_(dur, kelem, ilrate, israte, ixs, &phi, &qa, &hz);
 
 /* 	GET PREVIOUS ESTIMATES FOR PATH IP */
@@ -102,21 +91,17 @@ L100:
     blksv.ykksv[*jnode - 1] = ypred + g * zr;
     blksv.pkksv[*jnode - 1] = pest;
     if (blksv.ykksv[*jnode - 1] <= .01f) {
-	blksv.ykksv[*jnode - 1] = .01f;
+		blksv.ykksv[*jnode - 1] = .01f;
     }
 /* Computing 2nd power */
     r1 = zr;
     a = pzinv * .5f * (r1 * r1);
-    if (a <= 1e3f) {
-	goto L200;
+    if (a > 1e3f) {
+		*lkhdj = 0.;
+		return 0;
     }
-    *lkhdj = 0.f;
-    goto L400;
-L200:
-    expa = exp(-a);
     *lkhdj = 1.f / sqrt(pz) * exp(-a);
-    goto L400;
-L400:
+ //   printf("\nz:%f a:%f lkhdj:%f israte:%d ilrate:%d dur:%f",*z,a,*lkhdj,*israte,*ilrate,*dur);
     return 0;
 } /* kalfil_ */
 

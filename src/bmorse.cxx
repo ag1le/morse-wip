@@ -1,10 +1,11 @@
 // ----------------------------------------------------------------------------
 // bmorse.c --  bayesian morse code decoder 
 //
-// Copyright (C) 2012-2014
-//		     (C) Mauri Niininen, AG1LE
+// Copyright (C) 2012-2014   Mauri Niininen, AG1LE
 //
 // This file is part of Bayesian Morse code decoder   
+//	  Parts of this is adapted from FLDIGI  cw.cxx 
+// 	  Copyright (C) 2006-2010  Dave Freese, W1HKJ
 //    Parts of this is adapted from sndfile-spectrogram 
 //	  Copyright (C) 2007-2009 Erik de Castro Lopo <erikd@mega-nerd.com>
 //
@@ -27,10 +28,12 @@
 #include <string.h>
 #include <errno.h>
 #include <math.h>
-#include "bmorse.h"
 #include <sndfile.h>
 #include <fftw3.h>
+#include "complex.h"
 #include "window.h"
+#include "bmorse.h"
+#include "fftfilt.h"
 
 #define ARRAY_LEN(x)    ((int) (sizeof (x) / sizeof (x [0])))
 #define MAX(x,y)                ((x) > (y) ? (x) : (y))
@@ -39,6 +42,8 @@
 #define	MIN_HEIGHT	480
 #define	MAX_WIDTH	65536
 #define	MAX_HEIGHT	4096
+#define TWOPI	2.0*M_PI
+#define DEC_RATIO  20
 
 /*
 {	int print_variables ;  	// FALSE
@@ -49,6 +54,7 @@
 	int width; 				// 8192
 	int speclen ;			// 32 
 	int bfv;				// 0 
+	double frequency;		// 600 
 	double sample_duration; // 5
 	double sample_rate; 	// 0
 	double delta;			// 10.0
@@ -56,10 +62,12 @@
 	int fft;				// 0 
 	int agc;				// 0 
 	int speed;				// 20
+	int dec_ratio;			// 20   (4000 Hz/ 20 => 200 Hz ) decimation ratio  samplerate / bayes decoder rate  
 */
 PARAMS params = { 
-FALSE, FALSE, FALSE, FALSE, FALSE, 8192, 32, 0, 5, 0, 10.0, 0.0, 0, 0,20};
+FALSE, FALSE, FALSE, FALSE, FALSE, 8192, 32, 0, 600, 5, 4000, 10.0, 0.0, 0, 0,20,20};
 
+fftfilt			*FFT_filter; 
 
 
 double filter(double a, int len)
@@ -198,7 +206,7 @@ void peak_detect(double *v, int length, struct PEAKS *p)
 {
 
 	int i, lookformax; 
-	double this, mn,mx;
+	double value, mn,mx;
 	int mnpos,mxpos;
 
 	p->mxcount = 0;
@@ -216,24 +224,24 @@ void peak_detect(double *v, int length, struct PEAKS *p)
 	lookformax = 1;
 	
 	for (i=0; i< length; i++) {
-		  this = v[i];
-		  if (this > mx) {mx = this; mxpos = i;}
-		  if (this < mn) {mn = this; mnpos = i;}
+		  value = v[i];
+		  if (value > mx) {mx = value; mxpos = i;}
+		  if (value < mn) {mn = value; mnpos = i;}
 		  
 		  if (lookformax){
-				if (this < mx-p->delta) {
+				if (value < mx-p->delta) {
 				  p->mx[p->mxcount] = mx;
 				  p->mxpos[p->mxcount] = mxpos;
 				  p->mxcount += 1;
-				  mn = this; mnpos = i;
+				  mn = value; mnpos = i;
 				  lookformax = 0;
 				};
 			} else {
-				if (this > mn+p->delta) {
+				if (value > mn+p->delta) {
 				  p->mn[p->mncount] = mn;
 				  p->mnpos[p->mncount] = mnpos;
 				  p->mncount += 1;
-				  mx = this; mxpos = i;
+				  mx = value; mxpos = i;
 				  lookformax = 1;
 				};
 			}
@@ -325,8 +333,8 @@ void process_data(double x)
 
 	noise_(x, &rn, &zout);
 
-	if (zout > 1.0) zout = 1.0; 
-	if (zout < 0.0) zout = 0.0;
+//	if (zout > 1.0) zout = 1.0; 
+//	if (zout < 0.0) zout = 0.0;
 	
 	retstat = proces_(&zout, &rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax, params.speed);
 	if (params.print_variables) 
@@ -334,6 +342,51 @@ void process_data(double x)
 	
 
 }
+
+int rx_FFTprocess(const double *buf, int len)
+{
+	complex  z, *zp;
+	int n,i;
+	static int smpl_ctr = 0;
+	static double FFTvalue,FFTphase =0.0; 
+
+	while (len-- > 0) {
+		// convert CW signal to baseband 	
+		z = complex ( *buf * cos(FFTphase), *buf * sin(FFTphase) );
+		FFTphase += TWOPI * params.frequency / params.sample_rate;
+		if (FFTphase > M_PI)
+			FFTphase -= TWOPI;
+		else if (FFTphase < M_PI)
+			FFTphase += TWOPI;
+
+		buf++;
+		
+		// run low pass filter 
+		n = FFT_filter->run(z, &zp); // n = 0 or filterlen/2
+		
+		if (!n) continue;
+
+		for (int i = 0; i < n; i++) {
+
+
+
+	// update the basic sample counter used for morse timing
+				++smpl_ctr;
+				if (smpl_ctr % params.dec_ratio) continue; // decimate by DEC_RATIO		
+
+	// demodulate
+				FFTvalue = zp[i].mag();
+	// run envelope filter 
+				FFTvalue = filter(FFTvalue,params.bfv);
+
+				process_data(FFTvalue);
+
+		} // for (i =0; i < n ...
+
+	} //while (len-- > 0)
+
+}
+
 
 
 static void
@@ -356,7 +409,6 @@ decode_sndfile (SNDFILE *infile, SF_INFO info)
 	int f,sr,sc =0,c,num_items,num,i,j;
 	double *buf;
 	int bfv;   // bit filter value 
-	int dec_ratio;  // decimation ratio  samplerate / bayes decoder rate  
 	
 	//  speclen should be multiple of 2^n but also keep time resolution < 5 ms 
 	//  for 48Khz sampling rate speclen 64 represents 2.6667 ms sample time??
@@ -366,9 +418,11 @@ decode_sndfile (SNDFILE *infile, SF_INFO info)
 	/* Print some of the info, and figure out how much data to read. */
     f = info.frames;
     sr = info.samplerate;
+    params.sample_rate = info.samplerate;
+ 	params.dec_ratio = info.samplerate / BAYES_RATE; 
     c = info.channels;
     num_items = f*c;
- 	dec_ratio = info.samplerate / BAYES_RATE; 
+
  	
 
  	// bit filter based on 10 msec rise time of CW waveform or manually set 
@@ -382,13 +436,17 @@ decode_sndfile (SNDFILE *infile, SF_INFO info)
 	//params.sample_duration= (2.0*speclen*1000.0)/((double)16*sr);
     
     printf("frames=%d\n",f);
-    printf("samplerate=%d\n",sr);
     printf("channels=%d\n",c);
+    printf("samplerate=%d\n",sr);
+    printf("dec_ratio=%d\n",params.dec_ratio);
     printf("bit filter=%d\n",bfv);
-    printf("dec_ratio=%d\n",dec_ratio);
     printf("num_items=%d\n",num_items);
     printf("sample_duration=%f\n",params.sample_duration);
-    
+    printf("bitfilter=%d\n",params.bfv);
+    printf("speed(WPM):%d\n",params.speed);
+    printf("FFT filter %f\n",(params.speed/(1.2 * params.sample_rate)));
+ 
+   
   
 	if (params.fft) {
 			// speclen = 16; 			// 16 ok for 4000 Hz test60db.wav @16384 width
@@ -450,16 +508,29 @@ decode_sndfile (SNDFILE *infile, SF_INFO info)
 
 			fftw_destroy_plan (plan) ;
 
-	} else {  // don't use FFT - just basic filtering - see http://octave.sourceforge.net/communications/function/filter.html
+	} else {  // use  FLDIGI CW.CXX  FFT filtering 
+
+			//overlap and add filter length should be a factor of 2
+			// low pass implementation
+			int FilterFFTLen = 4096;
+			FFT_filter = new fftfilt((params.speed*20)/(1.2 * params.sample_rate), FilterFFTLen);
 		  
 			/* Allocate space for the data to be read, then read it. */
 			buf = (double *) malloc(num_items*sizeof(double));
+			if (buf == 0) {
+				printf ("%s : line %d :out of memory.\n", __FILE__, __LINE__) ;
+				exit (1) ;
+			}
+
 			num = sf_read_double(infile,buf,num_items);
 			printf("Read %d items\n",num);
 
-			for (i = 0; i < num; i += c){
-				for (j = 0; j < c; ++j) {
-					x = (buf[i+j]);
+			for (i = 0; i < num; i += 512){
+					
+					rx_FFTprocess(buf, 512);
+					buf += 512; 
+					
+/*					
 					if (x < 0)  x = -x;
 					x = filter(x,bfv);   					
 					sc++;
@@ -468,10 +539,10 @@ decode_sndfile (SNDFILE *infile, SF_INFO info)
      	
 
 						process_data(x);
-					}
-				}
-					
+*/
+		
 			}
+			//free(buf); 
 	}
 	 
 
@@ -550,6 +621,7 @@ static void usage_exit (const char * argv0)
 		"        -txf				Process text file instead of soundfile.\n"
 		"        -agc				Use Automatic Gain Control (default off).\n"
 		"        -bfv	<value>		Bit filter value (default 10 msec).\n"
+		"        -frq	<value>		CW signal frequency (default 600 Hz).\n"
 		"        -fft   <value>		Enable FFT filtering (default 0 - off)  \n"
 		"        -plt				Plot envelope using xplot: ./morse -plt <sndfile> | xplot \n"
 		"        -spd   <value>		Set default speed in WPM for decoder (default 20 )  \n"
@@ -577,7 +649,7 @@ static void usage_exit (const char * argv0)
 // (c) Mauri Niininen AG1LE 
 // 
 
-int main(int argc, char**argv)
+int main(int argc, const char* argv[])
 {
     /* Initialized data */
 
@@ -632,6 +704,11 @@ int main(int argc, char**argv)
 			params.speed = atoi (argv [k]) ;
 			continue ;
 		}
+		if (strcmp (argv [k], "-frq") == 0){
+			k++ ;
+			params.frequency = atof (argv [k]) ;
+			continue ;
+		}
 		if (strcmp (argv [k], "-amp") == 0){
 			k++ ;
 			params.amplify = atof (argv [k]) ;
@@ -665,12 +742,11 @@ int main(int argc, char**argv)
 
 /* 	INITIALIZE DATA STRUCTURES */
 	initl_();
-	inputl_();
 	
 	if(params.process_textfile) 
-		process_textfile(argv[k-1]);
+		process_textfile((char *)argv[k-1]);
 	else 
- 		process_sndfile(argv[k-1]);
+ 		process_sndfile((char *)argv[k-1]);
  
 		
 } /* MAIN__ */

@@ -33,9 +33,7 @@ int likhd_(real *z, real *rn, integer *ip, integer *lambda,
     static integer ilx, ixs;
     static real lkhdj;
     static integer kelem;
-    extern /* Subroutine */ int kalfil_(real *, integer *, real *, integer *, 
-	    integer *, integer *, integer *, integer *, real *, integer *, 
-	    real *, real *);
+ 
     static integer israte;
 
 

@@ -24,6 +24,7 @@
 
 #include <stdio.h>
 extern char debug; 
+extern PARAMS params; 
 
 int sprob_(real *p, integer *isave, integer *ilrsav, real *pelm, integer *khat, real *spdhat, real *px)
 {

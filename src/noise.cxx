@@ -56,7 +56,7 @@ int noise_(double zin, real *rn, real *z)
 
     /* Local variables */
     static integer i;
-    static real fs, ymin;
+    static real ymin;
 
 
 /* 	THIS SUBROUTINE ESTIMATES THE NOISE POWER IN THE */
@@ -70,7 +70,7 @@ int noise_(double zin, real *rn, real *z)
     if (kl == 201) {
 	kl = 1;
     }
-    fs = (real) (ks + 1);
+    ++ks;
     if (ks == 51) {
 	ks = 1;
     }

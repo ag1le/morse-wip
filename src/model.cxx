@@ -30,7 +30,7 @@
 
 static doublereal c_b5 = 10.;
 
-/* Subroutine */ int model_(real *dur, integer *ielm, integer *ilr, integer *
+int model_(real *dur, integer *ielm, integer *ilr, integer *
 	isr, integer *ixs, real *phi, real *qa, real *hz)
 {
     /* System generated locals */
@@ -65,32 +65,29 @@ static doublereal c_b5 = 10.;
     r1 = 1200.f / *ilr;
     bauds = *dur / r1;
     if (bauds >= 14.f) {
-	bauds = 14.f;
+		bauds = 14.f;
     }
-    if (*ielm >= 3) {
-	goto L100;
+    if (*ielm < 3) {
+		*qa = 1e-4f;
+		*phi = 1.f;
+		return 0;
     }
-    *qa = 1e-4f;
-    *phi = 1.f;
-    goto L300;
-L100:
-    if (*ixs == 0) {
-	goto L200;
+
+    if (*ixs != 0) {
+		*phi = 1.f;
+		*qa = exp((bauds - 14.f) * .6f) * .15f;
+		*qa += bauds * .01f * exp((1.f - bauds) * .2f);
+		return 0;
     }
-    *phi = 1.f;
-    *qa = exp((bauds - 14.f) * .6f) * .15f;
-    *qa += bauds * .01f * exp((1.f - bauds) * .2f);
-    goto L300;
-L200:
+
     xsamp = r1 * 22.4f;
     d1 = (doublereal) (-2 / xsamp);
-//    *phi = pow_dd(&c_b5, &d1);
     *phi = pow(10.0, d1);
+
     if (bauds >= 14.f) {
-	*phi = 1.f;
+		*phi = 1.f;
     }
     *qa = 0.f;
-L300:
     return 0;
 } /* model_ */
 
