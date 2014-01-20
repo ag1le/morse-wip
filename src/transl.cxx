@@ -100,7 +100,7 @@ struct TREE {
 // (c) 2013  AG1LE Mauri Niininen
 //
 //
-int transl_(int *ltr)
+int morse::transl_(int *ltr)
 {
     /* Initialized data */
 
@@ -135,10 +135,10 @@ int transl_(int *ltr)
 
 /* 	DETERMINE IF A CSP,WSP, OR PAUSE TO MARK TRASITION */
 /* 	HAS OCCURED; IF SO LTR IS READY FOR OUTPUT: */
-    // elmhat = blklam_1.ilami[(1600 + (0 + (blklam_1.ielmst[(0 + (0 + (*ltr - 1 << 2))) / 4] - 1 << 2)) - 1600) / 4];
+
     
-	elmhat = blklam.ilami[*ltr-1];
-    ixl = blklam.ilamx[elmhat - 1];
+	elmhat = ilami[*ltr-1];
+    ixl = ilamx[elmhat - 1];
 
 /* 	NO CHANGE FROM LAST - CONTINUE */
 

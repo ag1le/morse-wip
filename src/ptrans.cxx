@@ -24,9 +24,9 @@
 
 
 
-int ptrans_(integer *kelem, integer *irate, integer *lambda, integer *ilrate, real *ptrx, real *psum, real *pin, integer *n)
+int morse::ptrans_(integer *kelem, integer *irate, integer *lambda, integer *ilrate, real *ptrx, real *psum, real *pin, integer *n)
 {
-    static real pelem, prate;
+	real pelem, prate;
 
 
 /* 	THIS FUNCTION SUBROUTINE RETURNS THE PATH CONDITIONAL TRANSITION */
@@ -50,7 +50,7 @@ int ptrans_(integer *kelem, integer *irate, integer *lambda, integer *ilrate, re
     --pin;
 
     /* Function Body */
-    if (*kelem != blklam.ilami[blklam.ielmst[*lambda - 1] - 1]) {
+    if (*kelem != ilami[ielmst[*lambda - 1] - 1]) {
 		goto L100;
     }
     pin[*n] = *ptrx;
@@ -65,9 +65,9 @@ int ptrans_(integer *kelem, integer *irate, integer *lambda, integer *ilrate, re
 /* 	OBTAIN ELEM TRANS PROBS TABLE: */
 
 L100:
-    pelem = blkelm.elemtr[blklam.ielmst[*lambda - 1] + (*kelem << 4) - 17];
+    pelem = elemtr[*kelem-1][ielmst[*lambda - 1]-1];
 /* 	NEXT COMPUTE ELEM-CONDITIONAL SPEED TRANS PROB: */
-    prate = spdtr_(irate, ilrate, kelem, &blklam.ilami[blklam.ielmst[*lambda - 1] - 1]);
+    prate = spdtr_(irate, ilrate, kelem, &ilami[ielmst[*lambda - 1] - 1]);
 /* 	TRANS IS THE PRODUCT: */
     pin[*n] = (1.f - *ptrx) * pelem * prate;
 L200:

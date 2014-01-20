@@ -26,27 +26,21 @@
 //#define DEBUG 1
 
 
-int trelis_(integer *isave, integer *pathsv, integer *lambda, integer *imax, integer *ipmax)
+int morse::trelis_(integer *isave, integer *pathsv, integer *lambda, integer *imax, integer *ipmax)
 {
     /* Initialized data */
 
-    static integer lmdsav[25*NDELAY];	/* was [200][25] */ 
+    static integer lmdsav[25][NDELAY];	/* was [200][25] */ 
     static integer n = 0;
     static integer ndelay = NDELAY;
-    static integer ipnod[25] = { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 };
+    static integer ipnod[25];
     static integer ncall = 0;
     static integer nmax = 0;
     static integer mmax = 0;
-    static integer ltrsv[NDELAY] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	    0,0,0,0,0,0,0,0,0,0,0,0,0 };
+    static integer ltrsv[NDELAY];
     static integer kd = 0;
     static integer ndelst = 0;
-    static integer pthtrl[25*NDELAY];	/* was [200][25] */
+    static integer pthtrl[25][NDELAY];	/* was [200][25] */
     static integer iend = 0;
 
 
@@ -75,12 +69,17 @@ int trelis_(integer *isave, integer *pathsv, integer *lambda, integer *imax, int
     --lambda;
     --pathsv;
 
-    /* Function Body */
+    /* initialize variables*/
  	if (init ==0) {
  		init = 1; 
-		for (i=0; i<(25*NDELAY); i++) {
-			pthtrl[i] = 0;
-			lmdsav[i] = 0; 
+		for (i=0; i< NDELAY; i++)
+			ltrsv[i] = 0;
+		for (int row =0; row < 25; row++) {
+			ipnod[row] = 1;
+			for (int col =0; col < NDELAY; col++){
+					lmdsav[row][col] = 0; 
+					pthtrl[row][col] = 0;
+			}
 		}
 	}
     
@@ -117,8 +116,11 @@ int trelis_(integer *isave, integer *pathsv, integer *lambda, integer *imax, int
     }
     i1 = *isave;
     for (i = 1; i <= i1; ++i) {
-		pthtrl[n + i * NDELAY-NDELAY-1] = pathsv[i];
-		lmdsav[n + i * NDELAY-NDELAY-1] = lambda[i];
+//		pthtrl[n + i * NDELAY-NDELAY-1] = pathsv[i];
+		pthtrl[i-1][n-1] = pathsv[i];
+		
+//		lmdsav[n + i * NDELAY-NDELAY-1] = lambda[i];
+		lmdsav[i-1][n-1] = (integer)lambda[i];
     }
 
 /* 	PERFORM DYNAMIC PROGRAM ROUTINE TO FIND CONVERGENT PATH: */
@@ -140,7 +142,8 @@ L190:
 		if (i <= 0) {
 			i = ndelay + i;
 		}
-		ipnod[ip - 1] = pthtrl[i + ipnod[ip - 1] * NDELAY-NDELAY-1];
+//		ipnod[ip - 1] = pthtrl[i + ipnod[ip - 1] * NDELAY-NDELAY-1];
+		ipnod[ip - 1] = pthtrl[ipnod[ip - 1]-1][i-1];
 		if (ip == *imax) {
 			*ipmax = ipnod[ip - 1];
 		}
@@ -170,7 +173,8 @@ L190:
     if (i <= 0) {
 		i = ndelay + i;
     }
-    ltr = lmdsav[i + ipnod[0] * NDELAY-NDELAY-1];
+//    ltr = lmdsav[i + ipnod[0] * NDELAY-NDELAY-1];
+    ltr = lmdsav[ipnod[0]-1][i-1];
 #ifdef DEBUG
 printf("\nSAME DELAY AS LAST: %d",ltr);
 #endif
@@ -191,8 +195,14 @@ L350:
 		if (i <= 0) {
 			i = ndelay + i;
 		}
-		ltrsv[kd - 1] = lmdsav[i + ip * NDELAY-NDELAY-1];
-		ip = pthtrl[i + ip * NDELAY-NDELAY-1];
+//		ltrsv[kd - 1] = lmdsav[i + ip * NDELAY-NDELAY-1];
+		if (ip > 26) {
+			printf("\nTRELIS.CXX: Error line 196 ip:%d",ip);
+			return(-1);
+		}
+		ltrsv[kd - 1] = lmdsav[ip-1][i-1];
+//		ip = pthtrl[i + ip * NDELAY-NDELAY-1];
+		ip = pthtrl[ip-1][i-1];
     }
 
 /* 	REVERSE ORDER OF DECODED LETTERS, SINCE THEY */
@@ -217,7 +227,8 @@ L700:
     if (i <= 0) {
 		i = ndelay + i;
     }
-    ltr = lmdsav[i + *ipmax * NDELAY-NDELAY-1];
+//  ltr = lmdsav[i + *ipmax * NDELAY-NDELAY-1];
+    ltr = lmdsav[*ipmax-1][i -1];
 #ifdef DEBUG
 printf("\nHIGHEST PROB: %d", ltr);
 #endif

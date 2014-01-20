@@ -22,7 +22,7 @@
 
 #include "bmorse.h"
 
-int trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate, real *p)
+int morse::trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate, real *p)
 {
     static integer i, k, n;
     static real pin[30];
@@ -59,7 +59,7 @@ int trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate, real *p)
 		return 0;
     }
 
-    ielem = blklam.ilami[blklam.ielmst[*lambda - 1] - 1];
+    ielem = ilami[ielmst[*lambda - 1] - 1];
 /* 	COMPUTE KEYSTATE TRANSITION PROBABILITY: */
     ptrx = xtrans_(&ielem, dur, ilrate);
 

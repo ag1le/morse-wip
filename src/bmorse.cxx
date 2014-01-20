@@ -305,6 +305,12 @@ void process_data(double x)
 	static real pmax, zout, spdhat, px;
 	static int init = 1; 
 	static double agc_peak = 0.1;
+	static morse* mp; 
+	
+	if (init) {
+		mp = new morse();
+		init = 0;
+	}
 
 	if (params.amplify != 0.0) 
 		x = params.amplify * x; 
@@ -331,12 +337,12 @@ void process_data(double x)
 		init = 0; 
 	}
 
-	noise_(x, &rn, &zout);
+	mp->noise_(x, &rn, &zout);
 
 //	if (zout > 1.0) zout = 1.0; 
 //	if (zout < 0.0) zout = 0.0;
 	
-	retstat = proces_(&zout, &rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax, params.speed);
+	retstat = mp->proces_(&zout, &rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax, params.speed);
 	if (params.print_variables) 
 		printf("\n%d\t%d\t%d\t%d\t%f\t%f\t%f\t%f\t%f\t%f",(int)retstat,(int)imax,(int)elmhat,(int)xhat,x,px,pmax,spdhat,rn,zout); 
 	
@@ -741,8 +747,7 @@ int main(int argc, const char* argv[])
 		} ;
 
 /* 	INITIALIZE DATA STRUCTURES */
-	initl_();
-	
+
 	if(params.process_textfile) 
 		process_textfile((char *)argv[k-1]);
 	else 

@@ -30,17 +30,14 @@
 
 static doublereal c_b5 = 10.;
 
-int model_(real *dur, integer *ielm, integer *ilr, integer *
+int morse::model_(real *dur, integer *ielm, integer *ilr, integer *
 	isr, integer *ixs, real *phi, real *qa, real *hz)
 {
     /* System generated locals */
     doublereal d1;
 
-    /* Builtin functions */
-  //  double exp(doublereal), pow_dd(doublereal *, doublereal *);
-
     /* Local variables */
-    static real r1, bauds, xsamp;
+    real r1, bauds, xsamp;
 
 
 /* 	THIS SUBROUTINE COMPUTES THE PARAMETERS OF THE */

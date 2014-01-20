@@ -24,21 +24,21 @@
 
 
 
-/* Subroutine */ int savep_(real *p, integer *pathsv, integer *isave, integer 
+int morse::savep_(real *p, integer *pathsv, integer *isave, integer 
 	*imax, integer *lamsav, real *dursav, integer *ilrsav, integer *
 	lambda, real *dur, integer *ilrate, integer *sort, real *pmax)
 {
     /* Initialized data */
 
-    static real popt = .9f;
+	real popt = .9f;
 
     /* System generated locals */
     integer i1, i2;
 
     /* Local variables */
-    static integer i, j, k, n, ip, jsav, nsav;
-    static real psav[25], psum;
-    static integer iconv[25], ipsav, isavm1, nplus1;
+	integer i, j, k, n, ip, jsav, nsav;
+    real psav[25], psum;
+	integer iconv[25], ipsav, isavm1, nplus1;
 
 
 /* 	THIS SUBROUTINE PERFORMS THE ALGORITM TO SAVE */
@@ -152,8 +152,8 @@
 		lambda[i] = lamsav[sort[i]];
 		dur[i] = dursav[sort[i]];
 		ilrate[i] = ilrsav[sort[i]];
-		blksv.ykkip[i - 1] = blksv.ykksv[sort[i] - 1];
-		blksv.pkkip[i - 1] = blksv.pkksv[sort[i] - 1];
+		ykkip[i - 1] = ykksv[sort[i] - 1];
+		pkkip[i - 1] = pkksv[sort[i] - 1];
     }
     i1 = *isave;
     for (i = 1; i <= i1; ++i) {
@@ -193,8 +193,8 @@
 			lambda[n] = lambda[i];
 			dur[n] = dur[i];
 			ilrate[n] = ilrate[i];
-			blksv.ykkip[n - 1] = blksv.ykkip[i - 1];
-			blksv.pkkip[n - 1] = blksv.pkkip[i - 1];
+			ykkip[n - 1] = ykkip[i - 1];
+			pkkip[n - 1] = pkkip[i - 1];
 			pathsv[n] = pathsv[i];
 			sort[n] = sort[i];
 			p[n] = p[i];

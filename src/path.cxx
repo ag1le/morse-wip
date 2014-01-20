@@ -23,7 +23,7 @@
 #include "bmorse.h"
 
 
-int path_(integer *ip, integer *lambda, real *dur, integer *ilrate, integer *lamsav, real *dursav, integer *ilrsav)
+int morse::path_(integer *ip, integer *lambda, real *dur, integer *ilrate, integer *lamsav, real *dursav, integer *ilrsav)
 {
      /* Local variables */
     static integer i, j, k, n, ixl, ixs, ilelm;
@@ -69,22 +69,22 @@ int path_(integer *ip, integer *lambda, real *dur, integer *ilrate, integer *lam
 			lamsav[j] = 0;
 			goto L100;
 	L50:
-			lamsav[j] = blkmem.memfcn[*lambda + k * 400 - 401];
+			lamsav[j] = memfcn[*lambda + k * 400 - 401];
 			if (lamsav[j] == 0) {
 				goto L100;
 			}
 
 /*  NEW DURATION: */
 /*  OBTAIN KEYSTATE OF SAVED PATH AND NEW STATE: */
-			ilelm = blklam.ilami[blklam.ielmst[*lambda - 1] - 1];
-			ixl = blklam.ilamx[ilelm - 1];
-			ixs = blks.isx[k - 1];
+			ilelm = ilami[ielmst[*lambda - 1] - 1];
+			ixl = ilamx[ilelm - 1];
+			ixs = isx[k - 1];
 
 /* CALCULATE DURATION - ADD SAMPLE DURATION 5 ms FOR EACH VALID PATH */
 			dursav[j] = *dur * (1 - ixs - ixl + (ixs << 1) * ixl) + params.sample_duration;
 
 /* 	NEW DATA RATE: */
-			ilrsav[j] = *ilrate + (i - 3) * blkrat.memdel[ilelm + k * 6 - 7];
+			ilrsav[j] = *ilrate + (i - 3) * memdel[k-1][ilelm -1];
 	L100:
 			;
 		}

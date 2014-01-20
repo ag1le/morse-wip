@@ -26,15 +26,15 @@
 extern char debug; 
 extern PARAMS params; 
 
-int sprob_(real *p, integer *isave, integer *ilrsav, real *pelm, integer *khat, real *spdhat, real *px)
+int morse::sprob_(real *p, integer *isave, integer *ilrsav, real *pelm, integer *khat, real *spdhat, real *px)
 {
     /* System generated locals */
     integer i1;
 
     /* Local variables */
-    static integer i, j, k, m, n;
-    static real pselem[6];
-    static int initial = 0; 
+	integer i, j, k, m, n;
+	real pselem[6];
+	static int initial = 0; 
 
 
 /*    SPROB COMPUTES THE POSTERIOR PROBS OF THE ELEMENT */

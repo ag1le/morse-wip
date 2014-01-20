@@ -22,7 +22,7 @@
 
 #include "bmorse.h"
 
-int noise_(double zin, real *rn, real *z)
+int morse::noise_(double zin, real *rn, real *z)
 {
     /* Initialized data */
 

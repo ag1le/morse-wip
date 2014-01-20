@@ -23,7 +23,7 @@
 #include "bmorse.h"
 #include <math.h>
 
-doublereal xtrans_(integer *ielem, real *d0, integer *irate)
+doublereal morse::xtrans_(integer *ielem, real *d0, integer *irate)
 {
     /* Initialized data */
 

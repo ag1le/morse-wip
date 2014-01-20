@@ -25,7 +25,7 @@
 #include <stdio.h>
 
 
-int kalfil_(real *z, integer *ip, real *rn, integer *ilx, 
+int morse::kalfil_(real *z, integer *ip, real *rn, integer *ilx, 
 	integer *ixs, integer *kelem, integer *jnode, integer *israte, real *
 	dur, integer *ilrate, real *pin, real *lkhdj)
 {
@@ -76,8 +76,8 @@ int kalfil_(real *z, integer *ip, real *rn, integer *ilx,
 
 /* 	GET PREVIOUS ESTIMATES FOR PATH IP */
 
-    ykk = blksv.ykkip[*ip - 1];
-    pkk = blksv.pkkip[*ip - 1];
+    ykk = ykkip[*ip - 1];
+    pkk = pkkip[*ip - 1];
 
 /*  IMPLEMENT KALMAN FILTER FOR THIS TRANSITION */
 
@@ -88,10 +88,10 @@ int kalfil_(real *z, integer *ip, real *rn, integer *ilx,
     g = ppred * hz * pzinv;
     pest = (1.f - g * hz) * ppred;
     zr = *z - hz * ypred;
-    blksv.ykksv[*jnode - 1] = ypred + g * zr;
-    blksv.pkksv[*jnode - 1] = pest;
-    if (blksv.ykksv[*jnode - 1] <= .01f) {
-		blksv.ykksv[*jnode - 1] = .01f;
+    ykksv[*jnode - 1] = ypred + g * zr;
+    pkksv[*jnode - 1] = pest;
+    if (ykksv[*jnode - 1] <= .01f) {
+		ykksv[*jnode - 1] = .01f;
     }
 /* Computing 2nd power */
     r1 = zr;

@@ -23,7 +23,7 @@
 #include "bmorse.h"
 
 
-int likhd_(real *z, real *rn, integer *ip, integer *lambda,
+int morse::likhd_(real *z, real *rn, integer *ip, integer *lambda,
 	 real *dur, integer *ilrate, real *p, real *lkhd)
 {
  
@@ -65,13 +65,13 @@ int likhd_(real *z, real *rn, integer *ip, integer *lambda,
     if (*lambda == 0) {
 	goto L200;
     }
-    kelem = blklam.ilami[blklam.ielmst[*lambda - 1] - 1];
-    ilx = blklam.ilamx[kelem - 1];
+    kelem = ilami[ielmst[*lambda - 1] - 1];
+    ilx = ilamx[kelem - 1];
 /* 	FOR EACH STATE: */
     for (k = 1; k <= 6; ++k) {
 		for (i = 1; i <= 5; ++i) {
 /* 	OBTAIN KEYSTATE, RATE STATE, STATE N, NEW NODE: */
-			ixs = blks.isx[k - 1];
+			ixs = isx[k - 1];
 			israte = i;
 			n = (i - 1) * 6 + k;
 			j = (*ip - 1) * 30 + n;

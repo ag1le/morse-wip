@@ -22,14 +22,14 @@
 
 #include "bmorse.h"
 
-/* Subroutine */ int probp_(real *p, real *pin, integer *isave, real *lkhd)
+int morse::probp_(real *p, real *pin, integer *isave, real *lkhd)
 {
     /* System generated locals */
     integer i1;
 
     /* Local variables */
-    static integer i, j, n, ni;
-    static real pmax, psav[750], psum;
+	integer i, j, n, ni;
+	real pmax, psav[750], psum;
 
 
 /* 		PROBP COMPUTES THE POSTERIOR PROBABILITY OF EACH NEW PATH */
