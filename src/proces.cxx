@@ -28,22 +28,26 @@ int morse::proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat, 
 
     static integer isave = 25;
     static integer lambda[25]; 
-   static integer ilrate[25]; 
+	static integer ilrate[25]; 
+    static real dur[25];
+    static integer pathsv[25]; 
+    static integer sort[25];
+    
     static real p[750];
     static integer lamsav[750];
-    static real dur[25];
     static real dursav[750];
     static integer ilrsav[750];
-    static integer pathsv[25]; 
+    static real pin[750]	/* was [25][30] */, lkhd[750];
 
     /* System generated locals */
     integer i1;
 
     /* Local variables */
+//    static real pin[30][25];		// N: 5 spd x 6 morse element states I: 25 paths  - transition probability from path I to state N 
+//    static real lkhd[30][25];		// 5 speeds x 6 morse element states x 25 paths = 750 likelyhoods 
+    
     static integer i, retstat;
-    static real pin[750]	/* was [25][30] */, lkhd[750];
     static real pelm;
-    static integer sort[25];
     static integer ipath;
     static integer ipmax;
     static int init =1;

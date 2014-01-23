@@ -21,6 +21,7 @@
 // ----------------------------------------------------------------------------
 
 #include "bmorse.h"
+#include <stdio.h>
 
 int morse::trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate, real *p)
 {
@@ -73,6 +74,11 @@ int morse::trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate, rea
 			ptrans_(&kelm, &irate, lambda, ilrate, &ptrx, &psum, pin, &n);
 		}
     }
+    if (psum ==0.0) {
+    	printf("\ntrprob: psum = 0");
+    	return 0;
+    }
+
     for (n = 1; n <= 30; ++n) {
 		p[*ip + n * 25] = pin[n - 1] / psum;
     }

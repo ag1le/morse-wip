@@ -30,8 +30,7 @@
 
 static doublereal c_b5 = 10.;
 
-int morse::model_(real *dur, integer *ielm, integer *ilr, integer *
-	isr, integer *ixs, real *phi, real *qa, real *hz)
+int morse::model_(real *dur, integer *ielm, integer *ilr, integer *isr, integer *ixs, real *phi, real *qa, real *hz)
 {
     /* System generated locals */
     doublereal d1;
@@ -50,20 +49,20 @@ int morse::model_(real *dur, integer *ielm, integer *ilr, integer *
 /* 		ILR-	INPUT SAVED RATE */
 /* 		ISR-	INPUT RATE OF NEW STATE */
 /* 		IXS-	INPUT KEYSTATE OF NEW STATE */
-
-/* 		PHI-	OUTPUT STATE TRANSITION MATRIX ENTRY FOR */
-/* 			SIGNAL AMPLITUDE STATE */
+/* 		PHI-	OUTPUT STATE TRANSITION MATRIX ENTRY FOR SIGNAL AMPLITUDE STATE */
 /* 		QA-	OUTPUT COVARIANCE FOR AMPLITUDE STATE */
 /* 		HZ-	OUTPUT MEASUREMENT MATRIX VALUE */
 
 /* 	COMPUTE MEASUREMENT COEFFICIENT: */
     *hz = (real) (*ixs);
+    
 /* 	COMPUTE PHI AND AMPLITUDE STATE VARIANCE (Q): */
     r1 = 1200.f / *ilr;
     bauds = *dur / r1;
     if (bauds >= 14.f) {
 		bauds = 14.f;
     }
+
     if (*ielm < 3) {
 		*qa = 1e-4f;
 		*phi = 1.f;

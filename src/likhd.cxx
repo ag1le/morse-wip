@@ -21,7 +21,7 @@
 // ---------------------------------------------------------------------------
 
 #include "bmorse.h"
-
+#include <stdio.h>
 
 int morse::likhd_(real *z, real *rn, integer *ip, integer *lambda,
 	 real *dur, integer *ilrate, real *p, real *lkhd)
@@ -79,9 +79,10 @@ int morse::likhd_(real *z, real *rn, integer *ip, integer *lambda,
 /* 	COMPUTE AND STORE LIKELIHOOD: */
 			kalfil_(z, ip, rn, &ilx, &ixs, &kelem, &j, &israte, dur, ilrate,&pin, &lkhdj);
 			lkhd[j] = lkhdj;
-			goto L100;
-			if (pin <= 1e-6f) {
-			goto L100;
+//			goto L100;
+			if (pin > 1e-6f) {
+
+//printf("\nz:%f ip:%3d rn:%f ilx:%d ixs:%d kelem:%d j:%4d israte:%d dur:%4.1f ilrate:%d pin:%f lkhd:%f",(double)*z,(int)*ip,(double)*rn,(int)ilx,(int)ixs,(int)kelem,(int)j,(int)israte,(double)*dur,(int)*ilrate,(double)pin,(double)lkhdj);
 			}
 L100:
 			;

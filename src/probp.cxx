@@ -21,6 +21,7 @@
 // ----------------------------------------------------------------------------
 
 #include "bmorse.h"
+#include <stdio.h>
 
 int morse::probp_(real *p, real *pin, integer *isave, real *lkhd)
 {
@@ -69,6 +70,10 @@ L100:
 /* 	NORMALIZE TO GET PROBABILITIES; SAVE: */
     ni = *isave * 30;
     i1 = ni;
+    if (psum ==0.0) {
+    	printf("\nprobp: psum = 0");
+    	return 0;
+    }
     for (j = 1; j <= i1; ++j) {
 		p[j] = psav[j - 1] / psum;
 	}

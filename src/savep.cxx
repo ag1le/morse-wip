@@ -21,7 +21,7 @@
 // ----------------------------------------------------------------------------
 
 #include "bmorse.h"
-
+#include <stdio.h>
 
 
 int morse::savep_(real *p, integer *pathsv, integer *isave, integer 
@@ -146,6 +146,11 @@ int morse::savep_(real *p, integer *pathsv, integer *isave, integer
 
 /* 	SORT THE SAVED ARRAYS TO OBTAIN THE ARRAYS */
 /* 	TO BE USED FOR THE NEXT ITERATION: */
+    if (psum ==0.0) {
+    	printf("\nsavep: psum = 0");
+    	return 0;
+    }
+
     i1 = *isave;
     for (i = 1; i <= i1; ++i) {
 		p[i] = psav[i - 1] / psum;
@@ -202,6 +207,11 @@ int morse::savep_(real *p, integer *pathsv, integer *isave, integer
 		}
     }
 /* 	ALSO OBTAIN HIGHEST PROBABILITY NODE: */
+    if (psum ==0.0) {
+    	printf("\nsavep_2: psum = 0");
+    	return 0;
+    }
+
     *isave = n;
     *pmax = 0.f;
     i1 = *isave;
