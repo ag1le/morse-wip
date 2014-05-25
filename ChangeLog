@@ -1,5 +1,8 @@
 (C) 2013,2014  AG1LE Mauri Niininen 
 
+2014-MAY-25 
+	Fixed bugs and syncronized with FLDIGI 3.21.77 Bayesian v3  version 
+
 2014-JAN-22
 	Fixed bug in savep.cxx - check if psum is zero before trying to divide by it.
 	I think is is the root cause of bug mentioned in Sep-26-2013 - Pmax growing to huge values
