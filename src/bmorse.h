@@ -31,6 +31,7 @@ typedef int ftnlen;
 #define SAMPLEDURATION  (1000. * DECIMATE) / FSAMPLE	// 1000*DECIMATE / FSAMPLE SHOULD BE  5 msec
 #define NDELAY  200				// 200 SAMPLES * 5 msec = 1000 msec decoding delay 
 #define BAYES_RATE 200			// Bayes decoder expects to get signal envelope at 200 Hz
+#define PATHS 30
 
 #define TRUE 	1 
 #define FALSE 	0 
@@ -59,11 +60,12 @@ extern PARAMS params;
 class morse {
 protected:
 	int initl_(void);
-	int likhd_(real *z, real *rn, integer *ip, integer *lambda, real *dur, integer *ilrate, real *p, real *lkhd);
+	int likhd_(real *z, real *rn, integer *ip, integer *lambda, real *dur, integer *ilrate);
+
 	int path_(integer *ip, integer *lambda, real *dur, integer *ilrate, integer *lamsav, real *dursav, integer *ilrsav);
 	doublereal spdtr_(integer *isrt, integer *ilrt, integer *iselm, integer *ilelm);
 	int ptrans_(integer *kelem, integer *irate, integer *lambda, integer *ilrate, real *ptrx, real *psum, real *pin, integer *n);
-	int trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate, real *p);
+	int trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate);
 	int transl_(int *ltr);
 	int trelis_(integer *isave, integer *pathsv, integer *lambda, integer *imax, integer *ipmax);
 	int kalfil_(real *z, integer *ip, real *rn, integer *ilx, 
@@ -73,7 +75,7 @@ protected:
 		*imax, integer *lamsav, real *dursav, integer *ilrsav, integer *
 		lambda, real *dur, integer *ilrate, integer *sort, real *pmax);
 	int model_(real *, integer *, integer *, integer *, integer *, real *, real *, real *);
-	int probp_(real *, real *, integer *, real *);
+	int probp_(real *, integer *);
 	int  sprob_(real *, integer *, integer *, real *, integer *, real *, real *);
 	doublereal xtrans_(integer *, real *, integer *);
 
@@ -90,20 +92,24 @@ protected:
 	integer ilami[16];
 	integer ilamx[6];
 
+// Kalman filter parameters 
+    real ykkip[PATHS];
+    real pkkip[PATHS];
+    real ykksv[30*PATHS]; 
+    real pkksv[30*PATHS];
 
-    real ykkip[25];
-    real pkkip[25];
-    real ykksv[750]; 
-    real pkksv[750];
-
-    
+    real pin[30][PATHS];	/* was pin[750] */
+    real lkhd[30][PATHS];	// was lkhd[750] 
+        
 public: 
 	morse()
 	: 
 	isx { 1, 1, 0, 0, 0, 0 },
+// rtrans[2][5] - symbol conditional speed transition probabilities - Page 104 - Table X 
+// used in spdtr.c 	
 	rtrans { 
-		{ .1f,  .2f, .4f, .2f, .1f},
-		{ .15f, .2f, .3f, .2f, .15f}},
+		{ .1f,  .2f, .4f, .2f, .1f},	// dot, dash, e-sp, w-s
+		{ .15f, .2f, .3f, .2f, .15f}},	// c-sp, pause 
 	mempr {
 		{0, 0, 1, 2, 1, 2}, 
 		{0, 0, 1, 2, 1, 2}, 
@@ -118,13 +124,19 @@ public:
 		{2, 2, 0, 0, 0, 0}, 
 		{2, 2, 0, 0, 0, 0}, 
 		{2, 2, 0, 0, 0, 0}},
+
+// TABLE XII Second Order Markov Symbol Transition Matrix - Page 105 Table XII
+// elemtr[6][16] 		
 	elemtr { 
-		{.55f, .5f, .5f, .5f, .55f, .5f, .5f, .5f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f}, 
-		{.45f, .5f, .5f, .5f, .45f, .5f, .5f, .5f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f}, 
-		{0.f, 0.f, 0.f, 0.f, 0.f,  0.f, 0.f, 0.f, .581f, .54f, .923f, .923f, .923f, .923f, .95f, .95f}, 
-		{0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, .335f, .376f, .062f, .062f, .062f, .062f, .04f, .04f}, 
-		{0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, .069f, .069f, .012f, .012f, .012f, .012f, .009f, .009f}, 
-		{0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, .015f, .015f, .003f, .003f, .003f, .003f, .001f, .001f} },
+   	/*   .^    .~   .w   .p   -^    -~   -w  -p    ^.   ^-     ~.     ~-     w.     w-     p.  	   p- */
+/* . */	{.55f, .5f, .5f, .5f, .55f, .5f, .5f, .5f, 0.f, 0.f,   0.f,   0.f,   0.f,   0.f,   0.f,   0.f}, 
+/* - */	{.45f, .5f, .5f, .5f, .45f, .5f, .5f, .5f, 0.f, 0.f,   0.f,   0.f,   0.f,   0.f,   0.f,   0.f}, 
+/* ^ */	{0.f, 0.f, 0.f, 0.f, 0.f,  0.f, 0.f, 0.f, .581f, .54f,  .923f, .923f, .923f, .923f, .95f, .95f}, 
+/* ~ */	{0.f, 0.f, 0.f, 0.f, 0.f,  0.f, 0.f, 0.f, .335f, .376f, .062f, .062f, .062f, .062f, .04f, .04f}, 
+/* w */	{0.f, 0.f, 0.f, 0.f, 0.f,  0.f, 0.f, 0.f, .069f, .069f, .012f, .012f, .012f, .012f, .009f,.009f}, 
+/* p */	{0.f, 0.f, 0.f, 0.f, 0.f,  0.f, 0.f, 0.f, .015f, .015f, .003f, .003f, .003f, .003f, .001f,.001f} },
+
+//memfcn[6][400]		
 	memfcn { 
 /*k=0*/ 9, 11, 13, 15, 9, 11, 13, 15, 9, 0, 11, 0, 13, 0, 15, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -264,11 +276,7 @@ public:
 	     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	     0, 0, 0, 0, 0, 0, 0, 0},
 	ilami { 3, 4, 5, 6, 3, 4, 5, 6, 1, 2, 1, 2, 1, 2, 1, 2},
-	ilamx { 1, 1, 0, 0, 0, 0 },
-	ykkip { .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, 
-	    .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f, .5f},
-	pkkip { .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, 
-	    .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f, .1f }
+	ilamx { 1, 1, 0, 0, 0, 0 }
 	{
 		initl_();
 	};
