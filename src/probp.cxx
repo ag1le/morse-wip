@@ -23,14 +23,14 @@
 #include "bmorse.h"
 #include <stdio.h>
 
-int morse::probp_(real *p, real *pin, integer *isave, real *lkhd)
+int morse::probp_(real *p, integer *isave)
 {
     /* System generated locals */
     integer i1;
 
     /* Local variables */
 	integer i, j, n, ni;
-	real pmax, psav[750], psum;
+	real pmax, psav[30*PATHS], psum;
 
 
 /* 		PROBP COMPUTES THE POSTERIOR PROBABILITY OF EACH NEW PATH */
@@ -43,8 +43,8 @@ int morse::probp_(real *p, real *pin, integer *isave, real *lkhd)
 /* 		PSUM-		NORMALIZING CONSTANT (SUM OF P(J)) */
 
     /* Parameter adjustments */
-    --lkhd;
-    pin -= 26;
+//    --lkhd;
+//    pin -= 26;
     --p;
 
     /* Function Body */
@@ -57,7 +57,8 @@ int morse::probp_(real *p, real *pin, integer *isave, real *lkhd)
 	/* 		COMPUTE IDENTITY OF NEW PATH: */
 			j = (i - 1) * 30 + n;
 	/*      PRODUCT OF PROBS, ADD TO PSUM */
-			psav[j - 1] = p[i] * pin[i + n * 25] * lkhd[j];
+//			psav[j - 1] = p[i] * pin[i + n * PATHS] * lkhd[j];
+			psav[j - 1] = p[i] * pin[n-1][i-1] * lkhd[n-1][i-1];
 			psum += psav[j - 1];
 			if (psav[j - 1] <= pmax) {
 			goto L100;

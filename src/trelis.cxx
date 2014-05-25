@@ -30,17 +30,17 @@ int morse::trelis_(integer *isave, integer *pathsv, integer *lambda, integer *im
 {
     /* Initialized data */
 
-    static integer lmdsav[25][NDELAY];	/* was [200][25] */ 
+    static integer lmdsav[PATHS][NDELAY];	/* was [200][PATHS] */ 
     static integer n = 0;
     static integer ndelay = NDELAY;
-    static integer ipnod[25];
+    static integer ipnod[PATHS];
     static integer ncall = 0;
     static integer nmax = 0;
     static integer mmax = 0;
     static integer ltrsv[NDELAY];
     static integer kd = 0;
     static integer ndelst = 0;
-    static integer pthtrl[25][NDELAY];	/* was [200][25] */
+    static integer pthtrl[PATHS][NDELAY];	/* was [200][PATHS] */
     static integer iend = 0;
 
 
@@ -74,7 +74,7 @@ int morse::trelis_(integer *isave, integer *pathsv, integer *lambda, integer *im
  		init = 1; 
 		for (i=0; i< NDELAY; i++)
 			ltrsv[i] = 0;
-		for (int row =0; row < 25; row++) {
+		for (int row =0; row < PATHS; row++) {
 			ipnod[row] = 1;
 			for (int col =0; col < NDELAY; col++){
 					lmdsav[row][col] = 0; 
@@ -102,7 +102,7 @@ int morse::trelis_(integer *isave, integer *pathsv, integer *lambda, integer *im
 		xnmax = (real) nmax;
 		xnmax /= ncall;
     }
-    if (*isave == 25) {
+    if (*isave == PATHS) {
 		++mmax;
 		xmmax = (real) mmax;
 		xmmax /= ncall;
@@ -196,10 +196,10 @@ L350:
 			i = ndelay + i;
 		}
 //		ltrsv[kd - 1] = lmdsav[i + ip * NDELAY-NDELAY-1];
-		if (ip > 26) {
-			printf("\nTRELIS.CXX: Error line 196 ip:%d",ip);
-			return(-1);
-		}
+//		if (ip > 26) {
+//			printf("\nTRELIS.CXX: Error line 196 ip:%d",ip);
+//			return(-1);
+//		}
 		ltrsv[kd - 1] = lmdsav[ip-1][i-1];
 //		ip = pthtrl[i + ip * NDELAY-NDELAY-1];
 		ip = pthtrl[ip-1][i-1];

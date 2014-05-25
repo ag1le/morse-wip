@@ -30,22 +30,20 @@ int morse::savep_(real *p, integer *pathsv, integer *isave, integer
 {
     /* Initialized data */
 
-	real popt = .9f;
+	real popt = .999f;  // was 0.9f 
 
-    /* System generated locals */
-    integer i1, i2;
 
     /* Local variables */
 	integer i, j, k, n, ip, jsav, nsav;
-    real psav[25], psum;
-	integer iconv[25], ipsav, isavm1, nplus1;
+    real psav[PATHS], psum;
+	integer iconv[PATHS], ipsav, isavm1, nplus1;
 
 
 /* 	THIS SUBROUTINE PERFORMS THE ALGORITM TO SAVE */
 /* 	THE PATHS WITH HIGHEST POSTERIOR PROBABILITY. */
 /* 	IT WILL SAVE A MINIMUM OF 7 PATHS (ONE FOR EACH */
 /* 	ELEMENT STATE AND ONE ADDITIONAL NODE), AND */
-/* 	A MAXIMUM OF 25 PATHS.  WITHIN THESE LIMITS, IT */
+/* 	A MAXIMUM OF "PATHS" PATHS.  WITHIN THESE LIMITS, IT */
 /* 	SAVED ONLY ENOUGH TO MAKE THE TOTAL SAVED PROBABILITY */
 /* 	EQUAL TO POPT. */
 
@@ -89,8 +87,7 @@ int morse::savep_(real *p, integer *pathsv, integer *isave, integer
 /* 	SELECT SIX HIGHEST PROB ELEMENT STATE NODES: */
     for (k = 1; k <= 6; ++k) {
 		*pmax = 0.f;
-		i1 = *isave;
-		for (ip = 1; ip <= i1; ++ip) {
+		for (ip = 1; ip <= *isave; ++ip) {
 			for (i = 1; i <= 5; ++i) {
 				j = (ip - 1) * 30 + (i - 1) * 6 + k;
 				if (p[j] >= *pmax) {
@@ -113,12 +110,11 @@ int morse::savep_(real *p, integer *pathsv, integer *isave, integer
 /* 	PROBABILITY SAVED EQUAL TO POPT, OR A MAX OF 25: */
 	do {
 		*pmax = 0.f;
-		i1 = *isave;
-		for (ip = 1; ip <= i1; ++ip) {
+
+		for (ip = 1; ip <= *isave; ++ip) {
 			for (n = 1; n <= 30; ++n) {
 				j = (ip - 1) * 30 + n;
-				i2 = nsav;
-				for (i = 1; i <= i2; ++i) {
+				for (i = 1; i <= nsav; ++i) {
 					if (j == sort[i]) {
 						goto L500;
 					}
@@ -140,19 +136,19 @@ int morse::savep_(real *p, integer *pathsv, integer *isave, integer
 		if (psum >= popt) {
 			break; 
 		}
-	}   while (nsav < 25); 
+	}   while (nsav < PATHS); 
 /* 	NEW ISAVE EQUALS NO. OF NODES SAVED: */
     *isave = nsav;
 
 /* 	SORT THE SAVED ARRAYS TO OBTAIN THE ARRAYS */
 /* 	TO BE USED FOR THE NEXT ITERATION: */
     if (psum ==0.0) {
-    	printf("\nsavep: psum = 0");
+   // 	printf("\nsavep: psum = 0");
     	return 0;
     }
 
-    i1 = *isave;
-    for (i = 1; i <= i1; ++i) {
+
+    for (i = 1; i <= *isave; ++i) {
 		p[i] = psav[i - 1] / psum;
 		lambda[i] = lamsav[sort[i]];
 		dur[i] = dursav[sort[i]];
@@ -160,17 +156,17 @@ int morse::savep_(real *p, integer *pathsv, integer *isave, integer
 		ykkip[i - 1] = ykksv[sort[i] - 1];
 		pkkip[i - 1] = pkksv[sort[i] - 1];
     }
-    i1 = *isave;
-    for (i = 1; i <= i1; ++i) {
+
+    for (i = 1; i <= *isave; ++i) {
 		iconv[i - 1] = 1;
     }
-    isavm1 = *isave - 1;
-    i1 = isavm1;
-    for (n = 1; n <= i1; ++n) {
+
+
+    for (n = 1; n <= *isave - 1; ++n) {
 		if (iconv[n - 1] != 0) {
 			nplus1 = n + 1;
-			i2 = *isave;
-			for (k = nplus1; k <= i2; ++k) {
+
+			for (k = nplus1; k <= *isave; ++k) {
 				if (iconv[k - 1] == 0) {
 					goto L810;
 				}
@@ -189,10 +185,11 @@ int morse::savep_(real *p, integer *pathsv, integer *isave, integer
 			}
 		}
     }
-    psum = 0.f;
+
+ //   psum = p[0];
+    psum = p[1];
     n = 1;
-    i1 = *isave;
-    for (i = 2; i <= i1; ++i) {
+    for (i = 2; i <= *isave; ++i) {
 		if (iconv[i - 1] != 0) {
 			++n;
 			lambda[n] = lambda[i];
@@ -208,14 +205,13 @@ int morse::savep_(real *p, integer *pathsv, integer *isave, integer
     }
 /* 	ALSO OBTAIN HIGHEST PROBABILITY NODE: */
     if (psum ==0.0) {
-    	printf("\nsavep_2: psum = 0");
+    //	fprintf(2,"\nsavep_2: psum = 0");
     	return 0;
     }
 
     *isave = n;
     *pmax = 0.f;
-    i1 = *isave;
-    for (i = 1; i <= i1; ++i) {
+    for (i = 1; i <= *isave; ++i) {
 		p[i] /= psum;
 		if (p[i] > *pmax) {
 			*pmax = p[i];

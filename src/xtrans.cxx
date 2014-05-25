@@ -51,7 +51,7 @@ doublereal morse::xtrans_(integer *ielem, real *d0, integer *irate)
 
 /* 	SCALE DURATION AND OBTAIN DENSITY PARAMETER: */
 
-    mscale = kimap[(0 + (0 + ((*ielem - 1) << 2))) / 4];
+    mscale = kimap[*ielem - 1];
     rscale = 1200.f / *irate;
     b0 = *d0 / (mscale * rscale);
     b1 = (*d0 + 5.f) / (mscale * rscale);

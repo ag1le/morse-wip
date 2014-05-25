@@ -24,12 +24,12 @@
 #include <stdio.h>
 
 int morse::likhd_(real *z, real *rn, integer *ip, integer *lambda,
-	 real *dur, integer *ilrate, real *p, real *lkhd)
+	 real *dur, integer *ilrate)
 {
  
     /* Local variables */
     static integer i, j, k, n;
-    static real pin;
+    static real pinr;
     static integer ilx, ixs;
     static real lkhdj;
     static integer kelem;
@@ -58,8 +58,8 @@ int morse::likhd_(real *z, real *rn, integer *ip, integer *lambda,
 
 /*   OBTAIN SAVED KEYSTATE: */
     /* Parameter adjustments */
-    --lkhd;
-    p -= 26;
+//    --lkhd;
+ //   p -= 26;   //pin 
 
     /* Function Body */
     if (*lambda == 0) {
@@ -75,12 +75,13 @@ int morse::likhd_(real *z, real *rn, integer *ip, integer *lambda,
 			israte = i;
 			n = (i - 1) * 6 + k;
 			j = (*ip - 1) * 30 + n;
-			pin = p[*ip + n * 25];
+//			pinr = p[*ip + n * PATHS];
+			pinr = pin[n-1][*ip -1];
 /* 	COMPUTE AND STORE LIKELIHOOD: */
-			kalfil_(z, ip, rn, &ilx, &ixs, &kelem, &j, &israte, dur, ilrate,&pin, &lkhdj);
-			lkhd[j] = lkhdj;
+			kalfil_(z, ip, rn, &ilx, &ixs, &kelem, &j, &israte, dur, ilrate,&pinr, &lkhdj);
+			lkhd[n-1][*ip-1] = lkhdj;
 //			goto L100;
-			if (pin > 1e-6f) {
+			if (pinr > 1e-6f) {
 
 //printf("\nz:%f ip:%3d rn:%f ilx:%d ixs:%d kelem:%d j:%4d israte:%d dur:%4.1f ilrate:%d pin:%f lkhd:%f",(double)*z,(int)*ip,(double)*rn,(int)ilx,(int)ixs,(int)kelem,(int)j,(int)israte,(double)*dur,(int)*ilrate,(double)pin,(double)lkhdj);
 			}

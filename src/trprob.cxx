@@ -23,10 +23,10 @@
 #include "bmorse.h"
 #include <stdio.h>
 
-int morse::trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate, real *p)
+int morse::trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate)
 {
     static integer i, k, n;
-    static real pin[30];
+    static real pint[30];
     static integer kelm;
     static real psum, ptrx;
     static integer ielem, irate;
@@ -50,12 +50,13 @@ int morse::trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate, rea
 /* 		PTRANS	RETURNS THE PATH-CONDITIONAL STATE TRANSITION PROB */
 /* 	LOOK UP ELEMENT TYPE FOR LTR STATE LAMBDA: */
     /* Parameter adjustments */
-    p -= 26;
+//    p -= 26;
 
     /* Function Body */
     if (*lambda == 0) {
 		for (n = 1; n <= 30; ++n) {
-			p[*ip + n * 25] = 0.f;
+//			p[*ip + n * PATHS] = 0.f;
+			pin[n-1][*ip-1] = 0.f;
 		}
 		return 0;
     }
@@ -71,7 +72,7 @@ int morse::trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate, rea
 			n = (i - 1) * 6 + k;
 			kelm = k;
 			irate = i;
-			ptrans_(&kelm, &irate, lambda, ilrate, &ptrx, &psum, pin, &n);
+			ptrans_(&kelm, &irate, lambda, ilrate, &ptrx, &psum, pint, &n);
 		}
     }
     if (psum ==0.0) {
@@ -80,10 +81,10 @@ int morse::trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate, rea
     }
 
     for (n = 1; n <= 30; ++n) {
-		p[*ip + n * 25] = pin[n - 1] / psum;
+//		p[*ip + n * PATHS] = pint[n - 1] / psum;
+		pin[n-1][*ip-1] = pint[n - 1] / psum;
     }
 
-L200:
     return 0;
 } /* trprob_ */
 

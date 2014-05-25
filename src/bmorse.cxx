@@ -174,10 +174,10 @@ static double calc_magnitude (const double * freq, int freqlen, double * magnitu
 	int k ;
 	double max = 0.0 ;
 
-	for (k = 1 ; k < freqlen / 2 ; k++)
-	{	magnitude [k] = sqrt (freq [k] * freq [k] + freq [freqlen - k - 1] * freq [freqlen - k - 1]) ;
+	for (k = 1 ; k < freqlen / 2 ; k++)	{	
+		magnitude[k] = sqrt (freq [k] * freq [k] + freq [freqlen - k - 1] * freq [freqlen - k - 1]) ;
 		max = MAX (max, magnitude [k]) ;
-		} ;
+	} ;
 	magnitude [0] = 0.0 ;
 
 	return max ;
@@ -483,19 +483,20 @@ decode_sndfile (SNDFILE *infile, SF_INFO info)
 				single_max = calc_magnitude (freq_domain, 2 * speclen, single_mag_spec) ;			
 		
 				// print one FFT row - just to check
-/*
-				if (once) {
+
+				if (1) { //was once 
+					printf("\nmax:%f", single_max);
 					for (int i=0; i< speclen; i++) 
 						printf("\n%f",single_mag_spec[i]);
 					once=0;
 				}	
-*/
+
 	
 				// detect peaks in the FFT spectrum 
 				peak_detect(single_mag_spec, speclen, &p);
 			
 				// print found freq peaks - only once
-				if (once ) {
+				if (1 ) {
 					for (i=0; i <p.mxcount; i++) {
 						int Hz = (p.mxpos[i]*(sr/2))/(speclen);
 						printf("peak[%d]:%f\tHz:%d\tmaxcount:%d\n",p.mxpos[i],p.mx[i],Hz,p.mxcount);
@@ -507,7 +508,7 @@ decode_sndfile (SNDFILE *infile, SF_INFO info)
 
 				max_mag = MAX (max_mag, single_max) ;
 				single_max = filter(single_max,bfv); 
-				process_data(single_max/max_mag); // decode Morse code here 
+			//	process_data(single_max/max_mag); // decode Morse code here 
 		
 			//	interp_spec (mag_spec [w], height, single_mag_spec, speclen) ;
 			} ;
