@@ -1,33 +1,14 @@
 /* config.h.  Generated from config.h.in by configure.  */
-/* config.h.in.  Generated from configure.ac by autoheader.  */
+/* config.h.in.  Generated from configure.in by autoheader.  */
+
+/* bmorse authors */
+#define FLDIGI_AUTHORS "Mauri Niininen"
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
 
-/* Define to 1 if you have the `fftw3' library (-lfftw3). */
-/* #undef HAVE_LIBFFTW3 */
-
-/* Define to 1 if you have the `m' library (-lm). */
-/* #undef HAVE_LIBM */
-
-/* Define to 1 if you have the `sndfile' library (-lsndfile). */
-/* #undef HAVE_LIBSNDFILE */
-
-/* Define to 1 if your system has a GNU libc compatible `malloc' function, and
-   to 0 otherwise. */
-/* #undef HAVE_MALLOC */
-
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
-
-/* Define to 1 if you have the `memset' function. */
-/* #undef HAVE_MEMSET */
-
-/* Define to 1 if you have the `pow' function. */
-/* #undef HAVE_POW */
-
-/* Define to 1 if you have the `sqrt' function. */
-/* #undef HAVE_SQRT */
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
@@ -41,9 +22,6 @@
 /* Define to 1 if you have the <string.h> header file. */
 #define HAVE_STRING_H 1
 
-/* Define to 1 if you have the `strrchr' function. */
-/* #undef HAVE_STRRCHR */
-
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
 
@@ -53,20 +31,32 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #define HAVE_UNISTD_H 1
 
-/* Define to 1 if the system has the type `_Bool'. */
-/* #undef HAVE__BOOL */
-
 /* Name of package */
 #define PACKAGE "bmorse"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "ag1le@innomore.com"
 
+/* Download page */
+#define PACKAGE_DL "https://github.com/ag1le/morse-wip"
+
+/* Docs index */
+#define PACKAGE_DOCS "https://github.com/ag1le/morse-wip/wiki"
+
+/* Beginners guide */
+#define PACKAGE_GUIDE "https://github.com/ag1le/morse-wip/wiki"
+
+/* Home page */
+#define PACKAGE_HOME "https://github.com/ag1le/morse-wip"
+
 /* Define to the full name of this package. */
 #define PACKAGE_NAME "bmorse"
 
+/* Trac new ticket page */
+#define PACKAGE_NEWBUG "https://github.com/ag1le/morse-wip/issues"
+
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "bmorse 0.1.01"
+#define PACKAGE_STRING "bmorse 0.1.02"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "bmorse"
@@ -75,19 +65,42 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "0.1.01"
+#define PACKAGE_VERSION "0.1.02"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
-/* Version number of package */
-#define VERSION "0.1.01"
-
-/* Define to `__inline__' or `__inline' if that's what the C compiler
-   calls it, or to nothing if 'inline' is not supported under any name.  */
-#ifndef __cplusplus
-/* #undef inline */
+/* Enable extensions on AIX 3, Interix.  */
+#ifndef _ALL_SOURCE
+# define _ALL_SOURCE 1
+#endif
+/* Enable GNU extensions on systems that have them.  */
+#ifndef _GNU_SOURCE
+# define _GNU_SOURCE 1
+#endif
+/* Enable threading extensions on Solaris.  */
+#ifndef _POSIX_PTHREAD_SEMANTICS
+# define _POSIX_PTHREAD_SEMANTICS 1
+#endif
+/* Enable extensions on HP NonStop.  */
+#ifndef _TANDEM_SOURCE
+# define _TANDEM_SOURCE 1
+#endif
+/* Enable general extensions on Solaris.  */
+#ifndef __EXTENSIONS__
+# define __EXTENSIONS__ 1
 #endif
 
-/* Define to rpl_malloc if the replacement function should be used. */
-/* #undef malloc */
+
+/* Version number of package */
+#define VERSION "0.1.02"
+
+/* Define to 1 if on MINIX. */
+/* #undef _MINIX */
+
+/* Define to 2 if the system does not provide POSIX.1 features except with
+   this defined. */
+/* #undef _POSIX_1_SOURCE */
+
+/* Define to 1 if you need to in order for `stat' and other things to work. */
+/* #undef _POSIX_SOURCE */

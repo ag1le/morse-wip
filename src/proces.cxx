@@ -23,7 +23,7 @@
 #include "bmorse.h"
 #include <stdio.h>
 
-int morse::proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat,  real *spdhat, integer *imax, real *	pmax, int spd)
+int morse::proces_(real z, real rn, integer *xhat, real *px, integer *elmhat,  real *spdhat, integer *imax, real *	pmax, int spd)
 {
     /* Initialized data */
 
@@ -40,8 +40,6 @@ int morse::proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat, 
     static integer ilrsav[30*PATHS];
 
 
-    /* System generated locals */
-    integer i1;
     
     static integer i, retstat;
     static real pelm;
@@ -100,8 +98,8 @@ int morse::proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat, 
 	if (init) {
 		for(i=0;i<PATHS;i++) {
 			lambda[i] = 5;
-			ilrate[i]= ((i/5+1)*10);
-			dur[i]=9e3f;
+			ilrate[i]= 30;//((i/5+1)*10);  // Initial speed WPM 
+			dur[i]=1000.f;
 			pathsv[i]=5;
 			ykkip[i] = .5f;
 			pkkip[i] = .1f;
@@ -115,12 +113,10 @@ int morse::proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat, 
 		init = 0;
 	}
 
-    i1 = isave;
-    for (i = 1; i <= i1; ++i) {
-		ipath = i;
-		trprob_(&ipath, &lambda[i - 1], &dur[i - 1], &ilrate[i - 1]);
-		path_(&ipath, &lambda[i - 1], &dur[i - 1], &ilrate[i - 1],lamsav, dursav, ilrsav);
-		likhd_(z, rn, &ipath, &lambda[i - 1], &dur[i - 1], &ilrate[i- 1]);
+    for (i = 0; i < isave; i++) {  // i == ipath
+		trprob_(i, lambda[i], dur[i], ilrate[i]);
+		path_(i, lambda[i], dur[i], ilrate[i],lamsav, dursav, ilrsav);
+		likhd_(z, rn, i, lambda[i],  dur[i], ilrate[i]);
     }
 /* 	HAVING OBTAINED ALL NEW PATHS, COMPUTE: */
 /* 	POSTERIOR PROBABILITY OF EACH NEW PATH(PROBP); */
@@ -142,10 +138,6 @@ int morse::proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat, 
 /* 	OBTAIN LETTER STATE ESTIMATE: */
 
     retstat=trelis_(&isave, pathsv, lambda, imax, &ipmax);
-	if (pathsv[0] > 1358 ) {
-		printf("\n pathsv[0]:%d", pathsv[0]);
-		return -1;
-		}
 
     return retstat;
 } /* proces_ */

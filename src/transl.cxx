@@ -22,9 +22,9 @@
 
 #include <stdio.h>
 #include "bmorse.h" 
-struct TREE {
- int dit,dah; 
- char chr[12]; 
+struct TREE {	// Tree structure to decode dit/dah sequence to corresponding character
+ int dit,dah; 	// 
+ char chr[12]; 	// max string  11 chars +null for prosigns and error cases 
 } tree[] = {	// check  http://en.wikipedia.org/wiki/Morse_code
 //dit,dah, chr
  {1,2, "#"},	// null state
@@ -45,7 +45,7 @@ struct TREE {
  {31,32,"H"},	// ....
  {33,34,"V"},	// ...-
  {35,36,"F"},	// ..-.
- {37,38,"*"},// ..--
+ {37,38,"*..--*"},// ..--
  {39,40,"L"},	// .-..
  {41,42,"Ä"},	// .-.-   Ä
  {43,44,"P"},	// .--.
@@ -66,14 +66,14 @@ struct TREE {
  {00,00,"*..-.-*"},	// ..-.-
  {58,00,"*..--.*"}, 	// ..--. D? 
  {00,00,"2"},	// ..---
- {00,00,"*"},	// .-...
+ {00,00,"*.-...*"},	// .-...
  {00,00,"e"},	// .-..-
  {00,63,"+"},	// .-.-.
- {00,00,"*"},	// .-.--
+ {00,00,"*.-.--*"},	// .-.--
  {00,00,"*.--..*"},	// .--..
  {59,00,"a"},	// .--.-
- {00,00,"*"},	// .----
- {00,00,"1"},	// .---.
+ {00,00,"*.---.*"},	// .---.
+ {00,00,"1"},	// .----
  {00,00,"6"},	// -....
  {61,00,"="},	// -...-
  {00,00,"/"},	// -..-.
@@ -103,24 +103,12 @@ struct TREE {
 int morse::transl_(int *ltr)
 {
     /* Initialized data */
-
-    static char ispace[2] = " ";
-    static integer spflag = 0;
-    static integer nchar = 0;
-    static integer lstltr = 0;
-    static integer ixlast = 0;
-    static integer lstelm = 6;
-
-
-    /* System generated locals */
-    integer i1;
-
-
-    /* Local variables */
-    static integer i, ixl, nblank, elmhat;
-    static char ltrout[1];
+	static integer ixlast = 0;
 	static int curstate = 0;
 	static int newstate = 0;
+
+    /* Local variables */
+    static integer  ixl, elmhat;
 
 
 /* 	 1  2  3  4  5  6  7  8 9 10 11 12 13 14 15 16 */
@@ -129,11 +117,8 @@ int morse::transl_(int *ltr)
 
 
 
-/*   THIS SUBROUTINE PRODUCES THE OUTPUT TEXT ON A CRT. */
-/*    IT USES THE SIMPLE FORMATTING RULES DESCRIBED IN THE */
-/*    TEXT. */
 
-/* 	DETERMINE IF A CSP,WSP, OR PAUSE TO MARK TRASITION */
+/* 	DETERMINE IF A CSP,WSP, OR PAUSE TO MARK TRANSITION */
 /* 	HAS OCCURED; IF SO LTR IS READY FOR OUTPUT: */
 
     
@@ -260,8 +245,8 @@ L700:
 	fflush(stdout);
 	curstate = newstate;
     ixlast = ixl;
-    lstelm = elmhat;
-    lstltr = *ltr;
+  //  lstelm = elmhat;
+  //  lstltr = *ltr;
     return newstate;
 
 } /* transl_ */

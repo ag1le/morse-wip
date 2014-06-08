@@ -44,17 +44,13 @@ int morse::trelis_(integer *isave, integer *pathsv, integer *lambda, integer *im
     static integer iend = 0;
 
 
-    /* System generated locals */
-    integer i1;
 
     /* Local variables */
     static int i, k, ip, ieq, ltr, ndel, retstat;
-    static char wait[1];
     static int isavg, init=0;
     static real xsavg, xmmax, xnmax;
     static int ndlavg;
     static real xdlavg;
-    static char *chrp; 
 
 /*    THIS SUBROUTINE STORES THE SAVED NODES AT EACH */
 /*    STAGE AND FORMS THE TREE OF SAVED PATHS LINKING */
@@ -114,8 +110,8 @@ int morse::trelis_(integer *isave, integer *pathsv, integer *lambda, integer *im
     if (n == ndelay + 1) {
 		n = 1;
     }
-    i1 = *isave;
-    for (i = 1; i <= i1; ++i) {
+
+    for (i = 1; i <= *isave; ++i) {
 //		pthtrl[n + i * NDELAY-NDELAY-1] = pathsv[i];
 		pthtrl[i-1][n-1] = pathsv[i];
 		
@@ -125,8 +121,7 @@ int morse::trelis_(integer *isave, integer *pathsv, integer *lambda, integer *im
 
 /* 	PERFORM DYNAMIC PROGRAM ROUTINE TO FIND CONVERGENT PATH: */
     k = 0;
-    i1 = *isave;
-    for (i = 1; i <= i1; ++i) {
+    for (i = 1; i <= *isave; ++i) {
 		ipnod[i - 1] = i;
     }
 L190:
@@ -136,8 +131,7 @@ L190:
     }
 
 /* 	IF IP EQUALS INDEX OF HIGHEST PROBABILITY NODE, STORE NODE TO IPMAX */
-    i1 = *isave;
-    for (ip = 1; ip <= i1; ++ip) {
+    for (ip = 1; ip <= *isave; ++ip) {
 		i = n - k + 1;
 		if (i <= 0) {
 			i = ndelay + i;
@@ -150,8 +144,8 @@ L190:
     }
 
 /* 	IF ALL NODES ARE EQUAL,THEN PATHS CONVERGE: */
-    i1 = *isave;
-    for (ieq = 2; ieq <= i1; ++ieq) {
+
+    for (ieq = 2; ieq <= *isave; ++ieq) {
 		if (ipnod[0] != ipnod[ieq - 1]) {
 			goto L190;
 		}
@@ -188,8 +182,7 @@ printf("\nSAME DELAY AS LAST: %d",ltr);
 L350:
     kd = 0;
     ip = ipnod[0];
-    i1 = ndelst;
-    for (k = ndel; k <= i1; ++k) {
+    for (k = ndel; k <= ndelst; ++k) {
 		++kd;
 		i = n - k + 1;
 		if (i <= 0) {
@@ -208,8 +201,8 @@ L350:
 /* 	REVERSE ORDER OF DECODED LETTERS, SINCE THEY */
 /* 	WERE OBTAINED FROM THE TRELLIS IN REVERSE; */
 /* 	TRANSLATE EACH: */
-    i1 = kd;
-    for (i = 1; i <= i1; ++i) {
+
+    for (i = 1; i <= kd; ++i) {
 		ltr = ltrsv[kd - i];
 #ifdef DEBUG
 		printf("\nIN REVERSE ORDER: %d",ltr);
@@ -234,8 +227,7 @@ printf("\nHIGHEST PROB: %d", ltr);
 #endif
     retstat = transl_(&ltr);
 /* 	PRUNE AWAY NODES WHICH ARE NOT ON THIS PATH: */
-    i1 = *isave;
-    for (k = 1; k <= i1; ++k) {
+    for (k = 1; k <= *isave; ++k) {
 		if (ipnod[k - 1] != *ipmax) {
 			lambda[k] = 0;
 		}

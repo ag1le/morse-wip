@@ -25,7 +25,7 @@
 
 
 
-doublereal morse::spdtr_(integer *isrt, integer *ilrt, integer *iselm, integer *ilelm)
+doublereal morse::spdtr_(integer isrt, integer ilrt, integer iselm, integer ilelm)
 {
     /* System generated locals */
     real ret_val;
@@ -46,39 +46,36 @@ doublereal morse::spdtr_(integer *isrt, integer *ilrt, integer *iselm, integer *
 /* 	ILELM	- ELEM TYPE ON CURRENT PATH */
 
 
+/*  PAGES 103-104 IN THESIS - SYMBOL CONDITIONAL TRANSITION PROBABILITIES */
 /* 	IF SAVED ELEMENT AND NEW ELEMENT ARE THE SAME */
 /* 	THEN THERE CAN BE NO SPEED CHANGE: */
 
-    if (*ilelm != *iselm) {
+    if (ilelm != iselm) {
 		goto L100;
     }
-    ret_val = 1.f;
-    if (*isrt != 3) {
-		ret_val = 0.f;
-    }
-    goto L300;
+    ret_val = 1.f;  // TRANSITION PROBABILITY = 1.0 
+    
+
+/* SAVED ELEMENT AND NEW ELEMENT ARE THE SAME */
+/* IF DATA RATE STATE IS NOT 3 THEN SPEED TRANSITION PROBABILITY = 0.0  */
+    if (isrt != 3) 
+		return 0.f;	
 
 /* 	OTHERWISE, OBTAIN SPEED TRANSITION PROB */
 
 L100:
-    idel = memdel[*iselm-1][*ilelm -1];
-    ind1 = mempr[*iselm -1][*ilelm -1];
-    if (ind1 != 0) {
-		goto L200;
-    }
-    ret_val = 0.f;
-    goto L300;
-L200:
-    idelsp = (*isrt - 3) * idel;
-    ret_val = rtrans[ind1-1][*isrt-1];
-    israte = *ilrt + idelsp;
-    if (israte > 60) {
-		ret_val = 0.f;
-    }
-    if (israte < 10) {
-		ret_val = 0.f;
-    }
-L300:
+    idel = memdel[iselm-1][ilelm-1];
+    ind1 =  mempr[iselm-1][ilelm-1];
+    if (ind1 == 0) 
+       return 0.f;
+
+
+/*  */
+    idelsp = (isrt - 3) * idel;
+    ret_val = rtrans[ind1-1][isrt-1];
+    israte = ilrt + idelsp;
+    if (israte > 60) ret_val = 0.f;	// if speed rate is > 60 WPM TRANSITION PROBABILITY = 0 
+    if (israte < 10) ret_val = 0.f; // if speed rate is < 10 WPM TRANSITION PROBABILITY = 0 
     return ret_val;
 } /* spdtr_ */
 

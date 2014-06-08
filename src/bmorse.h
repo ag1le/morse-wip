@@ -31,13 +31,14 @@ typedef int ftnlen;
 #define SAMPLEDURATION  (1000. * DECIMATE) / FSAMPLE	// 1000*DECIMATE / FSAMPLE SHOULD BE  5 msec
 #define NDELAY  200				// 200 SAMPLES * 5 msec = 1000 msec decoding delay 
 #define BAYES_RATE 200			// Bayes decoder expects to get signal envelope at 200 Hz
-#define PATHS 30
+#define PATHS 40				// 25-30 paths normal
 
 #define TRUE 	1 
 #define FALSE 	0 
 typedef struct
 {	int print_variables ;
 	int print_symbols; 
+	int print_speed;
 	int process_textfile;
 	int print_text;
 	int print_xplot;
@@ -56,35 +57,37 @@ typedef struct
 
 extern PARAMS params;
 
+inline double clamp(double x, double min, double max)
+{
+	return (x < min) ? min : ((x > max) ? max : x);
+}
 
 class morse {
 protected:
 	int initl_(void);
-	int likhd_(real *z, real *rn, integer *ip, integer *lambda, real *dur, integer *ilrate);
+	int likhd_(real z, real rn, integer ip, integer lambda, real dur, integer ilrate);
 
-	int path_(integer *ip, integer *lambda, real *dur, integer *ilrate, integer *lamsav, real *dursav, integer *ilrsav);
-	doublereal spdtr_(integer *isrt, integer *ilrt, integer *iselm, integer *ilelm);
-	int ptrans_(integer *kelem, integer *irate, integer *lambda, integer *ilrate, real *ptrx, real *psum, real *pin, integer *n);
-	int trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate);
+	int path_(integer ip, integer lambda, real dur, integer ilrate, integer *lamsav, real *dursav, integer *ilrsav);
+	doublereal spdtr_(integer isrt, integer ilrt, integer iselm, integer ilelm);
+	int ptrans_(integer kelem, integer irate, integer lambda, integer ilrate, real ptrx, real *psum, real *pin, integer n);
+	int trprob_(integer ip, integer lambda, real dur, integer ilrate);
 	int transl_(int *ltr);
 	int trelis_(integer *isave, integer *pathsv, integer *lambda, integer *imax, integer *ipmax);
-	int kalfil_(real *z, integer *ip, real *rn, integer *ilx, 
-		integer *ixs, integer *kelem, integer *jnode, integer *israte, real *
-		dur, integer *ilrate, real *pin, real *lkhdj);
+	real kalfil_(real z, integer ip, real rn, integer ixs, integer kelem, integer jnode, integer israte, real dur, integer ilrate, real pin);
 	int savep_(real *p, integer *pathsv, integer *isave, integer 
 		*imax, integer *lamsav, real *dursav, integer *ilrsav, integer *
 		lambda, real *dur, integer *ilrate, integer *sort, real *pmax);
-	int model_(real *, integer *, integer *, integer *, integer *, real *, real *, real *);
+	int model_(real , integer , integer , integer , real *, real *);
 	int probp_(real *, integer *);
 	int  sprob_(real *, integer *, integer *, real *, integer *, real *, real *);
-	doublereal xtrans_(integer *, real *, integer *);
+	doublereal xtrans_(integer *, real , integer );
 
 
 	integer isx[6];
 	real rtrans[2][5]	/* was [5][2] */;
 	integer mempr[6][6]	/* was [6][6] */;
 	integer memdel[6][6]	/* was [6][6] */;
-	integer memfcn[2400];
+	integer memfcn[6][400];
 	real elemtr[6][16]	/* was [16][6] */;
 
 
@@ -106,10 +109,11 @@ public:
 	: 
 	isx { 1, 1, 0, 0, 0, 0 },
 // rtrans[2][5] - symbol conditional speed transition probabilities - Page 104 - Table X 
-// used in spdtr.c 	
+// used in spdtr.cxx 	
 	rtrans { 
 		{ .1f,  .2f, .4f, .2f, .1f},	// dot, dash, e-sp, w-s
 		{ .15f, .2f, .3f, .2f, .15f}},	// c-sp, pause 
+// mempr and memdel used in spdtr.cxx - see Page 103 
 	mempr {
 		{0, 0, 1, 2, 1, 2}, 
 		{0, 0, 1, 2, 1, 2}, 
@@ -136,9 +140,9 @@ public:
 /* w */	{0.f, 0.f, 0.f, 0.f, 0.f,  0.f, 0.f, 0.f, .069f, .069f, .012f, .012f, .012f, .012f, .009f,.009f}, 
 /* p */	{0.f, 0.f, 0.f, 0.f, 0.f,  0.f, 0.f, 0.f, .015f, .015f, .003f, .003f, .003f, .003f, .001f,.001f} },
 
-//memfcn[6][400]		
+//memfcn[400][6]		
 	memfcn { 
-/*k=0*/ 9, 11, 13, 15, 9, 11, 13, 15, 9, 0, 11, 0, 13, 0, 15, 0, 0, 
+/*k=0*/ {9, 11, 13, 15, 9, 11, 13, 15, 9, 0, 11, 0, 13, 0, 15, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -156,9 +160,9 @@ public:
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	    0, 0, 0, 0, 0, 0, 0, 0, 0, 
+	    0, 0, 0, 0, 0, 0, 0, 0, 0},
 	    
-/*k=1*/ 10, 12, 14, 16, 10, 12, 14, 16, 0, 10, 0, 12, 0, 14, 0, 16, 0, 0, 
+/*k=1*/ {10, 12, 14, 16, 10, 12, 14, 16, 0, 10, 0, 12, 0, 14, 0, 16, 0, 0, 
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -176,9 +180,9 @@ public:
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	    
-/*k=2*/	1, 0, 0, 0, 5, 0, 0, 0, 1, 5, 1, 5, 1, 5, 1, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+/*k=2*/	{1, 0, 0, 0, 5, 0, 0, 0, 1, 5, 1, 5, 1, 5, 1, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -195,9 +199,9 @@ public:
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	    
-/*k=3*/ 0, 2, 0, 0, 0, 6, 0, 0, 2, 6, 2, 6, 2, 6, 2, 6, 0, 0, 0, 0, 0, 0, 0, 
+/*k=3*/ {0, 2, 0, 0, 0, 6, 0, 0, 2, 6, 2, 6, 2, 6, 2, 6, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -215,9 +219,9 @@ public:
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	    0, 0, 0, 
+	    0, 0, 0}, 
 	    
-/*k=4*/ 0, 0, 3, 0, 0, 0, 7, 0, 3, 7, 3, 7, 3, 7, 3, 7, 0, 0, 0, 
+/*k=4*/ {0, 0, 3, 0, 0, 0, 7, 0, 3, 7, 3, 7, 3, 7, 3, 7, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -235,9 +239,9 @@ public:
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	    0, 0, 0, 0, 0, 0, 0, 
+	    0, 0, 0, 0, 0, 0, 0}, 
 	    
-/*k=5*/	0, 0, 0, 4, 0, 0, 0, 8, 4, 8, 4, 8, 4, 8, 4, 
+/*k=5*/	{0, 0, 0, 4, 0, 0, 0, 8, 4, 8, 4, 8, 4, 8, 4, 
 	    8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
@@ -255,7 +259,8 @@ public:
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0} },
+	    
 	ielmst { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 0, 0,
 	     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -283,5 +288,5 @@ public:
 	~morse();
 	
 	int noise_(double, real *, real *);
-	int proces_(real *z, real *rn, integer *xhat, real *px, integer *elmhat, real *spdhat, integer *imax, real *pmax, int spd);
+	int proces_(real z, real rn, integer *xhat, real *px, integer *elmhat, real *spdhat, integer *imax, real *pmax, int spd);
 };

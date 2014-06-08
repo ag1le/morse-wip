@@ -25,11 +25,9 @@
 
 int morse::probp_(real *p, integer *isave)
 {
-    /* System generated locals */
-    integer i1;
 
     /* Local variables */
-	integer i, j, n, ni;
+	integer i, j, n;
 	real pmax, psav[30*PATHS], psum;
 
 
@@ -42,41 +40,31 @@ int morse::probp_(real *p, integer *isave)
 /* 		LKHD-		INPUT LIKELIHOODS OF EACH TRANSTION */
 /* 		PSUM-		NORMALIZING CONSTANT (SUM OF P(J)) */
 
-    /* Parameter adjustments */
-//    --lkhd;
-//    pin -= 26;
-    --p;
 
     /* Function Body */
     pmax = 0.f;
     psum = 0.f;
+
 /* 	FOR EACH SAVED PATH, EACH TRANSITION: */
-    i1 = *isave;
-    for (i = 1; i <= i1; ++i) {
+    for (i = 1; i <= *isave; ++i) {
 		for (n = 1; n <= 30; ++n) {
 	/* 		COMPUTE IDENTITY OF NEW PATH: */
 			j = (i - 1) * 30 + n;
 	/*      PRODUCT OF PROBS, ADD TO PSUM */
-//			psav[j - 1] = p[i] * pin[i + n * PATHS] * lkhd[j];
-			psav[j - 1] = p[i] * pin[n-1][i-1] * lkhd[n-1][i-1];
-			psum += psav[j - 1];
-			if (psav[j - 1] <= pmax) {
-			goto L100;
+			psav[j-1] = p[i-1] * pin[n-1][i-1] * lkhd[n-1][i-1];
+			psum += psav[j-1];
+			if (psav[j - 1] > pmax) {
+				pmax = psav[j - 1];
 			}
-			pmax = psav[j - 1];
-L100:
-			;
 		}
     }
 /* 	NORMALIZE TO GET PROBABILITIES; SAVE: */
-    ni = *isave * 30;
-    i1 = ni;
     if (psum ==0.0) {
     	printf("\nprobp: psum = 0");
     	return 0;
     }
-    for (j = 1; j <= i1; ++j) {
-		p[j] = psav[j - 1] / psum;
+    for (j = 1; j <= *isave * 30; ++j) {
+		p[j-1] = psav[j - 1] / psum;
 	}
     return 0;
 } /* probp_ */

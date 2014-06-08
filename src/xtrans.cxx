@@ -23,12 +23,13 @@
 #include "bmorse.h"
 #include <math.h>
 
-doublereal morse::xtrans_(integer *ielem, real *d0, integer *irate)
+doublereal morse::xtrans_(integer *ielem, real dur, integer irate)
 {
     /* Initialized data */
-
-    static integer kimap[6] = { 1,3,1,3,7,14 };
-    static real aparm[3] = { 3.f,1.5f,1.f };
+	
+    static integer kimap[6] = { 1, 3, 1, 3, 7, 14 };
+    
+    static real aparm[3] = { 3.f, 1.5f, 1.f };
 
     /* System generated locals */
     real ret_val;
@@ -44,7 +45,7 @@ doublereal morse::xtrans_(integer *ielem, real *d0, integer *irate)
 /* 	CURRENT DURATION, AND DATA RATE. */
 /* 	VARIABLES: */
 /* 	IELEM- 	INPUT CURRENT ELEMENT TYPE */
-/* 	D0- 	INPUT CURRENT ELEMENT DURATION */
+/* 	DUR- 	INPUT CURRENT ELEMENT DURATION */
 /* 	IRATE - INPUT CURRENT DATA RATE */
 
 /* 	TABLES IN COMMON CONTAIN DENSITY PARMS FOR EACH ELEMENT TYPE, DATA RATE. */
@@ -52,18 +53,18 @@ doublereal morse::xtrans_(integer *ielem, real *d0, integer *irate)
 /* 	SCALE DURATION AND OBTAIN DENSITY PARAMETER: */
 
     mscale = kimap[*ielem - 1];
-    rscale = 1200.f / *irate;
-    b0 = *d0 / (mscale * rscale);
-    b1 = (*d0 + 5.f) / (mscale * rscale);
+    rscale = 1200.f / irate;
+    b0 = dur / (mscale * rscale);
+    b1 = (dur + 5.f) / (mscale * rscale);
     
     switch (*ielem) {
-    case 6:
+    case 6:		// element is Pause 
 	    alpha = aparm[2] * 14.f;
 	    break;
-    case 5:
+    case 5:		// element is word space 
 	    alpha = aparm[1] * 7.f;    
 	    break;
-    default:
+    default:	// element is dit, dah, e-space or chr-space
 	    alpha = mscale * aparm[0];
     }
 

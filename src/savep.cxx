@@ -116,7 +116,7 @@ int morse::savep_(real *p, integer *pathsv, integer *isave, integer
 				j = (ip - 1) * 30 + n;
 				for (i = 1; i <= nsav; ++i) {
 					if (j == sort[i]) {
-						goto L500;
+						break; //goto L500;
 					}
 				}
 				if (p[j] > *pmax) {
@@ -124,8 +124,6 @@ int morse::savep_(real *p, integer *pathsv, integer *isave, integer
 					jsav = j;
 					ipsav = ip;
 				}
-		L500:
-				;
 			}
 		}
 		psum += *pmax;
@@ -133,10 +131,10 @@ int morse::savep_(real *p, integer *pathsv, integer *isave, integer
 		psav[nsav - 1] = *pmax;
 		pathsv[nsav] = ipsav;
 		sort[nsav] = jsav;
-		if (psum >= popt) {
+		if (psum >= popt) 
 			break; 
-		}
 	}   while (nsav < PATHS); 
+	
 /* 	NEW ISAVE EQUALS NO. OF NODES SAVED: */
     *isave = nsav;
 
@@ -186,7 +184,6 @@ int morse::savep_(real *p, integer *pathsv, integer *isave, integer
 		}
     }
 
- //   psum = p[0];
     psum = p[1];
     n = 1;
     for (i = 2; i <= *isave; ++i) {

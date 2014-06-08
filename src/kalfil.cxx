@@ -25,9 +25,7 @@
 #include <stdio.h>
 
 
-int morse::kalfil_(real *z, integer *ip, real *rn, integer *ilx, 
-	integer *ixs, integer *kelem, integer *jnode, integer *israte, real *
-	dur, integer *ilrate, real *pin, real *lkhdj)
+real morse::kalfil_(real z, integer ip, real rn, integer ixs, integer kelem, integer jnode, integer israte, real dur, integer ilrate, real pin)
 {
     /* Initialized data */
 
@@ -66,42 +64,41 @@ int morse::kalfil_(real *z, integer *ip, real *rn, integer *ilx,
 /*   IF TRANSITION PROBABILITY IS VERY SMALL, DON'T */
 /*   BOTHER WITH LIKELIHOOD CALCULATION: */
 
-    if (*pin <= 1e-4f) {
-		*lkhdj = 0.f;
-		return 0;
+    if (pin <= 1e-4f) {  // was 1e-4f
+		return 0.f;
     }
 
 /*   OBTAIN STATE-DEPENDENT MODEL PARAMETERS: */
-    model_(dur, kelem, ilrate, israte, ixs, &phi, &qa, &hz);
+    model_(dur, kelem, ilrate,  ixs, &phi, &qa);
 
+/* 	COMPUTE MEASUREMENT COEFFICIENT: */
+    hz = (real)ixs;
+    
 /* 	GET PREVIOUS ESTIMATES FOR PATH IP */
 
-    ykk = ykkip[*ip - 1];
-    pkk = pkkip[*ip - 1];
+    ykk = ykkip[ip];
+    pkk = pkkip[ip];
 
 /*  IMPLEMENT KALMAN FILTER FOR THIS TRANSITION */
 
     ypred = phi * ykk;
     ppred = phi * pkk * phi + qa;
-    pz = hz * ppred + *rn;
+    pz = hz * ppred + rn;
     pzinv = 1.f / pz;
     g = ppred * hz * pzinv;
     pest = (1.f - g * hz) * ppred;
-    zr = *z - hz * ypred;
+    zr = z - hz * ypred;
 
-    ykksv[*jnode - 1] = ypred + g * zr;
-    pkksv[*jnode - 1] = pest;
-    if (ykksv[*jnode - 1] <= .01f) {
-		ykksv[*jnode - 1] = .01f;
+    ykksv[jnode - 1] = ypred + g * zr;
+    pkksv[jnode - 1] = pest;
+    if (ykksv[jnode - 1] <= .01f) {
+		ykksv[jnode - 1] = .01f;
     }
 /* Computing 2nd power */
     a = .5f*pzinv*(zr * zr);
     if (a > 1e3f) {
-		*lkhdj = 0.;
-		return 0;
+		return 0.f;
     }
-    *lkhdj = (1.f / sqrt(pz)) * exp(-a);
- //   printf("\nz:%f a:%f lkhdj:%f israte:%d ilrate:%d dur:%f",*z,a,*lkhdj,*israte,*ilrate,*dur);
-    return 0;
+    return (1.f / sqrt(pz)) * exp(-a);
 } /* kalfil_ */
 

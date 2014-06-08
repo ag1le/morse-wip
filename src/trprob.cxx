@@ -23,7 +23,7 @@
 #include "bmorse.h"
 #include <stdio.h>
 
-int morse::trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate)
+int morse::trprob_(integer ip, integer lambda, real dur, integer ilrate)
 {
     static integer i, k, n;
     static real pint[30];
@@ -41,7 +41,7 @@ int morse::trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate)
 /* 		IP - 	INPUT SAVED PATH IDENTITY */
 /* 		LAMBDA 	INPUT SAVED LTR STATE IDENTITY */
 /* 		DUR - 	INPUT SAVED ELEMENT DURATION */
-/* 		ILPATE 	INPUT SAVED DATA RATE IDENTITY */
+/* 		ILRATE 	INPUT SAVED DATA RATE IDENTITY */
 /* 		P - 	OUTPUT TRANSITION PROBABILITY MATRIX */
 
 /* 		THE FOLLOWING FUNCTION SUBROUTINES ARE USED: */
@@ -53,26 +53,26 @@ int morse::trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate)
 //    p -= 26;
 
     /* Function Body */
-    if (*lambda == 0) {
+    if (lambda == 0) {
 		for (n = 1; n <= 30; ++n) {
-//			p[*ip + n * PATHS] = 0.f;
-			pin[n-1][*ip-1] = 0.f;
+//			p[ip + n * PATHS] = 0.f;
+			pin[n-1][ip] = 0.f;
 		}
 		return 0;
     }
 
-    ielem = ilami[ielmst[*lambda - 1] - 1];
+    ielem = ilami[ielmst[lambda - 1] - 1];
 /* 	COMPUTE KEYSTATE TRANSITION PROBABILITY: */
     ptrx = xtrans_(&ielem, dur, ilrate);
 
 /* 	FOR EACH STATE, COMPUTE STATE TRANSITION PROBABILITY: */
     psum = 0.f;
-    for (k = 1; k <= 6; ++k) {
-		for (i = 1; i <= 5; ++i) {
+    for (k = 1; k <= 6; ++k) {	// 6 element states 1=dit,2=dah, 3=e-spc, 4=chr-s, 5=wrd-s, 6=pause
+		for (i = 1; i <= 5; ++i) { // 5 speed states -2 -1 0 1 2 
 			n = (i - 1) * 6 + k;
 			kelm = k;
 			irate = i;
-			ptrans_(&kelm, &irate, lambda, ilrate, &ptrx, &psum, pint, &n);
+			ptrans_(kelm, irate, lambda, ilrate, ptrx, &psum, pint, n);
 		}
     }
     if (psum ==0.0) {
@@ -81,8 +81,8 @@ int morse::trprob_(integer *ip, integer *lambda, real *dur, integer *ilrate)
     }
 
     for (n = 1; n <= 30; ++n) {
-//		p[*ip + n * PATHS] = pint[n - 1] / psum;
-		pin[n-1][*ip-1] = pint[n - 1] / psum;
+//		p[ip + n * PATHS] = pint[n - 1] / psum;
+		pin[n-1][ip] = pint[n - 1] / psum;
     }
 
     return 0;

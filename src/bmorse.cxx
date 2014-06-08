@@ -48,6 +48,7 @@
 /*
 {	int print_variables ;  	// FALSE
 	int print_symbols; 		// FALSE 
+	int print_speed; 		// FALSE 
 	int process_textfile;	// FALSE
 	int print_text;			// FALSE
 	int print_xplot;		// FALSE
@@ -65,7 +66,7 @@
 	int dec_ratio;			// 20   (4000 Hz/ 20 => 200 Hz ) decimation ratio  samplerate / bayes decoder rate  
 */
 PARAMS params = { 
-FALSE, FALSE, FALSE, FALSE, FALSE, 8192, 32, 0, 600, 5, 4000, 10.0, 0.0, 0, 0,20,20};
+FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 8192, 32, 0, 600, 5, 4000, 10.0, 0.0, 0, 0,20,20};
 
 fftfilt			*FFT_filter; 
 
@@ -303,8 +304,8 @@ void process_data(double x)
 	static real rn = .1f;
 	static integer retstat, n1, n2, imax, xhat, elmhat;
 	static real pmax, zout, spdhat, px;
-	static int init = 1; 
-	static double agc_peak = 0.1;
+	static int init = 1,pinit = 1; 
+	static double agc_peak = 0.0;
 	static morse* mp; 
 	
 	if (init) {
@@ -318,12 +319,14 @@ void process_data(double x)
 	if (params.agc) {
 
 		if (x > agc_peak)
-			agc_peak = decayavg(agc_peak, x, 20);
+			agc_peak = decayavg(agc_peak, x, 10);
 		else
-			agc_peak = decayavg(agc_peak, x, 800);
+			agc_peak = decayavg(agc_peak, x, 900);
 	
-		if (agc_peak != 0.0)
+		if (agc_peak != 0.0){
 			x /= agc_peak;
+			x = clamp(x, 0.0, 1.0);
+			}
 		else
 			x = 0.0;
 	}
@@ -332,19 +335,23 @@ void process_data(double x)
 	if (params.print_xplot)
 		printf("\n%f",x);
 
-	if (params.print_variables && init) { //print variable labels first (only once) iu
+	if (params.print_variables && pinit) { //print variable labels first (only once) iu
 		printf("\nretstat\timax\telmhat\txhat\tx\tpx\tpmax\tspdhat\trn\tzout\tp1\tp2\tp3\tp4\tp5\tp6\n");
-		init = 0; 
+		pinit = 0; 
 	}
 
 	mp->noise_(x, &rn, &zout);
 
+	zout = clamp(zout, 0.0, 1.0);
+	
 //	if (zout > 1.0) zout = 1.0; 
 //	if (zout < 0.0) zout = 0.0;
 	
-	retstat = mp->proces_(&zout, &rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax, params.speed);
+	retstat = mp->proces_(zout, rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax, params.speed);
 	if (params.print_variables) 
 		printf("\n%d\t%d\t%d\t%d\t%f\t%f\t%f\t%f\t%f\t%f",(int)retstat,(int)imax,(int)elmhat,(int)xhat,x,px,pmax,spdhat,rn,zout); 
+	if (params.print_speed) 
+		printf("\n%f", spdhat);
 	
 
 }
@@ -435,23 +442,26 @@ decode_sndfile (SNDFILE *infile, SF_INFO info)
  	if (params.bfv !=0)
  		bfv = params.bfv;
  	else
- 		bfv = sr/100;   //  Samplerate / 100 => bfv value required for 10 msec rise time
+	// bit filter based on 10 msec rise time of CW waveform
+		bfv = (int)(sr * .010 / params.dec_ratio); 		
+// 		bfv = sr/100;   //  Samplerate / 100 => bfv value required for 10 msec rise time
 
 	speclen = params.speclen; 
 	p.delta = params.delta; 	
 	//params.sample_duration= (2.0*speclen*1000.0)/((double)16*sr);
     
-    printf("frames=%d\n",f);
-    printf("channels=%d\n",c);
-    printf("samplerate=%d\n",sr);
-    printf("dec_ratio=%d\n",params.dec_ratio);
-    printf("bit filter=%d\n",bfv);
-    printf("num_items=%d\n",num_items);
-    printf("sample_duration=%f\n",params.sample_duration);
-    printf("bitfilter=%d\n",params.bfv);
-    printf("speed(WPM):%d\n",params.speed);
-    printf("FFT filter %f\n",(params.speed/(1.2 * params.sample_rate)));
- 
+    if (!params.print_text) {
+		printf("# frames=%d\n",f);
+		printf("# channels=%d\n",c);
+		printf("# samplerate=%d\n",sr);
+		printf("# dec_ratio=%d\n",params.dec_ratio);
+		printf("# bit filter=%d\n",bfv);
+		printf("# num_items=%d\n",num_items);
+		printf("# sample_duration=%f\n",params.sample_duration);
+		printf("# bitfilter=%d\n",params.bfv);
+		printf("# speed(WPM):%d\n",params.speed);
+		printf("# FFT filter bandwidth %f\n",2.0* params.speed/1.2);
+ 	}
    
   
 	if (params.fft) {
@@ -520,7 +530,7 @@ decode_sndfile (SNDFILE *infile, SF_INFO info)
 			//overlap and add filter length should be a factor of 2
 			// low pass implementation
 			int FilterFFTLen = 4096;
-			FFT_filter = new fftfilt((params.speed*20)/(1.2 * params.sample_rate), FilterFFTLen);
+			FFT_filter = new fftfilt((params.speed)/(1.2 * params.sample_rate), FilterFFTLen);
 		  
 			/* Allocate space for the data to be read, then read it. */
 			buf = (double *) malloc(num_items*sizeof(double));
@@ -530,24 +540,14 @@ decode_sndfile (SNDFILE *infile, SF_INFO info)
 			}
 
 			num = sf_read_double(infile,buf,num_items);
-			printf("Read %d items\n",num);
+//			printf("Read %d items\n",num);
 
 			for (i = 0; i < num; i += 512){
 					
 					rx_FFTprocess(buf, 512);
 					buf += 512; 
 					
-/*					
-					if (x < 0)  x = -x;
-					x = filter(x,bfv);   					
-					sc++;
-					if ((sc % dec_ratio)==0) {   // 48 kHz to 200 Hz - decimate samples by 240
-
-     	
-
-						process_data(x);
-*/
-		
+	
 			}
 			//free(buf); 
 	}
@@ -631,6 +631,7 @@ static void usage_exit (const char * argv0)
 		"        -frq	<value>		CW signal frequency (default 600 Hz).\n"
 		"        -fft   <value>		Enable FFT filtering (default 0 - off)  \n"
 		"        -plt				Plot envelope using xplot: ./morse -plt <sndfile> | xplot \n"
+		"        -prs				Plot speed (WPM)using xplot: ./morse -plt <sndfile> | xplot \n"		
 		"        -spd   <value>		Set default speed in WPM for decoder (default 20 )  \n"
 		"        -len	<length>		Window length for FFT [8,16,32,64,128...].\n"
 		"        -wid	<width>			Width of buffer to read & process [8192, 16384].\n"
@@ -743,6 +744,10 @@ int main(int argc, const char* argv[])
 			}
 		if (strcmp (argv [k], "-plt") == 0){
 			params.print_xplot = TRUE;
+			continue ;
+			}
+		if (strcmp (argv [k], "-prs") == 0){
+			params.print_speed = TRUE;
 			continue ;
 			}
 		} ;

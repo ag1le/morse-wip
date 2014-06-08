@@ -24,7 +24,7 @@
 
 
 
-int morse::ptrans_(integer *kelem, integer *irate, integer *lambda, integer *ilrate, real *ptrx, real *psum, real *pin, integer *n)
+int morse::ptrans_(integer kelem, integer irate, integer lambda, integer ilrate, real ptrx, real *psum, real *pin, integer n)
 {
 	real pelem, prate;
 
@@ -38,26 +38,24 @@ int morse::ptrans_(integer *kelem, integer *irate, integer *lambda, integer *ilr
 /* 	PTRX-       INPUT KEYSTATE TRANSITION PROBABILITY */
 /* 	ELEMTR-     ELEMENT TRANSITION PROBABILITY MATRIX */
 
-/* 	FUNCTION SUBROTINE USED: */
+/* 	FUNCTION SUBROUTINE USED: */
 /* 	SPDTR-      RETURNS DATA RATE TRANSITION PROBS,CONDITIONED ON CURRENT SPACE TYPE. */
 
 /* 	IF THE SAVED ELEMENT AND THE ELEMENT OF THE STATE */
 /* 	N TO WHICH THE PATH IS BEING EXTENDED ARE THE */
-/* 	SAME, THEN THE STATE TRANS PROB IS SIMPLY */
-/* 	KEYSTATE TRANS PROB: */
+/* 	SAME, THEN THE STATE TRANS PROB IS SIMPLY KEYSTATE TRANS PROB: */
 
-    /* Parameter adjustments */
-    --pin;
 
     /* Function Body */
-    if (*kelem != ilami[ielmst[*lambda - 1] - 1]) {
+    if (kelem != ilami[ielmst[lambda - 1] - 1]) {
 		goto L100;
     }
-    pin[*n] = *ptrx;
+    pin[n-1] = ptrx;
 
-/* 	HOWEVER, IF CURRENT DATA RATE STATE  = 3, THEN TRANS PROB = 0 ... WHY ? */
-    if (*irate != 3) {
-		pin[*n] = 0.f;
+/* 	HOWEVER, IF CURRENT DATA RATE STATE  != 3, THEN STATE TRANS PROB = 0 ... WHY ? */
+/* See page 104 in thesis */
+    if (irate != 3) {
+		pin[n-1] = 0.f;
     }
     goto L200;
 
@@ -65,13 +63,15 @@ int morse::ptrans_(integer *kelem, integer *irate, integer *lambda, integer *ilr
 /* 	OBTAIN ELEM TRANS PROBS TABLE: */
 
 L100:
-    pelem = elemtr[*kelem-1][ielmst[*lambda - 1]-1];
+    pelem = elemtr[kelem-1][ielmst[lambda - 1]-1];
+
 /* 	NEXT COMPUTE ELEM-CONDITIONAL SPEED TRANS PROB: */
-    prate = spdtr_(irate, ilrate, kelem, &ilami[ielmst[*lambda - 1] - 1]);
-/* 	TRANS IS THE PRODUCT: */
-    pin[*n] = (1.f - *ptrx) * pelem * prate;
+    prate = spdtr_(irate, ilrate, kelem, ilami[ielmst[lambda - 1] - 1]);
+
+/* 	TRANS PROBABILITY IS THE PRODUCT: */
+    pin[n-1] = (1.f - ptrx) * pelem * prate;
 L200:
-    *psum += pin[*n];
+    *psum += pin[n-1];
     return 0;
 } /* ptrans_ */
 

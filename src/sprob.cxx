@@ -28,8 +28,6 @@ extern PARAMS params;
 
 int morse::sprob_(real *p, integer *isave, integer *ilrsav, real *pelm, integer *khat, real *spdhat, real *px)
 {
-    /* System generated locals */
-    integer i1;
 
     /* Local variables */
 	integer i, j, k, m, n;
@@ -39,7 +37,7 @@ int morse::sprob_(real *p, integer *isave, integer *ilrsav, real *pelm, integer 
 
 /*    SPROB COMPUTES THE POSTERIOR PROBS OF THE ELEMENT */
 /*    STATES, DATA RATE STATES, AND KEYSTATES BY SUMMING */
-/*    OVER THE APPROPRIETE PATHS. */
+/*    OVER THE APPROPRIATE PATHS. */
 
 /*    VARIABLE: */
 /*    P-		INPUT PATH PROBABILITIES */
@@ -49,9 +47,6 @@ int morse::sprob_(real *p, integer *isave, integer *ilrsav, real *pelm, integer 
 /*    PX- 		OUTPUT KEYSTATE PROBABILITY */
 
 /* 	INITIALIZE: */
-    /* Parameter adjustments */
-    --ilrsav;
-    --p;
 
     /* Function Body */
     *spdhat = 0.f;
@@ -62,13 +57,12 @@ int morse::sprob_(real *p, integer *isave, integer *ilrsav, real *pelm, integer 
 		pselem[k - 1] = 0.f;
 		for (i = 1; i <= 5; ++i) {
 			n = (i - 1) * 6 + k;
-			i1 = *isave;
-			for (m = 1; m <= i1; ++m) {
+			for (m = 1; m <= *isave; ++m) {
 				j = (m - 1) * 30 + n;
-				pselem[k - 1] += p[j];
-				*spdhat += ilrsav[j] * p[j];
+				pselem[k - 1] += p[j-1];
+				*spdhat += ilrsav[j-1] * p[j-1];
 				if (k <= 2) {
-					*px += p[j];
+					*px += p[j-1];
 				}
 			}
 		}
