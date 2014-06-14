@@ -141,12 +141,12 @@ AWK = gawk
 BMORSE_AUTHORS = 
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -Wall -pedantic
+CFLAGS = -Wall -pedantic -DVERSION=\"$(GIT_VERSION)\"
 CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g -O2
+CXXFLAGS = -DVERSION=\"$(GIT_VERSION)\"
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
@@ -242,6 +242,7 @@ top_build_prefix =
 top_builddir = .
 top_srcdir = .
 SUBDIRS = src
+GIT_VERSION := $(shell git describe --abbrev=4 --dirty --always)
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

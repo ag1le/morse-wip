@@ -726,6 +726,10 @@ int main(int argc, const char* argv[])
 			params.print_variables = TRUE;
 			continue ;
 			}
+		if (strcmp (argv [k], "-ver") == 0){
+			printf("Version: %s\n", VERSION);
+			exit(0);
+			}
 		if (strcmp (argv [k], "-sym") == 0){
 			params.print_symbols = TRUE;
 			continue ;

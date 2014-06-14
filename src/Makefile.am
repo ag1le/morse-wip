@@ -1,6 +1,7 @@
-
+GIT_VERSION := $(shell git describe --abbrev=4 --dirty --always)
 bin_PROGRAMS = bmorse
-FLAGS= -Wall -pedantic
+CFLAGS= -Wall -pedantic -DVERSION=\"$(GIT_VERSION)\"
+CXXFLAGS = -DVERSION=\"$(GIT_VERSION)\"
 
 #AM_CXXFLAGS = -I$(src)
 

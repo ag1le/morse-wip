@@ -400,6 +400,7 @@ on X301
 config.status:882: creating Makefile
 config.status:882: creating src/Makefile
 config.status:882: creating config.h
+config.status:1063: config.h is unchanged
 config.status:1111: executing depfiles commands
 
 ## ---------------- ##

@@ -44,18 +44,37 @@ MORSE - PROJECT IDEAS
 			Model parameters
 			
 		Output 
-			SER  vs. SNR  graphs 
+			SER  vs. SNR  graphs  DONE 
+				- can be created using OpenOffice (LibreOffice Calc) 
+				- plot for different filter widths (aka -spd parameter) 
+				- run through different parameter values 
+				-> automate CSV file generation 
+				-> capture best values & corresponding software versions in database 
+					<SW version> < date> <parameters,like filter bw> <CER vs. SNR value pairs> 
+					
+					
+				
 			SER  vs. timing variations
+				- need to create morse.m version with timing variability functionality 
+				- 
 			SER  vs. speed variations 
+				- need to create morse.m version with speed variability functionality 
+				
 			SER  per character 
+				- 
 			
 			Misrecognition distribution (input chr vs. output chr)
 				- i.e. A recognized as U 
+				- confusion matrix 
+				
 			Symbol Error Rate (SER)
 				- print recognized symbols ". - ~ ^ w p"
 				- use Levenshtein distance calculation as error metric
+				- 
 			Path length vs. SNR 
+				- 
 			Estimated speed  vs. actual speed distribution
+				-  
 			
 			
 			
