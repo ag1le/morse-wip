@@ -1,0 +1,47 @@
+#!/usr/bin/tclsh 
+#
+
+# EXECUTE CER vs. SNR MORSE TESTS AND ENTER RESULTS INTO A DATABASE
+
+load /usr/lib/tcltk/sqlite3/libtclsqlite3.so sqlite3
+
+sqlite3 db3 test/sqlite.db
+
+set runcmd [db3 eval {CREATE TABLE test( ver TEXT, cmd TEXT, snr REAL, cer REAL, spd REAL)}]
+
+if {[catch $runcmd res]} {
+	error "Failed to create table: $res $errorinfo"
+	}
+
+set VER [exec src/bmorse -ver]
+
+set wav_files [glob test/rand*.wav]
+
+# TEST DECODING WITH WPM SPEED 20 ... 80 
+foreach spd {20 30 40 50 60 70 80} {
+	foreach f $wav_files {
+
+		set decoded $f
+		append decoded ".txt"
+		regexp {[-+]?[0-9]+?} $f SNR
+		
+		set runcmd [list exec src/bmorse -txt -agc -spd $spd $f  >$decoded]
+		
+		if {[catch $runcmd res]} {
+  		error "Failed to run command $runcmd: $res"
+		}
+
+# RUN LEVENSHTEIN METRIC (CER) ON DECODED TEXT 		
+		if {[catch {exec ../ltest test/random.txt $decoded} rs]} {
+		  error "Failed to run command $CER: $rs"
+		}
+		puts $rs
+		regexp {\t([0-9]+\.[0-9])|([0-9]+\.[0-9]+)} $rs CER
+		puts "SPD:$spd\tSNR:$SNR\tCER:$CER\t$runcmd"
+
+# INSERT TEST RESULT INTO DATABASE	
+		db3 eval {INSERT INTO test VALUES($VER, $runcmd, $SNR, $CER, $spd)}
+		
+	}
+}
+db3 close
