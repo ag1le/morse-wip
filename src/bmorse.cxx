@@ -23,6 +23,7 @@
 // along with bmorse.  If not, see <http://www.gnu.org/licenses/>.
 // ---------------------------------------------------------------------------
 
+#include <config.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -622,6 +623,7 @@ static void usage_exit (const char * argv0)
 
 	puts (
 		"    Options include:\n\n"
+		"        -ver				Print git version tag and exit.\n"		
 		"        -var				Print variables for post-analysis (default off).\n"
 		"        -sym				Print symbols before translation (default off). \n"
 		"        -txt				Print decoded and translated text (default off).\n"
@@ -727,7 +729,7 @@ int main(int argc, const char* argv[])
 			continue ;
 			}
 		if (strcmp (argv [k], "-ver") == 0){
-			printf("Version: %s\n", VERSION);
+			printf("Version: %s\n", GVERSION);
 			exit(0);
 			}
 		if (strcmp (argv [k], "-sym") == 0){

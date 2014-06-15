@@ -47,11 +47,11 @@ MORSE - PROJECT IDEAS
 			SER  vs. SNR  graphs  DONE 
 				- can be created using OpenOffice (LibreOffice Calc) 
 				- plot for different filter widths (aka -spd parameter) 
-				- run through different parameter values 
+				- run through different parameter values using automated TCL script
 				-> automate CSV file generation 
-				-> capture best values & corresponding software versions in database 
+				-> capture best values & corresponding software versions in SQLITE3 database 
 					<SW version> < date> <parameters,like filter bw> <CER vs. SNR value pairs> 
-					
+
 					
 				
 			SER  vs. timing variations
