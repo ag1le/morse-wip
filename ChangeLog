@@ -1,4 +1,7 @@
 (C) 2013,2014  AG1LE Mauri Niininen 
+2014-JUN-22
+	Removed most static variables to reduce size of .bss segment in order to be able to run in Raspberry Pi. 
+	
 2014-JUN-14
 	Added TCL/sqlite3 based testing framework to capture and process CER vs SNR test data.
 	See test/cer_vs_snr_test.tc  and test/sqlite.db 
