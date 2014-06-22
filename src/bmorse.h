@@ -112,7 +112,7 @@ protected:
 
     integer lmdsav[PATHS][NDELAY];	/* was [200][PATHS] */ 
     integer n;
-    integer ndelay = NDELAY;
+    integer ndelay;
     integer ipnod[PATHS];
     integer ltrsv[NDELAY];
     integer pthtrl[PATHS][NDELAY];	/* was [200][PATHS] */

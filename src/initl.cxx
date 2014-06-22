@@ -35,6 +35,7 @@ int morse::initl_(void)
     isave = PATHS;
     n = 0;
 	ncall = 0;
+	ndelay = NDELAY;
     nmax = 0;
     mmax = 0;
     kd = 0;
