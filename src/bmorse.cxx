@@ -420,7 +420,7 @@ void decode_sndfile (SNDFILE *infile, SF_INFO info)
 	int width = 8192, height= 32, w, speclen ;
  
 	int f,sr,sc =0,c,num_items,num,i,j;
-	double *buf;
+	double *buf, *bp;
 	int bfv;   // bit filter value 
 	
 	//  speclen should be multiple of 2^n but also keep time resolution < 5 ms 
@@ -533,23 +533,24 @@ void decode_sndfile (SNDFILE *infile, SF_INFO info)
 			FFT_filter = new fftfilt((params.speed)/(1.2 * params.sample_rate), FilterFFTLen);
 		  
 			/* Allocate space for the data to be read, then read it. */
-			buf = (double *) malloc(num_items*sizeof(double));
+			buf = (double *) malloc((num_items+512)*sizeof(double));
 			if (buf == 0) {
 				printf ("%s : line %d :out of memory.\n", __FILE__, __LINE__) ;
 				exit (1) ;
 			}
+			bp = buf; 
 
-			num = sf_read_double(infile,buf,num_items);
+			num = sf_read_double(infile,bp,num_items);
 //			printf("Read %d items\n",num);
 
-			for (i = 0; i < num; i += 512){
+			for (i = 0; i < num_items; i += 512){
 					
-					rx_FFTprocess(buf, 512);
-					buf += 512; 
+					rx_FFTprocess(bp, 512);
+					bp += 512; 
 					
 	
 			}
-			//free(buf); 
+			free(buf); 
 	}
 	 
 
