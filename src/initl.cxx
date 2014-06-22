@@ -32,6 +32,15 @@
 
 int morse::initl_(void)
 {
+    isave = PATHS;
+    n = 0;
+	ncall = 0;
+    nmax = 0;
+    mmax = 0;
+    kd = 0;
+    ndelst = 0;
+    iend = 0;
+
     return 0;
 } /* initl_ */
 

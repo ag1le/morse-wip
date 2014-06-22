@@ -64,7 +64,7 @@ inline double clamp(double x, double min, double max)
 
 class morse {
 protected:
-	int initl_(void);
+
 	int likhd_(real z, real rn, integer ip, integer lambda, real dur, integer ilrate);
 
 	int path_(integer ip, integer lambda, real dur, integer ilrate, integer *lamsav, real *dursav, integer *ilrsav);
@@ -82,7 +82,6 @@ protected:
 	int  sprob_(real *, integer *, integer *, real *, integer *, real *, real *);
 	doublereal xtrans_(integer *, real , integer );
 
-
 	integer isx[6];
 	real rtrans[2][5]	/* was [5][2] */;
 	integer mempr[6][6]	/* was [6][6] */;
@@ -97,7 +96,7 @@ protected:
 	
 // Proces variables -  Initialized data
 
-    integer isave = PATHS;
+    integer isave;
     integer lambda[PATHS]; 
 	integer ilrate[PATHS]; 
     real dur[PATHS];
@@ -112,22 +111,23 @@ protected:
 // Trelis variables -  Initialized data 
 
     integer lmdsav[PATHS][NDELAY];	/* was [200][PATHS] */ 
-    integer n = 0;
+    integer n;
     integer ndelay = NDELAY;
     integer ipnod[PATHS];
-    integer ncall = 0;
-    integer nmax = 0;
-    integer mmax = 0;
     integer ltrsv[NDELAY];
-    integer kd = 0;
-    integer ndelst = 0;
     integer pthtrl[PATHS][NDELAY];	/* was [200][PATHS] */
-    integer iend = 0;
+
+    integer ncall;
+    integer nmax;
+    integer mmax;
+    integer kd;
+    integer ndelst;
+    integer iend;
 
 // Xtrans variables - Initialized data 
 	
-	integer kimap[6] = { 1, 3, 1, 3, 7, 14 };
-	real aparm[3] = { 3.f, 1.5f, 1.f };
+	integer kimap[6];
+	real aparm[3];
 
 // Kalman filter parameters 
     real ykkip[PATHS];
@@ -137,10 +137,13 @@ protected:
 
     real pin[30][PATHS];	/* was pin[750] */
     real lkhd[30][PATHS];	// was lkhd[750] 
-        
+    
+	int initl_(void);        
 public: 
 	morse()
 	: 
+	kimap { 1, 3, 1, 3, 7, 14 },
+	aparm { 3.f, 1.5f, 1.f },
 	isx { 1, 1, 0, 0, 0, 0 },
 // rtrans[2][5] - symbol conditional speed transition probabilities - Page 104 - Table X 
 // used in spdtr.cxx 	
