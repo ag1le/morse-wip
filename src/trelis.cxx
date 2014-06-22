@@ -28,28 +28,13 @@
 
 int morse::trelis_(integer *isave, integer *pathsv, integer *lambda, integer *imax, integer *ipmax)
 {
-    /* Initialized data */
-
-    static integer lmdsav[PATHS][NDELAY];	/* was [200][PATHS] */ 
-    static integer n = 0;
-    static integer ndelay = NDELAY;
-    static integer ipnod[PATHS];
-    static integer ncall = 0;
-    static integer nmax = 0;
-    static integer mmax = 0;
-    static integer ltrsv[NDELAY];
-    static integer kd = 0;
-    static integer ndelst = 0;
-    static integer pthtrl[PATHS][NDELAY];	/* was [200][PATHS] */
-    static integer iend = 0;
-
 
 
     /* Local variables */
-    static int i, k, ip, ieq, ltr, ndel, retstat;
+    int i, k, ip, ieq, ltr, ndel, retstat;
     static int isavg, init=0;
     static real xsavg, xmmax, xnmax;
-    static int ndlavg;
+    int ndlavg;
     static real xdlavg;
 
 /*    THIS SUBROUTINE STORES THE SAVED NODES AT EACH */
@@ -112,10 +97,7 @@ int morse::trelis_(integer *isave, integer *pathsv, integer *lambda, integer *im
     }
 
     for (i = 1; i <= *isave; ++i) {
-//		pthtrl[n + i * NDELAY-NDELAY-1] = pathsv[i];
-		pthtrl[i-1][n-1] = pathsv[i];
-		
-//		lmdsav[n + i * NDELAY-NDELAY-1] = lambda[i];
+		pthtrl[i-1][n-1] = pathsv[i];		
 		lmdsav[i-1][n-1] = (integer)lambda[i];
     }
 
@@ -136,7 +118,6 @@ L190:
 		if (i <= 0) {
 			i = ndelay + i;
 		}
-//		ipnod[ip - 1] = pthtrl[i + ipnod[ip - 1] * NDELAY-NDELAY-1];
 		ipnod[ip - 1] = pthtrl[ipnod[ip - 1]-1][i-1];
 		if (ip == *imax) {
 			*ipmax = ipnod[ip - 1];
@@ -167,11 +148,7 @@ L190:
     if (i <= 0) {
 		i = ndelay + i;
     }
-//    ltr = lmdsav[i + ipnod[0] * NDELAY-NDELAY-1];
     ltr = lmdsav[ipnod[0]-1][i-1];
-#ifdef DEBUG
-printf("\nSAME DELAY AS LAST: %d",ltr);
-#endif
     retstat = transl_(&ltr);
     goto L800;
 
@@ -188,13 +165,7 @@ L350:
 		if (i <= 0) {
 			i = ndelay + i;
 		}
-//		ltrsv[kd - 1] = lmdsav[i + ip * NDELAY-NDELAY-1];
-//		if (ip > 26) {
-//			printf("\nTRELIS.CXX: Error line 196 ip:%d",ip);
-//			return(-1);
-//		}
 		ltrsv[kd - 1] = lmdsav[ip-1][i-1];
-//		ip = pthtrl[i + ip * NDELAY-NDELAY-1];
 		ip = pthtrl[ip-1][i-1];
     }
 
@@ -204,9 +175,6 @@ L350:
 
     for (i = 1; i <= kd; ++i) {
 		ltr = ltrsv[kd - i];
-#ifdef DEBUG
-		printf("\nIN REVERSE ORDER: %d",ltr);
-#endif
 		retstat = transl_(&ltr);
     }
     goto L800;
@@ -220,12 +188,9 @@ L700:
     if (i <= 0) {
 		i = ndelay + i;
     }
-//  ltr = lmdsav[i + *ipmax * NDELAY-NDELAY-1];
     ltr = lmdsav[*ipmax-1][i -1];
-#ifdef DEBUG
-printf("\nHIGHEST PROB: %d", ltr);
-#endif
     retstat = transl_(&ltr);
+
 /* 	PRUNE AWAY NODES WHICH ARE NOT ON THIS PATH: */
     for (k = 1; k <= *isave; ++k) {
 		if (ipnod[k - 1] != *ipmax) {

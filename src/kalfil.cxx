@@ -37,8 +37,8 @@ real morse::kalfil_(real z, integer ip, real rn, integer ixs, integer kelem, int
 
 
     /* Local variables */
-    static real a, g, qa, hz, pz, zr, phi, pkk, ykk, pest;
-    static real ppred, ypred, pzinv;
+    real a, g, qa, hz, pz, zr, phi, pkk, ykk, pest;
+    real ppred, ypred, pzinv;
 
 
 /*   THIS SUBROUTINE COMPUTES THE ARRAY OF KALMAN FILTER */

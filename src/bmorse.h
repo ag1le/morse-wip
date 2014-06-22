@@ -31,7 +31,7 @@ typedef int ftnlen;
 #define SAMPLEDURATION  (1000. * DECIMATE) / FSAMPLE	// 1000*DECIMATE / FSAMPLE SHOULD BE  5 msec
 #define NDELAY  200				// 200 SAMPLES * 5 msec = 1000 msec decoding delay 
 #define BAYES_RATE 200			// Bayes decoder expects to get signal envelope at 200 Hz
-#define PATHS 40				// 25-30 paths normal
+#define PATHS 20				// 25-30 paths normal
 
 #define TRUE 	1 
 #define FALSE 	0 
@@ -94,6 +94,40 @@ protected:
 	integer ielmst[400];
 	integer ilami[16];
 	integer ilamx[6];
+	
+// Proces variables -  Initialized data
+
+    integer isave = PATHS;
+    integer lambda[PATHS]; 
+	integer ilrate[PATHS]; 
+    real dur[PATHS];
+    integer pathsv[PATHS]; 
+    integer sort[PATHS];
+    
+    real p[30*PATHS];
+    integer lamsav[30*PATHS];
+    real dursav[30*PATHS];
+    integer ilrsav[30*PATHS];
+
+// Trelis variables -  Initialized data 
+
+    integer lmdsav[PATHS][NDELAY];	/* was [200][PATHS] */ 
+    integer n = 0;
+    integer ndelay = NDELAY;
+    integer ipnod[PATHS];
+    integer ncall = 0;
+    integer nmax = 0;
+    integer mmax = 0;
+    integer ltrsv[NDELAY];
+    integer kd = 0;
+    integer ndelst = 0;
+    integer pthtrl[PATHS][NDELAY];	/* was [200][PATHS] */
+    integer iend = 0;
+
+// Xtrans variables - Initialized data 
+	
+	integer kimap[6] = { 1, 3, 1, 3, 7, 14 };
+	real aparm[3] = { 3.f, 1.5f, 1.f };
 
 // Kalman filter parameters 
     real ykkip[PATHS];

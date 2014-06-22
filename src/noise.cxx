@@ -55,8 +55,8 @@ int morse::noise_(double zin, real *rn, real *z)
     integer i1;
 
     /* Local variables */
-    static integer i;
-    static real ymin;
+    integer i;
+    real ymin;
 
 
 /* 	THIS SUBROUTINE ESTIMATES THE NOISE POWER IN THE */

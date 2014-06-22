@@ -26,7 +26,7 @@
 int morse::path_(integer ip, integer lambda, real dur, integer ilrate, integer *lamsav, real *dursav, integer *ilrsav)
 {
      /* Local variables */
-    static integer i, j, k, n, ixl, ixs, ilelm;
+    integer i, j, k, n, ixl, ixs, ilelm;
 
 
 

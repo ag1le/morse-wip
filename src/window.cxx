@@ -25,8 +25,8 @@
 #define ARRAY_LEN(x)		((int) (sizeof (x) / sizeof (x [0])))
 
 
-static double besseli0 (double x) ;
-static double factorial (int k) ;
+double besseli0 (double x) ;
+double factorial (int k) ;
 
 void
 calc_kaiser_window (double * data, int datalen, double beta)
@@ -82,8 +82,7 @@ calc_nuttall_window (double * data, int datalen)
 /*==============================================================================
 */
 
-static double
-besseli0 (double x)
+double besseli0 (double x)
 {	int k ;
 	double result = 0.0 ;
 
@@ -97,8 +96,7 @@ besseli0 (double x)
 	return 1.0 + result ;
 } /* besseli0 */
 
-static double
-factorial (int val)
+double factorial (int val)
 {	static double memory [64] = { 1.0 } ;
 	static int have_entry = 0 ;
 
@@ -126,10 +124,9 @@ factorial (int val)
 /*==============================================================================
 */
 
-static void init_test (void) __attribute__ ((constructor)) ;
+void init_test (void) __attribute__ ((constructor)) ;
 
-static void
-init_test (void)
+void init_test (void)
 {
 	/* puts (__func__) ;*/
 

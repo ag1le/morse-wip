@@ -25,11 +25,11 @@
 
 int morse::trprob_(integer ip, integer lambda, real dur, integer ilrate)
 {
-    static integer i, k, n;
-    static real pint[30];
-    static integer kelm;
-    static real psum, ptrx;
-    static integer ielem, irate;
+    integer i, k, n;
+	real pint[30];
+    integer kelm;
+    real psum, ptrx;
+    integer ielem, irate;
 
 
 

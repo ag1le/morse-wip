@@ -25,20 +25,16 @@
 
 doublereal morse::xtrans_(integer *ielem, real dur, integer irate)
 {
-    /* Initialized data */
-	
-    static integer kimap[6] = { 1, 3, 1, 3, 7, 14 };
-    
-    static real aparm[3] = { 3.f, 1.5f, 1.f };
+
 
     /* System generated locals */
     real ret_val;
 
 
     /* Local variables */
-    static real b0, b1, p0, p1, alpha;
-    static integer mscale;
-    static real rscale;
+	real b0, b1, p0, p1, alpha;
+	integer mscale;
+	real rscale;
 
 /* 	THIS FUNCTION IMPLEMENTS THE CALCULATION OF KEYSTATE */
 /* 	TRANSITION PROBABILITY, CONDITIONED ON ELEMENT TYPE, */

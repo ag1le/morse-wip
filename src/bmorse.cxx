@@ -171,7 +171,7 @@ static void read_mono_audio (SNDFILE * file, sf_count_t filelen, double * data, 
 	return ;
 } /* read_mono_audio */
 
-static double calc_magnitude (const double * freq, int freqlen, double * magnitude)
+double calc_magnitude (const double * freq, int freqlen, double * magnitude)
 {
 	int k ;
 	double max = 0.0 ;
@@ -250,9 +250,9 @@ void peak_detect(double *v, int length, struct PEAKS *p)
 	}
 }
 
-static void apply_window (double * data, int datalen)
+void apply_window (double * data, int datalen)
 {
-	static double window [10 * MAX_HEIGHT] ;
+	double window [10 * MAX_HEIGHT] ;
 	static int window_len = 0 ;
 	int k ;
 
@@ -275,7 +275,7 @@ static void apply_window (double * data, int datalen)
 	return ;
 } /* apply_window */
 
-static void interp_spec (float * mag, int maglen, const double *spec, int speclen)
+void interp_spec (float * mag, int maglen, const double *spec, int speclen)
 {
 	int k, lastspec = 0 ;
 
@@ -403,16 +403,15 @@ int rx_FFTprocess(const double *buf, int len)
 
 
 
-static void
-decode_sndfile (SNDFILE *infile, SF_INFO info)
+void decode_sndfile (SNDFILE *infile, SF_INFO info)
 {
 
 
-	static double time_domain [10 * MAX_HEIGHT] ;
-	static double freq_domain [10 * MAX_HEIGHT] ;
-	static double single_mag_spec [5 * MAX_HEIGHT] ;
-	static float mag_spec [MAX_WIDTH][MAX_HEIGHT] ;
-	static struct PEAKS p;
+	double time_domain [10 * MAX_HEIGHT] ;
+	double freq_domain [10 * MAX_HEIGHT] ;
+	double single_mag_spec [5 * MAX_HEIGHT] ;
+//	static float mag_spec [MAX_WIDTH][MAX_HEIGHT] ;
+	struct PEAKS p;
 
 	static int once=1;
 	
@@ -494,7 +493,7 @@ decode_sndfile (SNDFILE *infile, SF_INFO info)
 				single_max = calc_magnitude (freq_domain, 2 * speclen, single_mag_spec) ;			
 		
 				// print one FFT row - just to check
-
+/*
 				if (1) { //was once 
 					printf("\nmax:%f", single_max);
 					for (int i=0; i< speclen; i++) 
@@ -505,7 +504,7 @@ decode_sndfile (SNDFILE *infile, SF_INFO info)
 	
 				// detect peaks in the FFT spectrum 
 				peak_detect(single_mag_spec, speclen, &p);
-			
+*/			
 				// print found freq peaks - only once
 				if (1 ) {
 					for (i=0; i <p.mxcount; i++) {
@@ -558,7 +557,7 @@ decode_sndfile (SNDFILE *infile, SF_INFO info)
 	
 }
 
-static void
+void
 process_sndfile (char * filename)
 {
 	SNDFILE *infile ;
@@ -583,7 +582,7 @@ process_sndfile (char * filename)
 
 
 
-static void process_textfile(char *filename)
+void process_textfile(char *filename)
 {
 	FILE *fp; 
 	float x; 
@@ -610,7 +609,7 @@ static void process_textfile(char *filename)
 }
 
 
-static void usage_exit (const char * argv0)
+void usage_exit (const char * argv0)
 {
 	const char * progname ;
 

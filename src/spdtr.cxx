@@ -31,7 +31,7 @@ doublereal morse::spdtr_(integer isrt, integer ilrt, integer iselm, integer ilel
     real ret_val;
 
     /* Local variables */
-    static integer ind1, idel, idelsp, israte;
+    integer ind1, idel, idelsp, israte;
 
 
 /* 	THIS FUNCTION RETURNS THE DATA RATE (SPEED) TRANSITION */

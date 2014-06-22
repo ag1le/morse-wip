@@ -27,13 +27,13 @@ int morse::likhd_(real z, real rn, integer ip, integer lambda, real dur, integer
 {
  
     /* Local variables */
-    static integer i, j, k, n;
-    static real pinr;
-    static integer ilx, ixs;
-    static real lkhdj;
-    static integer kelem;
+    integer i, j, k, n;
+    real pinr;
+    integer ilx, ixs;
+    real lkhdj;
+    integer kelem;
  
-    static integer israte;
+    integer israte;
 
 
 

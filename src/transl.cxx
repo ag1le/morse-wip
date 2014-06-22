@@ -108,13 +108,12 @@ int morse::transl_(int *ltr)
 	static int newstate = 0;
 
     /* Local variables */
-    static integer  ixl, elmhat;
+    integer ixl, elmhat;
 
 
 /* 	 1  2  3  4  5  6  7  8 9 10 11 12 13 14 15 16 */
 /* 	.^ .~ .w .p -^ -~ -w -p ^. ^- ~. ~- w. w- p. p- */
 /* 	K=1 DIT, K=2 DAH, K=3 E-SPC, K=4 CHR-SPC, K=5 WRD-SPC, K=6 PAUSE */
-
 
 
 
@@ -221,23 +220,24 @@ int morse::transl_(int *ltr)
 		case 10:	// ^-
 			newstate = tree[curstate].dah;
 			break;
-		case 6:
-		case 2:
+		case 6:		// -~
+		case 2:		// .~
 			printf("%s",tree[curstate].chr);
 			newstate = 0;
 			break;
-		case 3:
-		case 7:
+		case 3:		// .w
+		case 7:		// -w
 			printf("%s ",tree[curstate].chr);
 			newstate = 0;
 			break;
-		case 4:
-		case 8:
+		case 4:		// .p
+		case 8:		// -p
 			printf("%s ",tree[curstate].chr);
 			newstate = 0;
 			break;
+		case 1:		// .^
+		case 5:		// -^
 		default:
-		//	ltrhat = 0; 
 			break;
 		}
 	}
@@ -245,9 +245,6 @@ L700:
 	fflush(stdout);
 	curstate = newstate;
     ixlast = ixl;
-  //  lstelm = elmhat;
-  //  lstltr = *ltr;
     return newstate;
 
-} /* transl_ */
-
+} 

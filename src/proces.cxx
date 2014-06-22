@@ -25,26 +25,11 @@
 
 int morse::proces_(real z, real rn, integer *xhat, real *px, integer *elmhat,  real *spdhat, integer *imax, real *	pmax, int spd)
 {
-    /* Initialized data */
-
-    static integer isave = PATHS;
-    static integer lambda[PATHS]; 
-	static integer ilrate[PATHS]; 
-    static real dur[PATHS];
-    static integer pathsv[PATHS]; 
-    static integer sort[PATHS];
-    
-    static real p[30*PATHS];
-    static integer lamsav[30*PATHS];
-    static real dursav[30*PATHS];
-    static integer ilrsav[30*PATHS];
-
 
     
-    static integer i, retstat;
-    static real pelm;
-    static integer ipath;
-    static integer ipmax;
+    integer i, retstat;
+    real pelm;
+    integer ipmax;
     static int init =1;
  
 
