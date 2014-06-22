@@ -1,7 +1,7 @@
 SUBDIRS = src
 GIT_VERSION := $(shell git describe --abbrev=4 --dirty --always)
-CFLAGS= -Wall -pedantic -DGVERSION=\"$(GIT_VERSION)\" -std=c++11
-CXXFLAGS = -DGVERSION=\"$(GIT_VERSION)\" -std=c++11
+CFLAGS= -Wall -pedantic -DGVERSION=\"$(GIT_VERSION)\" 
+CXXFLAGS = -DGVERSION=\"$(GIT_VERSION)\" -std=c++0x
 
 #bin_PROGRAMS = bmorse
 

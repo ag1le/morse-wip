@@ -141,12 +141,12 @@ AWK = gawk
 BMORSE_AUTHORS = 
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -Wall -pedantic -DGVERSION=\"$(GIT_VERSION)\" -std=c++11
+CFLAGS = -Wall -pedantic -DGVERSION=\"$(GIT_VERSION)\" 
 CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -DGVERSION=\"$(GIT_VERSION)\" -std=c++11
+CXXFLAGS = -DGVERSION=\"$(GIT_VERSION)\" -std=c++0x
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
