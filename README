@@ -88,7 +88,30 @@ MORSE - PROJECT IDEAS
 		http://orgmode.org/worg/org-contrib/babel/examples/data-collection-analysis.html
 	
 
+3. CW Skimmer  type functionality 
+	Automatically detect CW signals in the baseband  
 
+		- initialize 
+	do 
+		- get input buffer  (512 samples * 1/Fs) (Fs=4000 Hz)
+		- calculate FFT 
+		- find peaks in power spectrum  Ps
+			- Fpeak = peak_detect(Ps,delta)
+			- integrate Fpeak over N timeslots  (64 .. 128 ms ? ) 
+
+		- calculate noise floor level  
+			 - noisemax => frequency bins from 1 to first detected peak 
+			 - fbin  => freq bin size 
+			 - Pxx  => power spectrum  
+				=>   Nrms = sqrt(sum(Pxx(1:noisemax)*fbin)) / sqrt(f(noisemax));
+			- update delta & threshold 
+		- calculate SNR of found Fpeak
+			-  integrate Srms = sqrt(sum(Fpeak +/- 10 Hz)*fbin)) 
+		 	- SNR = Srms / Nrms 
+		if (SNR >  threshold )
+			Run decoder instance on detected signal frequency 
+	while (timer > 
+	
 
 
 

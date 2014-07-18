@@ -58,7 +58,7 @@
 	int bfv;				// 0 
 	double frequency;		// 600 
 	double sample_duration; // 5
-	double sample_rate; 	// 0
+	double sample_rate; 	// 4000
 	double delta;			// 10.0
 	double amplify;			// 0.0
 	int fft;				// 0 
@@ -275,6 +275,21 @@ void apply_window (double * data, int datalen)
 	return ;
 } /* apply_window */
 
+double calc_SNR(double *data, int len, double fbin)
+{
+	double CG,NG;
+	int i;
+	
+	for (i=0; i< len; i++) {
+		CG += data[i];
+		NG += data[i]*data[i];
+	}
+	CG = CG/N;
+	NG = NG/N;
+
+	
+}
+
 void interp_spec (float * mag, int maglen, const double *spec, int speclen)
 {
 	int k, lastspec = 0 ;
@@ -360,9 +375,76 @@ void process_data(double x)
 int rx_FFTprocess(const double *buf, int len)
 {
 	complex  z, *zp;
-	int n,i;
+	int n,i,speclen,Hz;
 	static int smpl_ctr = 0;
 	static double FFTvalue,FFTphase =0.0; 
+	fftw_plan plan; 
+	double single_max,noise_sum,sig_sum,Nrms,Srms,fbin;
+	double time_domain[1024];
+	double freq_domain[1024];
+	double single_mag_spec[1024];
+	struct PEAKS p;
+
+	p.delta = params.delta;
+	speclen = 512;
+
+	for (i=0; i< len; i++) 
+		time_domain[i] = buf[i];
+	
+	
+	plan = fftw_plan_r2r_1d (2*speclen, time_domain, freq_domain, FFTW_R2HC, FFTW_MEASURE | FFTW_PRESERVE_INPUT) ;
+	if (plan == NULL)
+	{	printf ("%s : line %d : create plan failed.\n", __FILE__, __LINE__) ;
+		exit (1) ;
+		} ;
+	
+
+//	calculate FFT 
+	apply_window (time_domain, 2*speclen) ;
+	fftw_execute (plan) ;
+	single_max = calc_magnitude (freq_domain, 2*speclen, single_mag_spec) ;
+
+// find peaks in power spectrum  Ps
+//			- Fpeak = peak_detect(Ps,delta)
+//			- integrate Fpeak over N timeslots  (64 .. 128 ms ? ) 
+
+	peak_detect(single_mag_spec, 2*speclen, &p);
+
+	// print found freq peaks - only once
+	if (1 ) {
+		for (i=0; i <p.mxcount; i++) {
+			Hz = (p.mxpos[i]*(4000/2))/(speclen);
+			printf("peak[%d]:%f\tHz:%d\tmaxcount:%d\n",p.mxpos[i],p.mx[i],Hz,p.mxcount);
+		}
+	}
+	params.frequency = Hz;
+/*
+		- calculate noise floor level  
+			 - noisemax => frequency bins from 1 to first detected peak 
+			 - fbin  => freq bin size 
+			 - Pxx  => power spectrum  512
+				=>   Nrms = sqrt(sum(Pxx(1:noisemax)*fbin)) / sqrt(f(noisemax));
+			- update delta & threshold 
+*/
+	fbin = 4000./1024;
+	noise_sum = 0.;
+	for (i = 10; i<p.mxpos[0]-10; i++) {
+		noise_sum += single_mag_spec[i]; 
+	}
+	printf("\n noise_sum:%f bins:%d",noise_sum,p.mxpos[0]-10);
+	Nrms = sqrt(noise_sum* fbin)/sqrt(Hz);
+
+	sig_sum = 0.;
+	for (i = p.mxpos[0]-5; i< p.mxpos[0]+5; i++) {
+		sig_sum += single_mag_spec[i];
+	}	
+	Srms = sqrt (sig_sum*fbin);
+	printf("\n SNR = %5.2f S:%f ss:%f N:%f  Hz:%d", Srms/Nrms, Srms, sig_sum,Nrms,Hz); 
+
+/*		- calculate SNR of found Fpeak
+			-  integrate Srms = sqrt(sum(Fpeak +/- 10 Hz)*fbin)) 
+		 	- SNR = Srms / Nrms 
+*/
 
 	while (len-- > 0) {
 		// convert CW signal to baseband 	
