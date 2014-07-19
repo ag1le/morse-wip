@@ -23,17 +23,17 @@
 #include "bmorse.h"
 #include <stdio.h>
 
-int morse::likhd_(real z, real rn, integer ip, integer lambda, real dur, integer ilrate)
+int morse::likhd_(float z, float rn, long int ip, long int lambda, float dur, long int ilrate)
 {
  
     /* Local variables */
-    integer i, j, k, n;
-    real pinr;
-    integer ilx, ixs;
-    real lkhdj;
-    integer kelem;
+    long int i, j, k, n;
+    float pinr;
+    long int ilx, ixs;
+    float lkhdj;
+    long int kelem;
  
-    integer israte;
+   
 
 
 
@@ -69,13 +69,12 @@ int morse::likhd_(real z, real rn, integer ip, integer lambda, real dur, integer
 		for (i = 1; i <= 5; ++i) {
 /* 	OBTAIN KEYSTATE, RATE STATE, STATE N, NEW NODE: */
 			ixs = isx[k - 1];
-			israte = i;
 			n = (i - 1) * 6 + k;
 			j = (ip ) * 30 + n;
 			pinr = pin[n-1][ip];
 /* 	COMPUTE AND STORE LIKELIHOOD: */
 			
-			lkhd[n-1][ip] = kalfil_(z, ip, rn, ixs, kelem, j, israte, dur, ilrate, pinr);
+			lkhd[n-1][ip] = kalfil_(z, ip, rn, ixs, kelem, j, dur, ilrate, pinr);
 		}
     }
     return 0;

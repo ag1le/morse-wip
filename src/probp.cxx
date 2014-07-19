@@ -23,12 +23,12 @@
 #include "bmorse.h"
 #include <stdio.h>
 
-int morse::probp_(real *p, integer *isave)
+int morse::probp_(float *p, long int *isave)
 {
 
     /* Local variables */
-	integer i, j, n;
-	real pmax, psav[30*PATHS], psum;
+	long int i, j, n;
+	float pmax, psav[30*PATHS], psum;
 
 
 /* 		PROBP COMPUTES THE POSTERIOR PROBABILITY OF EACH NEW PATH */
@@ -60,7 +60,7 @@ int morse::probp_(real *p, integer *isave)
     }
 /* 	NORMALIZE TO GET PROBABILITIES; SAVE: */
     if (psum ==0.0) {
-    	printf("\nprobp: psum = 0");
+   	printf("\nprobp: psum = 0");
     	return 0;
     }
     for (j = 1; j <= *isave * 30; ++j) {

@@ -41,6 +41,28 @@ int morse::initl_(void)
     kd = 0;
     ndelst = 0;
     iend = 0;
+	ixlast = 0;
+	curstate = 0;
+	newstate = 0;
+	initial = 0;
+
+
+	for(int i=0;i<PATHS;i++) {
+		ilrate[i]= 20; //((i/5+1)*10);
+	}
+	for(int i=0;i<PATHS;i++) {
+		lambda[i] = 5;
+		dur[i]=1000.f;
+		pathsv[i]=5;
+		ykkip[i] = .5f;
+		pkkip[i] = .1f;
+	}
+	for(int i=0;i<30*PATHS;i++) {
+		p[i]=1.f;
+		lamsav[i]=5;
+		dursav[i]=0.f;
+		ilrsav[i]=20;  // was 20 
+	}
 
     return 0;
 } /* initl_ */

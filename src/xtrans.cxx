@@ -23,18 +23,18 @@
 #include "bmorse.h"
 #include <math.h>
 
-doublereal morse::xtrans_(integer *ielem, real dur, integer irate)
+double morse::xtrans_(long int *ielem, float dur, long int irate)
 {
 
 
     /* System generated locals */
-    real ret_val;
+    float ret_val;
 
 
     /* Local variables */
-	real b0, b1, p0, p1, alpha;
-	integer mscale;
-	real rscale;
+    float b0, b1, p0, p1, alpha;
+    long int mscale;
+    float rscale;
 
 /* 	THIS FUNCTION IMPLEMENTS THE CALCULATION OF KEYSTATE */
 /* 	TRANSITION PROBABILITY, CONDITIONED ON ELEMENT TYPE, */
@@ -45,6 +45,10 @@ doublereal morse::xtrans_(integer *ielem, real dur, integer irate)
 /* 	IRATE - INPUT CURRENT DATA RATE */
 
 /* 	TABLES IN COMMON CONTAIN DENSITY PARMS FOR EACH ELEMENT TYPE, DATA RATE. */
+/* 	K=1 DIT, K=2 DAH, K=3 E-SPC, K=4 CHR-SPC, K=5 WRD-SPC, K=6 PAUSE */
+//  kimap { 1, 3, 1, 3, 7, 14 } 
+
+//	aparm { 3.f, 1.5f, 1.f }
 
 /* 	SCALE DURATION AND OBTAIN DENSITY PARAMETER: */
 

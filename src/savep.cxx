@@ -24,19 +24,19 @@
 #include <stdio.h>
 
 
-int morse::savep_(real *p, integer *pathsv, integer *isave, integer 
-	*imax, integer *lamsav, real *dursav, integer *ilrsav, integer *
-	lambda, real *dur, integer *ilrate, integer *sort, real *pmax)
+int morse::savep_(float *p, long int *pathsv, long int *isave, long int 
+	*imax, long int *lamsav, float *dursav, long int *ilrsav, long int *
+	lambda, float *dur, long int *ilrate, long int *sort, float *pmax)
 {
     /* Initialized data */
 
-	real popt = .999f;  // was 0.9f 
+	float popt = .99f;  // was 0.9f 
 
 
     /* Local variables */
-	integer i, j, k, n, ip, jsav, nsav;
-    real psav[PATHS], psum;
-	integer iconv[PATHS], ipsav, isavm1, nplus1;
+	long int i, j, k, n, ip, jsav, nsav;
+    float psav[PATHS], psum;
+	long int iconv[PATHS], ipsav, isavm1, nplus1;
 
 
 /* 	THIS SUBROUTINE PERFORMS THE ALGORITM TO SAVE */
@@ -200,9 +200,10 @@ int morse::savep_(real *p, integer *pathsv, integer *isave, integer
 			psum += p[n];
 		}
     }
+    
 /* 	ALSO OBTAIN HIGHEST PROBABILITY NODE: */
     if (psum ==0.0) {
-    //	fprintf(2,"\nsavep_2: psum = 0");
+    	perror("\nsavep_2: psum = 0");
     	return 0;
     }
 

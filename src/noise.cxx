@@ -22,11 +22,11 @@
 
 #include "bmorse.h"
 
-int morse::noise_(double zin, real *rn, real *z)
+int morse::noise_(double zin, float *rn, float *z)
 {
     /* Initialized data */
 
-    static real ylong[200] = { 1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+    static float ylong[200] = { 1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
 	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
 	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
 	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
@@ -39,24 +39,24 @@ int morse::noise_(double zin, real *rn, real *z)
 	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
 	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
 	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f };
-    static real yshort[50] = { 1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
+    static float yshort[50] = { 1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
 	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
 	    1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,1.f,
 	    1.f,1.f,1.f,1.f,1.f,1.f,1.f };
-    static integer kl = 1;
-    static integer kkl = 1;
-    static integer ks = 1;
-    static integer kks = 1;
-    static real ymin1 = 1.f;
-    static real ymin2 = 1.f;
-    static real ymavg = .05f;
+    static long int kl = 1;
+    static long int kkl = 1;
+    static long int ks = 1;
+    static long int kks = 1;
+    static float ymin1 = 1.f;
+    static float ymin2 = 1.f;
+    static float ymavg = .05f;
 
     /* System generated locals */
-    integer i1;
+    long int i1;
 
     /* Local variables */
-    integer i;
-    real ymin;
+    long int i;
+    float ymin;
 
 
 /* 	THIS SUBROUTINE ESTIMATES THE NOISE POWER IN THE */

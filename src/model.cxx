@@ -24,13 +24,13 @@
 #include "bmorse.h"
 
 
-int morse::model_(real dur, integer ielm, integer ilr,  integer ixs, real *phi, real *qa)
+int morse::model_(float dur, long int ielm, long int ilr,  long int ixs, float *phi, float *qa)
 {
     /* System generated locals */
-    doublereal d1;
+    double d1;
 
     /* Local variables */
-    real r1, bauds, xsamp;
+    float r1, bauds, xsamp;
 
 
 /* 	THIS SUBROUTINE COMPUTES THE PARAMETERS OF THE */
@@ -70,7 +70,7 @@ int morse::model_(real dur, integer ielm, integer ilr,  integer ixs, real *phi, 
     }
 
     xsamp = r1 * 22.4f;
-    d1 = (doublereal) (-2 / xsamp);
+    d1 = (double) (-2 / xsamp);
     *phi = pow(10.0, d1);
 
     if (bauds >= 14.f) {

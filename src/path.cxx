@@ -22,11 +22,10 @@
 
 #include "bmorse.h"
 
-
-int morse::path_(integer ip, integer lambda, real dur, integer ilrate, integer *lamsav, real *dursav, integer *ilrsav)
+int morse::path_(long int ip, long int lambda, float dur, long int ilrate, long int *lamsav, float *dursav, long int *ilrsav)
 {
      /* Local variables */
-    integer i, j, k, n, ixl, ixs, ilelm;
+    long int i, j, k, n, ixl, ixs, ilelm;
 
 
 
@@ -46,14 +45,11 @@ int morse::path_(integer ip, integer lambda, real dur, integer ilrate, integer *
 
 /*  FOR EACH ELEM STATE K, AND EACH SPEED I, COMPUTE: */
 
-    /* Parameter adjustments */
-   // --ilrsav;
-   // --dursav;
-   // --lamsav;
+
 
     /* Function Body */
-    for (k = 1; k <= 6; ++k) {
-		for (i = 1; i <= 5; ++i) {
+    for (k = 1; k <= 6; ++k) { 		// 6 element states 1=dit,2=dah, 3=e-spc, 4=chr-s, 5=wrd-s, 6=pause
+		for (i = 1; i <= 5; ++i) { 	// 5 speed (rate) states -2 -1 0 1 2 
 
 /*  STATE IDENTITY N: */
 			n = (i - 1) * 6 + k;
@@ -73,8 +69,7 @@ int morse::path_(integer ip, integer lambda, real dur, integer ilrate, integer *
 				break;
 			}
 
-/*  NEW DURATION: */
-/*  OBTAIN KEYSTATE OF SAVED PATH AND NEW STATE: */
+/*  NEW DURATION: OBTAIN KEYSTATE OF SAVED PATH AND NEW STATE: */
 			ilelm = ilami[ielmst[lambda - 1] - 1];
 			ixl = ilamx[ilelm - 1];
 			ixs = isx[k - 1];
@@ -84,7 +79,6 @@ int morse::path_(integer ip, integer lambda, real dur, integer ilrate, integer *
 
 /* 	NEW DATA RATE: */
 			ilrsav[j-1] = ilrate + (i - 3) * memdel[k-1][ilelm -1];
-			;
 		}
     }
     return 0;

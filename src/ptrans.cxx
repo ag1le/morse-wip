@@ -24,9 +24,9 @@
 
 
 
-int morse::ptrans_(integer kelem, integer irate, integer lambda, integer ilrate, real ptrx, real *psum, real *pin, integer n)
+int morse::ptrans_(long int kelem, long int irate, long int lambda, long int ilrate, float ptrx, float *psum, float *pint, long int n)
 {
-	real pelem, prate;
+	float pelem, prate;
 
 
 /* 	THIS FUNCTION SUBROUTINE RETURNS THE PATH CONDITIONAL TRANSITION */
@@ -44,18 +44,15 @@ int morse::ptrans_(integer kelem, integer irate, integer lambda, integer ilrate,
 /* 	IF THE SAVED ELEMENT AND THE ELEMENT OF THE STATE */
 /* 	N TO WHICH THE PATH IS BEING EXTENDED ARE THE */
 /* 	SAME, THEN THE STATE TRANS PROB IS SIMPLY KEYSTATE TRANS PROB: */
-
-
-    /* Function Body */
     if (kelem != ilami[ielmst[lambda - 1] - 1]) {
 		goto L100;
     }
-    pin[n-1] = ptrx;
+    pint[n-1] = ptrx;
 
 /* 	HOWEVER, IF CURRENT DATA RATE STATE  != 3, THEN STATE TRANS PROB = 0 ... WHY ? */
 /* See page 104 in thesis */
     if (irate != 3) {
-		pin[n-1] = 0.f;
+		pint[n-1] = 0.f;
     }
     goto L200;
 
@@ -69,9 +66,9 @@ L100:
     prate = spdtr_(irate, ilrate, kelem, ilami[ielmst[lambda - 1] - 1]);
 
 /* 	TRANS PROBABILITY IS THE PRODUCT: */
-    pin[n-1] = (1.f - ptrx) * pelem * prate;
+    pint[n-1] = (1.f - ptrx) * pelem * prate;
 L200:
-    *psum += pin[n-1];
+    *psum += pint[n-1];
     return 0;
 } /* ptrans_ */
 

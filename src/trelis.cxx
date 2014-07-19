@@ -26,16 +26,17 @@
 //#define DEBUG 1
 
 
-int morse::trelis_(integer *isave, integer *pathsv, integer *lambda, integer *imax, integer *ipmax)
+int morse::trelis_(long int *isave, long int *pathsv, long int *lambda, long int *imax, long int *ipmax, char *buf)
 {
+
 
 
     /* Local variables */
     int i, k, ip, ieq, ltr, ndel, retstat;
     static int isavg, init=0;
-    static real xsavg, xmmax, xnmax;
+    static float xsavg, xmmax, xnmax;
     int ndlavg;
-    static real xdlavg;
+    static float xdlavg;
 
 /*    THIS SUBROUTINE STORES THE SAVED NODES AT EACH */
 /*    STAGE AND FORMS THE TREE OF SAVED PATHS LINKING */
@@ -80,12 +81,12 @@ int morse::trelis_(integer *isave, integer *pathsv, integer *lambda, integer *im
     xdlavg = (xdlavg * (ncall - 1) + ndel) / ncall;
     if (ndel == ndelay) {
 		++nmax;
-		xnmax = (real) nmax;
+		xnmax = (float) nmax;
 		xnmax /= ncall;
     }
     if (*isave == PATHS) {
 		++mmax;
-		xmmax = (real) mmax;
+		xmmax = (float) mmax;
 		xmmax /= ncall;
     }
 
@@ -98,7 +99,7 @@ int morse::trelis_(integer *isave, integer *pathsv, integer *lambda, integer *im
 
     for (i = 1; i <= *isave; ++i) {
 		pthtrl[i-1][n-1] = pathsv[i];		
-		lmdsav[i-1][n-1] = (integer)lambda[i];
+		lmdsav[i-1][n-1] = (long int)lambda[i];
     }
 
 /* 	PERFORM DYNAMIC PROGRAM ROUTINE TO FIND CONVERGENT PATH: */
@@ -149,7 +150,7 @@ L190:
 		i = ndelay + i;
     }
     ltr = lmdsav[ipnod[0]-1][i-1];
-    retstat = transl_(&ltr);
+    retstat = transl_(ltr,buf);
     goto L800;
 
 /* 	OTHERWISE,POINT OF CONVERGENCE HAS OCCURED */
@@ -175,7 +176,7 @@ L350:
 
     for (i = 1; i <= kd; ++i) {
 		ltr = ltrsv[kd - i];
-		retstat = transl_(&ltr);
+		retstat = transl_(ltr,buf);
     }
     goto L800;
 
@@ -189,7 +190,7 @@ L700:
 		i = ndelay + i;
     }
     ltr = lmdsav[*ipmax-1][i -1];
-    retstat = transl_(&ltr);
+    retstat = transl_(ltr,buf);
 
 /* 	PRUNE AWAY NODES WHICH ARE NOT ON THIS PATH: */
     for (k = 1; k <= *isave; ++k) {

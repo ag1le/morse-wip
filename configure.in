@@ -6,12 +6,12 @@ AC_COPYRIGHT([Copyright (C) 2013,2014 Mauri Niininen, AG1LE])
 AC_PREREQ(2.61)
 m4_define(BMORSE_MAJOR, [0])
 m4_define(BMORSE_MINOR, [1])
-m4_define(BMORSE_PATCH, [.02])
+m4_define(BMORSE_PATCH, [.03])
 
 AC_INIT([bmorse], BMORSE_MAJOR.BMORSE_MINOR[]BMORSE_PATCH, [ag1le@innomore.com])
 
 PACKAGE=bmorse
-VERSION=0.1.02
+VERSION=0.1.03
 
 AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
 

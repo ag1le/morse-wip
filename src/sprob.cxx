@@ -26,13 +26,13 @@
 extern char debug; 
 extern PARAMS params; 
 
-int morse::sprob_(real *p, integer *isave, integer *ilrsav, real *pelm, integer *khat, real *spdhat, real *px)
+int morse::sprob_(float *p, long int *isave, long int *ilrsav, float *pelm, long int *khat, float *spdhat, float *px)
 {
 
     /* Local variables */
-	integer i, j, k, m, n;
-	real pselem[6];
-	static int initial = 0; 
+	long int i, j, k, m, n;
+	float pselem[6];
+
 
 
 /*    SPROB COMPUTES THE POSTERIOR PROBS OF THE ELEMENT */
@@ -48,9 +48,9 @@ int morse::sprob_(real *p, integer *isave, integer *ilrsav, real *pelm, integer 
 
 /* 	INITIALIZE: */
 
-    /* Function Body */
     *spdhat = 0.f;
     *px = 0.f;
+
 /* 	FOR EACH STATE EXTENSION OF PATH M: */
 /* 	OBTAIN ELEMENT STATE PROBS,KEYSTATE PROBS,SPEED EST: */
     for (k = 1; k <= 6; ++k) {

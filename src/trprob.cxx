@@ -23,13 +23,13 @@
 #include "bmorse.h"
 #include <stdio.h>
 
-int morse::trprob_(integer ip, integer lambda, real dur, integer ilrate)
+int morse::trprob_(long int ip, long int lambda, float dur, long int ilrate)
 {
-    integer i, k, n;
-	real pint[30];
-    integer kelm;
-    real psum, ptrx;
-    integer ielem, irate;
+    long int i, k, n;
+    float pint[30];
+    long int kelm;
+    float psum, ptrx;
+    long int ielem, irate;
 
 
 
@@ -48,27 +48,25 @@ int morse::trprob_(integer ip, integer lambda, real dur, integer ilrate)
 /* 		XTRANS 	RETURNS THE KEYSTATE TRANSITION PROBABILITY */
 /* 	               	CONDITIONED ON ELEMENT TYPE AND DATA RATE */
 /* 		PTRANS	RETURNS THE PATH-CONDITIONAL STATE TRANSITION PROB */
-/* 	LOOK UP ELEMENT TYPE FOR LTR STATE LAMBDA: */
-    /* Parameter adjustments */
-//    p -= 26;
 
-    /* Function Body */
+
+/* 	LOOK UP ELEMENT TYPE FOR LTR STATE LAMBDA: */
+
     if (lambda == 0) {
 		for (n = 1; n <= 30; ++n) {
-//			p[ip + n * PATHS] = 0.f;
 			pin[n-1][ip] = 0.f;
 		}
 		return 0;
     }
 
-    ielem = ilami[ielmst[lambda - 1] - 1];
 /* 	COMPUTE KEYSTATE TRANSITION PROBABILITY: */
+    ielem = ilami[ielmst[lambda - 1] - 1];
     ptrx = xtrans_(&ielem, dur, ilrate);
 
 /* 	FOR EACH STATE, COMPUTE STATE TRANSITION PROBABILITY: */
     psum = 0.f;
     for (k = 1; k <= 6; ++k) {	// 6 element states 1=dit,2=dah, 3=e-spc, 4=chr-s, 5=wrd-s, 6=pause
-		for (i = 1; i <= 5; ++i) { // 5 speed states -2 -1 0 1 2 
+		for (i = 1; i <= 5; ++i) { // 5 speed (rate) states -2 -1 0 1 2 
 			n = (i - 1) * 6 + k;
 			kelm = k;
 			irate = i;
@@ -76,12 +74,12 @@ int morse::trprob_(integer ip, integer lambda, real dur, integer ilrate)
 		}
     }
     if (psum ==0.0) {
-    	printf("\ntrprob: psum = 0");
+    	perror("\ntrprob: psum = 0");
     	return 0;
     }
 
+// Normalize with psum 
     for (n = 1; n <= 30; ++n) {
-//		p[ip + n * PATHS] = pint[n - 1] / psum;
 		pin[n-1][ip] = pint[n - 1] / psum;
     }
 

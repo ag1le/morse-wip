@@ -25,20 +25,20 @@
 #include <stdio.h>
 
 
-real morse::kalfil_(real z, integer ip, real rn, integer ixs, integer kelem, integer jnode, integer israte, real dur, integer ilrate, real pin)
+float morse::kalfil_(float z, long int ip, float rn, long int ixs, long int kelem, long int jnode, float dur, long int ilrate, float pin)
 {
     /* Initialized data */
 
-//    static real pinmin = 1e-4f;
+//    static float pinmin = 1e-4f;
 
 
     /* System generated locals */
-    real r1;
+    float r1;
 
 
     /* Local variables */
-    real a, g, qa, hz, pz, zr, phi, pkk, ykk, pest;
-    real ppred, ypred, pzinv;
+    float a, g, qa, hz, pz, zr, phi, pkk, ykk, pest;
+    float ppred, ypred, pzinv;
 
 
 /*   THIS SUBROUTINE COMPUTES THE ARRAY OF KALMAN FILTER */
@@ -72,7 +72,7 @@ real morse::kalfil_(real z, integer ip, real rn, integer ixs, integer kelem, int
     model_(dur, kelem, ilrate,  ixs, &phi, &qa);
 
 /* 	COMPUTE MEASUREMENT COEFFICIENT: */
-    hz = (real)ixs;
+    hz = (float)ixs;
     
 /* 	GET PREVIOUS ESTIMATES FOR PATH IP */
 

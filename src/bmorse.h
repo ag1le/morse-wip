@@ -20,11 +20,6 @@
 // along with bmorse.  If not, see <http://www.gnu.org/licenses/>.
 // ----------------------------------------------------------------------------
 
-typedef long int integer;
-typedef unsigned long int uinteger;
-typedef float real;
-typedef double doublereal;
-typedef int ftnlen;
 
 #define FSAMPLE 4000.0			// Sampling Frequency  FLDIGI=8000   MORSE.M =4000
 #define DECIMATE  20			// Decimation     FLDIGI=40    MORSE.M=20 
@@ -35,6 +30,7 @@ typedef int ftnlen;
 
 #define TRUE 	1 
 #define FALSE 	0 
+
 typedef struct
 {	int print_variables ;
 	int print_symbols; 
@@ -64,81 +60,90 @@ inline double clamp(double x, double min, double max)
 
 class morse {
 protected:
+	int initl_(void);
+	int likhd_(float z, float rn, long int ip, long int lambda, float dur, long int ilrate);
 
-	int likhd_(real z, real rn, integer ip, integer lambda, real dur, integer ilrate);
+	int path_(long int ip, long int lambda, float dur, long int ilrate, long int *lamsav, float *dursav, long int *ilrsav);
+	double spdtr_(long int isrt, long int ilrt, long int iselm, long int ilelm);
+	int ptrans_(long int kelem, long int irate, long int lambda, long int ilrate, float ptrx, float *psum, float *pin, long int n);
+	int trprob_(long int ip, long int lambda, float dur, long int ilrate);
+	int transl_(int ltr,char *buf);
+	int trelis_(long int *isave, long int *pathsv, long int *lambda, long int *imax, long int *ipmax,char *buf);
+	float kalfil_(float z, long int ip, float rn, long int ixs, long int kelem, long int jnode, float dur, long int ilrate, float pin);
+	int savep_(float *p, long int *pathsv, long int *isave, long int 
+		*imax, long int *lamsav, float *dursav, long int *ilrsav, long int *
+		lambda, float *dur, long int *ilrate, long int *sort, float *pmax);
+	int model_(float , long int , long int , long int , float *, float *);
+	int probp_(float *, long int *);
+	int  sprob_(float *, long int *, long int *, float *, long int *, float *, float *);
+	double xtrans_(long int *, float , long int );
 
-	int path_(integer ip, integer lambda, real dur, integer ilrate, integer *lamsav, real *dursav, integer *ilrsav);
-	doublereal spdtr_(integer isrt, integer ilrt, integer iselm, integer ilelm);
-	int ptrans_(integer kelem, integer irate, integer lambda, integer ilrate, real ptrx, real *psum, real *pin, integer n);
-	int trprob_(integer ip, integer lambda, real dur, integer ilrate);
-	int transl_(int *ltr);
-	int trelis_(integer *isave, integer *pathsv, integer *lambda, integer *imax, integer *ipmax);
-	real kalfil_(real z, integer ip, real rn, integer ixs, integer kelem, integer jnode, integer israte, real dur, integer ilrate, real pin);
-	int savep_(real *p, integer *pathsv, integer *isave, integer 
-		*imax, integer *lamsav, real *dursav, integer *ilrsav, integer *
-		lambda, real *dur, integer *ilrate, integer *sort, real *pmax);
-	int model_(real , integer , integer , integer , real *, real *);
-	int probp_(real *, integer *);
-	int  sprob_(real *, integer *, integer *, real *, integer *, real *, real *);
-	doublereal xtrans_(integer *, real , integer );
-
-	integer isx[6];
-	real rtrans[2][5]	/* was [5][2] */;
-	integer mempr[6][6]	/* was [6][6] */;
-	integer memdel[6][6]	/* was [6][6] */;
-	integer memfcn[6][400];
-	real elemtr[6][16]	/* was [16][6] */;
+	long int isx[6];
+	float rtrans[2][5]	/* was [5][2] */;
+	long int mempr[6][6]	/* was [6][6] */;
+	long int memdel[6][6]	/* was [6][6] */;
+	long int memfcn[6][400];
+	float elemtr[6][16]	/* was [16][6] */;
 
 
-	integer ielmst[400];
-	integer ilami[16];
-	integer ilamx[6];
+	long int ielmst[400];
+	long int ilami[16];
+	long int ilamx[6];
 	
 // Proces variables -  Initialized data
 
-    integer isave;
-    integer lambda[PATHS]; 
-	integer ilrate[PATHS]; 
-    real dur[PATHS];
-    integer pathsv[PATHS]; 
-    integer sort[PATHS];
+    long int isave, init;
+    long int lambda[PATHS]; 
+	long int ilrate[PATHS]; 
+    float dur[PATHS];
+    long int pathsv[PATHS]; 
+    long int sort[PATHS];
     
-    real p[30*PATHS];
-    integer lamsav[30*PATHS];
-    real dursav[30*PATHS];
-    integer ilrsav[30*PATHS];
+    float p[30*PATHS];
+    long int lamsav[30*PATHS];
+    float dursav[30*PATHS];
+    long int ilrsav[30*PATHS];
 
 // Trelis variables -  Initialized data 
 
-    integer lmdsav[PATHS][NDELAY];	/* was [200][PATHS] */ 
-    integer n;
-    integer ndelay;
-    integer ipnod[PATHS];
-    integer ltrsv[NDELAY];
-    integer pthtrl[PATHS][NDELAY];	/* was [200][PATHS] */
+    long int lmdsav[PATHS][NDELAY];	/* was [200][PATHS] */ 
+    long int n;
+    long int ndelay;
+    long int ipnod[PATHS];
+    long int ltrsv[NDELAY];
+    long int pthtrl[PATHS][NDELAY];	/* was [200][PATHS] */
 
-    integer ncall;
-    integer nmax;
-    integer mmax;
-    integer kd;
-    integer ndelst;
-    integer iend;
+    long int ncall;
+    long int nmax;
+    long int mmax;
+    long int kd;
+    long int ndelst;
+    long int iend;
+
+// Transl variables - Initialized data 
+	long int ixlast;
+	int curstate;
+	int newstate;
+	
+//  Sprob variables
+	int initial; 
 
 // Xtrans variables - Initialized data 
 	
-	integer kimap[6];
-	real aparm[3];
+	long int kimap[6];
+	float aparm[3];
 
 // Kalman filter parameters 
-    real ykkip[PATHS];
-    real pkkip[PATHS];
-    real ykksv[30*PATHS]; 
-    real pkksv[30*PATHS];
+    float ykkip[PATHS];
+    float pkkip[PATHS];
+    float ykksv[30*PATHS]; 
+    float pkksv[30*PATHS];
 
-    real pin[30][PATHS];	/* was pin[750] */
-    real lkhd[30][PATHS];	// was lkhd[750] 
-    
-	int initl_(void);        
+// used in trprob and in likhd
+    float pin[30][PATHS];	/* was pin[750] -  	PIN[N,I]- COMPUTED TRANS PROB FROM PATH I TO STATE N */
+// used in likhd
+    float lkhd[30][PATHS];	// was lkhd[750] - LKHD[N,I]- LIKELIHOOD VALUE FOR EACH PATH I AND STATE N */
+        
 public: 
 	morse()
 	: 
@@ -323,7 +328,10 @@ public:
 		initl_();
 	};
 	~morse();
-	
-	int noise_(double, real *, real *);
-	int proces_(real z, real rn, integer *xhat, real *px, integer *elmhat, real *spdhat, integer *imax, real *pmax, int spd);
+
+	int noise_(double, float *, float *);
+	int proces_(float z, float rn, long int *xhat, float *px, long int *elmhat, float *spdhat, long int *imax, float *pmax, char *buf);
 };
+
+
+

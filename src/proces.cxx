@@ -23,14 +23,15 @@
 #include "bmorse.h"
 #include <stdio.h>
 
-int morse::proces_(real z, real rn, integer *xhat, real *px, integer *elmhat,  real *spdhat, integer *imax, real *	pmax, int spd)
+int morse::proces_(float z, float rn, long int *xhat, float *px, long int *elmhat,  float *spdhat, long int *imax, float *	pmax, char *buf)
 {
-
+ 
     
-    integer i, retstat;
-    real pelm;
-    integer ipmax;
-    static int init =1;
+    long int i, retstat;
+    float pelm;
+//    long int ipath;
+    long int ipmax;
+//    static int init =1;
  
 
 /* 	THIS SUBROUTINE IMPLEMENTS THE PROCESSING ALGORITHM */
@@ -74,6 +75,8 @@ int morse::proces_(real z, real rn, integer *xhat, real *px, integer *elmhat,  r
 /* 	TRANSL- TRANSLATES THE LETTER ESTIMATE */
 
 /* 	ALL TABLES OF CONSTANTS ARE STORED IN COMMON. */
+
+
 /* 	FOR EACH SAVED PATH, COMPUTE: */
 /* 	TRANSITION PROBABILITY TO NEW STATE (TRPROB); */
 /* 	IDENTITY OF EACH NEW PATH EXTENDED (PATH); */
@@ -83,7 +86,7 @@ int morse::proces_(real z, real rn, integer *xhat, real *px, integer *elmhat,  r
 	if (init) {
 		for(i=0;i<PATHS;i++) {
 			lambda[i] = 5;
-			ilrate[i]= 30;//((i/5+1)*10);  // Initial speed WPM 
+			ilrate[i]= ((i/5+1)*10);  // Initial speed WPM ((i/5+1)*10);
 			dur[i]=1000.f;
 			pathsv[i]=5;
 			ykkip[i] = .5f;
@@ -93,7 +96,7 @@ int morse::proces_(real z, real rn, integer *xhat, real *px, integer *elmhat,  r
 			p[i]=1.f;
 			lamsav[i]=5;
 			dursav[i]=0.f;
-			ilrsav[i]=20;
+			ilrsav[i]=30;   // was 20 
 		}
 		init = 0;
 	}
@@ -122,7 +125,7 @@ int morse::proces_(real z, real rn, integer *xhat, real *px, integer *elmhat,  r
 /* 	UPDATE TRELLIS WITH NEW SAVED NODES, AND */
 /* 	OBTAIN LETTER STATE ESTIMATE: */
 
-    retstat=trelis_(&isave, pathsv, lambda, imax, &ipmax);
+    retstat=trelis_(&isave, pathsv, lambda, imax, &ipmax, buf);
 
     return retstat;
 } /* proces_ */

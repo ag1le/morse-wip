@@ -73,7 +73,7 @@ struct TREE {	// Tree structure to decode dit/dah sequence to corresponding char
  {00,00,"*.--..*"},	// .--..
  {59,00,"a"},	// .--.-
  {00,00,"*.---.*"},	// .---.
- {00,00,"1"},	// .----
+ {66,00,"1"},	// .----
  {00,00,"6"},	// -....
  {61,00,"<BT>"},	// -...-
  {00,00,"/"},	// -..-.
@@ -98,20 +98,17 @@ struct TREE {	// Tree structure to decode dit/dah sequence to corresponding char
 
 
 
-
 //***********************************************************************************
 // (c) 2013,2014  AG1LE Mauri Niininen
 //
 //
-int morse::transl_(int *ltr)
+int morse::transl_(int ltr, char *buf)
 {
-    /* Initialized data */
-	static integer ixlast = 0;
-	static int curstate = 0;
-	static int newstate = 0;
+
 
     /* Local variables */
-    integer ixl, elmhat;
+    long int ixl, elmhat;
+    int n;
 
 
 /* 	 1  2  3  4  5  6  7  8 9 10 11 12 13 14 15 16 */
@@ -124,9 +121,10 @@ int morse::transl_(int *ltr)
 /* 	HAS OCCURED; IF SO LTR IS READY FOR OUTPUT: */
 
     
-	elmhat = ilami[*ltr-1];
+	elmhat = ilami[ltr-1];
     ixl = ilamx[elmhat - 1];
-
+	n=0;
+	
 /* 	NO CHANGE FROM LAST - CONTINUE */
 
     if (ixl == ixlast) {
@@ -134,7 +132,7 @@ int morse::transl_(int *ltr)
     }
 
 	if (params.print_symbols) { // print received symbols
-		switch (*ltr)
+		switch (ltr)
 		{
 	/* 	 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 */
 	/* 	.^ .~ .w .p -^ -~ -w -p ^. ^- ~. ~- w. w- p. p- */
@@ -207,7 +205,7 @@ int morse::transl_(int *ltr)
 
 	}
 	if (params.print_text) {
-		switch (*ltr)
+		switch (ltr)
 		{
 	/* 	 1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 */
 	/* 	.^ .~ .w .p -^ -~ -w -p ^. ^- ~. ~- w. w- p. p- */
@@ -225,17 +223,17 @@ int morse::transl_(int *ltr)
 			break;
 		case 6:		// -~
 		case 2:		// .~
-			printf("%s",tree[curstate].chr);
+			n = snprintf(buf,12,"%s",tree[curstate].chr);
 			newstate = 0;
 			break;
 		case 3:		// .w
 		case 7:		// -w
-			printf("%s ",tree[curstate].chr);
+			n = snprintf(buf,12,"%s ",tree[curstate].chr);
 			newstate = 0;
 			break;
 		case 4:		// .p
 		case 8:		// -p
-			printf("%s ",tree[curstate].chr);
+			n = snprintf(buf,12,"%s ",tree[curstate].chr);
 			newstate = 0;
 			break;
 		case 1:		// .^
@@ -244,10 +242,13 @@ int morse::transl_(int *ltr)
 			break;
 		}
 	}
+//	if (n>0)
+//		printf("%s",buf);
 L700:
+
 	fflush(stdout);
 	curstate = newstate;
     ixlast = ixl;
     return newstate;
 
-} 
+}

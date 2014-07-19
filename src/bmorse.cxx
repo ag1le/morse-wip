@@ -45,6 +45,7 @@
 #define	MAX_HEIGHT	4096
 #define TWOPI	2.0*M_PI
 #define DEC_RATIO  20
+typedef int ftnlen;
 
 /*
 {	int print_variables ;  	// FALSE
@@ -275,20 +276,7 @@ void apply_window (double * data, int datalen)
 	return ;
 } /* apply_window */
 
-double calc_SNR(double *data, int len, double fbin)
-{
-	double CG,NG;
-	int i;
-	
-	for (i=0; i< len; i++) {
-		CG += data[i];
-		NG += data[i]*data[i];
-	}
-	CG = CG/N;
-	NG = NG/N;
 
-	
-}
 
 void interp_spec (float * mag, int maglen, const double *spec, int speclen)
 {
@@ -316,13 +304,16 @@ void interp_spec (float * mag, int maglen, const double *spec, int speclen)
 
 void process_data(double x)
 {
-	static integer sample_counter = 0;
-	static real rn = .1f;
-	static integer retstat, n1, n2, imax, xhat, elmhat;
-	static real pmax, zout, spdhat, px;
+	static int sample_counter = 0;
+	static float rn = .1f;
+	static int retstat, n1, n2;
+	static long int imax, xhat, elmhat;
+	static float pmax, zout, spdhat, px;
 	static int init = 1,pinit = 1; 
 	static double agc_peak = 0.0;
 	static morse* mp; 
+	char buf [12];
+	
 	
 	if (init) {
 		mp = new morse();
@@ -359,15 +350,15 @@ void process_data(double x)
 	mp->noise_(x, &rn, &zout);
 
 	zout = clamp(zout, 0.0, 1.0);
-	
-//	if (zout > 1.0) zout = 1.0; 
-//	if (zout < 0.0) zout = 0.0;
-	
-	retstat = mp->proces_(zout, rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax, params.speed);
+	memset(buf,0,sizeof(buf));
+
+	retstat = mp->proces_(zout, rn, &xhat, &px, &elmhat, &spdhat, &imax, &pmax, buf);
 	if (params.print_variables) 
 		printf("\n%d\t%d\t%d\t%d\t%f\t%f\t%f\t%f\t%f\t%f",(int)retstat,(int)imax,(int)elmhat,(int)xhat,x,px,pmax,spdhat,rn,zout); 
 	if (params.print_speed) 
 		printf("\n%f", spdhat);
+	if (params.print_text) 
+		printf("%s",buf);
 	
 
 }
@@ -411,13 +402,13 @@ int rx_FFTprocess(const double *buf, int len)
 	peak_detect(single_mag_spec, 2*speclen, &p);
 
 	// print found freq peaks - only once
-	if (1 ) {
+	if (0 ) {
 		for (i=0; i <p.mxcount; i++) {
 			Hz = (p.mxpos[i]*(4000/2))/(speclen);
 			printf("peak[%d]:%f\tHz:%d\tmaxcount:%d\n",p.mxpos[i],p.mx[i],Hz,p.mxcount);
 		}
 	}
-	params.frequency = Hz;
+	//params.frequency = Hz;
 /*
 		- calculate noise floor level  
 			 - noisemax => frequency bins from 1 to first detected peak 
@@ -425,13 +416,13 @@ int rx_FFTprocess(const double *buf, int len)
 			 - Pxx  => power spectrum  512
 				=>   Nrms = sqrt(sum(Pxx(1:noisemax)*fbin)) / sqrt(f(noisemax));
 			- update delta & threshold 
-*/
+
 	fbin = 4000./1024;
 	noise_sum = 0.;
 	for (i = 10; i<p.mxpos[0]-10; i++) {
 		noise_sum += single_mag_spec[i]; 
 	}
-	printf("\n noise_sum:%f bins:%d",noise_sum,p.mxpos[0]-10);
+//	printf("\n noise_sum:%f bins:%d",noise_sum,p.mxpos[0]-10);
 	Nrms = sqrt(noise_sum* fbin)/sqrt(Hz);
 
 	sig_sum = 0.;
@@ -439,9 +430,8 @@ int rx_FFTprocess(const double *buf, int len)
 		sig_sum += single_mag_spec[i];
 	}	
 	Srms = sqrt (sig_sum*fbin);
-	printf("\n SNR = %5.2f S:%f ss:%f N:%f  Hz:%d", Srms/Nrms, Srms, sig_sum,Nrms,Hz); 
-
-/*		- calculate SNR of found Fpeak
+//	printf("\n SNR = %5.2f S:%f ss:%f N:%f  Hz:%d", Srms/Nrms, Srms, sig_sum,Nrms,Hz); 
+		- calculate SNR of found Fpeak
 			-  integrate Srms = sqrt(sum(Fpeak +/- 10 Hz)*fbin)) 
 		 	- SNR = Srms / Nrms 
 */
@@ -588,7 +578,7 @@ void decode_sndfile (SNDFILE *infile, SF_INFO info)
 				peak_detect(single_mag_spec, speclen, &p);
 */			
 				// print found freq peaks - only once
-				if (1 ) {
+				if (once ) {
 					for (i=0; i <p.mxcount; i++) {
 						int Hz = (p.mxpos[i]*(sr/2))/(speclen);
 						printf("peak[%d]:%f\tHz:%d\tmaxcount:%d\n",p.mxpos[i],p.mx[i],Hz,p.mxcount);
@@ -685,7 +675,7 @@ void process_textfile(char *filename)
 			exit(0);
 		}
 		samplecounter++;
-		if ((samplecounter % 20) == 0) {  // assuming that text envelope files have 4000 Hz sampling rate, decimate by 20 to get to 200 Hz (5ms sample time)
+		if ((samplecounter % 20) == 0) {  // assuming that text envelope files have 4000 Hz sampling rate, decimate by 20 to get to 200 Hz (5ms sample time)st
 			process_data((double)x); 
 		}
 	}	

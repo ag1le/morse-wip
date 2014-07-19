@@ -25,13 +25,14 @@
 
 
 
-doublereal morse::spdtr_(integer isrt, integer ilrt, integer iselm, integer ilelm)
+
+double morse::spdtr_(long int isrt, long int ilrt, long int iselm, long int ilelm)
 {
     /* System generated locals */
-    real ret_val;
+    float ret_val;
 
     /* Local variables */
-    integer ind1, idel, idelsp, israte;
+    long int ind1, idel, idelsp, israte;
 
 
 /* 	THIS FUNCTION RETURNS THE DATA RATE (SPEED) TRANSITION */
@@ -53,7 +54,7 @@ doublereal morse::spdtr_(integer isrt, integer ilrt, integer iselm, integer ilel
     if (ilelm != iselm) {
 		goto L100;
     }
-    ret_val = 1.f;  // TRANSITION PROBABILITY = 1.0 
+    ret_val = 1.f;  // initialize ret_val 
     
 
 /* SAVED ELEMENT AND NEW ELEMENT ARE THE SAME */
@@ -74,8 +75,9 @@ L100:
     idelsp = (isrt - 3) * idel;
     ret_val = rtrans[ind1-1][isrt-1];
     israte = ilrt + idelsp;
-    if (israte > 60) ret_val = 0.f;	// if speed rate is > 60 WPM TRANSITION PROBABILITY = 0 
-    if (israte < 10) ret_val = 0.f; // if speed rate is < 10 WPM TRANSITION PROBABILITY = 0 
+		
+    if (israte > 80) ret_val = 0.f;	// if speed rate is > 60 WPM TRANSITION PROBABILITY = 0 
+    if (israte < 5) ret_val = 0.f; // if speed rate is < 10 WPM TRANSITION PROBABILITY = 0 
     return ret_val;
 } /* spdtr_ */
 
