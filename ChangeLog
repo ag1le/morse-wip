@@ -1,6 +1,6 @@
 (C) 2013,2014  AG1LE Mauri Niininen 
 2014-JUL-19
-	git tag -a v0.1.03 -m "Release v0.1.03"
+	git tag -a v0.1.04 -m "Release v0.1.04"
 	Removed all static variables to enable running multiple instances - used in FLDIGI experimental release.
 	
 2014-JUN-22

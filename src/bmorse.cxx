@@ -328,7 +328,7 @@ void process_data(double x)
 		if (x > agc_peak)
 			agc_peak = decayavg(agc_peak, x, 10);
 		else
-			agc_peak = decayavg(agc_peak, x, 900);
+			agc_peak = decayavg(agc_peak, x, 800);
 	
 		if (agc_peak != 0.0){
 			x /= agc_peak;
@@ -369,7 +369,8 @@ int rx_FFTprocess(const double *buf, int len)
 	int n,i,speclen,Hz;
 	static int smpl_ctr = 0;
 	static double FFTvalue,FFTphase =0.0; 
-	fftw_plan plan; 
+
+/*	fftw_plan plan; 
 	double single_max,noise_sum,sig_sum,Nrms,Srms,fbin;
 	double time_domain[1024];
 	double freq_domain[1024];
@@ -530,7 +531,7 @@ void decode_sndfile (SNDFILE *infile, SF_INFO info)
 		printf("# bit filter=%d\n",bfv);
 		printf("# num_items=%d\n",num_items);
 		printf("# sample_duration=%f\n",params.sample_duration);
-		printf("# bitfilter=%d\n",params.bfv);
+		printf("# params.bitfilter=%d\n",params.bfv);
 		printf("# speed(WPM):%d\n",params.speed);
 		printf("# FFT filter bandwidth %f\n",2.0* params.speed/1.2);
  	}
@@ -610,17 +611,15 @@ void decode_sndfile (SNDFILE *infile, SF_INFO info)
 				printf ("%s : line %d :out of memory.\n", __FILE__, __LINE__) ;
 				exit (1) ;
 			}
+			memset(buf,0,(num_items+512)*sizeof(double));
 			bp = buf; 
 
 			num = sf_read_double(infile,bp,num_items);
 //			printf("Read %d items\n",num);
 
 			for (i = 0; i < num_items; i += 512){
-					
 					rx_FFTprocess(bp, 512);
 					bp += 512; 
-					
-	
 			}
 			free(buf); 
 	}
