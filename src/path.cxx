@@ -61,12 +61,12 @@ int morse::path_(long int ip, long int lambda, float dur, long int ilrate, long 
 
 			if (lambda == 0) {
 				lamsav[j-1] = 0;
-				break;
+				continue;
 			}
 
 			lamsav[j-1] = memfcn[k-1][lambda-1];
 			if (lamsav[j-1] == 0) {
-				break;
+				continue;
 			}
 
 /*  NEW DURATION: OBTAIN KEYSTATE OF SAVED PATH AND NEW STATE: */

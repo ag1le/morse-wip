@@ -400,6 +400,7 @@ on X301
 config.status:882: creating Makefile
 config.status:882: creating src/Makefile
 config.status:882: creating config.h
+config.status:1063: config.h is unchanged
 config.status:1111: executing depfiles commands
 
 ## ---------------- ##
@@ -465,7 +466,7 @@ am_cv_make_support_nested_variables=yes
 ## Output variables. ##
 ## ----------------- ##
 
-ACLOCAL='${SHELL} /home/mauri/Projects/morse/missing --run aclocal-1.11'
+ACLOCAL='${SHELL} /home/mauri/Projects/morse-wip/missing --run aclocal-1.11'
 AMDEPBACKSLASH='\'
 AMDEP_FALSE='#'
 AMDEP_TRUE=''
@@ -474,9 +475,9 @@ AM_BACKSLASH='\'
 AM_DEFAULT_V='$(AM_DEFAULT_VERBOSITY)'
 AM_DEFAULT_VERBOSITY='0'
 AM_V='$(V)'
-AUTOCONF='${SHELL} /home/mauri/Projects/morse/missing --run autoconf'
-AUTOHEADER='${SHELL} /home/mauri/Projects/morse/missing --run autoheader'
-AUTOMAKE='${SHELL} /home/mauri/Projects/morse/missing --run automake-1.11'
+AUTOCONF='${SHELL} /home/mauri/Projects/morse-wip/missing --run autoconf'
+AUTOHEADER='${SHELL} /home/mauri/Projects/morse-wip/missing --run autoheader'
+AUTOMAKE='${SHELL} /home/mauri/Projects/morse-wip/missing --run automake-1.11'
 AWK='gawk'
 BMORSE_AUTHORS=''
 CC='gcc'
@@ -507,7 +508,7 @@ LTLIBOBJS=''
 MAINT='#'
 MAINTAINER_MODE_FALSE=''
 MAINTAINER_MODE_TRUE='#'
-MAKEINFO='${SHELL} /home/mauri/Projects/morse/missing --run makeinfo'
+MAKEINFO='${SHELL} /home/mauri/Projects/morse-wip/missing --run makeinfo'
 MKDIR_P='/bin/mkdir -p'
 OBJEXT='o'
 PACKAGE='bmorse'
@@ -554,7 +555,7 @@ host_alias=''
 htmldir='${docdir}'
 includedir='${prefix}/include'
 infodir='${datarootdir}/info'
-install_sh='${SHELL} /home/mauri/Projects/morse/install-sh'
+install_sh='${SHELL} /home/mauri/Projects/morse-wip/install-sh'
 libdir='${exec_prefix}/lib'
 libexecdir='${exec_prefix}/libexec'
 localedir='${datarootdir}/locale'

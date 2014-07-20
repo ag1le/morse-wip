@@ -116,7 +116,7 @@ int morse::savep_(float *p, long int *pathsv, long int *isave, long int
 				j = (ip - 1) * 30 + n;
 				for (i = 1; i <= nsav; ++i) {
 					if (j == sort[i]) {
-						break; //goto L500;
+						goto L500;
 					}
 				}
 				if (p[j] > *pmax) {
@@ -124,6 +124,8 @@ int morse::savep_(float *p, long int *pathsv, long int *isave, long int
 					jsav = j;
 					ipsav = ip;
 				}
+		L500:
+				;
 			}
 		}
 		psum += *pmax;
