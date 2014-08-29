@@ -111,7 +111,7 @@ n9 = [Dah;ssp;Dah;ssp;Dah;ssp;Dah;ssp;Dit];
 n0 = [Dah;ssp;Dah;ssp;Dah;ssp;Dah;ssp;Dah];
 text = upper(text);
 vars ={'period','comma','question','slash_'};
-morsecode=[];
+morsecode=[ssp;ssp;ssp;ssp;ssp;ssp;ssp];
 for i=1:length(text)
 if isvarname(text(i))
 morsecode = [morsecode;eval(text(i))];
