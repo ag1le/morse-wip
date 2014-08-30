@@ -40,7 +40,7 @@ def run_ltest(str1,str2):
 	s1 = file.read(fid1);
 	s2 = file.read(fid2);
 	ltest = levenshtein(s1, s2)
-	
+	return ltest
 
 def main(*args, **kwargs):
   
@@ -51,8 +51,8 @@ def main(*args, **kwargs):
     verbosity = 1
 
 
-  if len(args) is 0:
-    print 'no input file provided!'
+  if len(args) < 2:
+    print 'usage: <input file1> <input file2>' 
     exit(1)
   elif len(args) == 2:
 	ltest = run_ltest(args[0],args[1])
