@@ -29,15 +29,15 @@ function code=morse(varargin)
 %   Copyright 2005 Fahad Al Mahmood
 %   Version: 1.1 $  $Date: 08-Jul-2010
 %   Modifications: Rob Frohne, KL7NA
-%   Modofications: Mauri Niininen, AG1LE
-%Defualt values
-Fs=48000;
+%   Modifications: Mauri Niininen, AG1LE
+%Default values
+Fs=8000;
 snr = 20;
-f_code = 375;
+f_code = 600;
 code_speed = 20;
-text = varargin{1}
+text = varargin{1};
 if nargin>=2
-file = varargin{2}
+file = varargin{2};
 end
 if nargin>=3
 snr = varargin{3};
@@ -111,6 +111,8 @@ n9 = [Dah;ssp;Dah;ssp;Dah;ssp;Dah;ssp;Dit];
 n0 = [Dah;ssp;Dah;ssp;Dah;ssp;Dah;ssp;Dah];
 text = upper(text);
 vars ={'period','comma','question','slash_'};
+
+% start with pause (7 dit lengths)
 morsecode=[ssp;ssp;ssp;ssp;ssp;ssp;ssp];
 for i=1:length(text)
 if isvarname(text(i))
@@ -134,15 +136,19 @@ else
 morsecode = [morsecode; zeros(append_length,1)];
 end
 end
-noise = randn(size(morsecode) ); 
+
+noise = randn(size(morsecode)); 
 [noisy,noise] = addnoise(morsecode,noise,snr);
-   
-SNR =20*log10(norm(morsecode)/norm(noise))  %(morsecode-noisy));
+
+SNR =20*log10(norm(morsecode)/norm(noise));  %was /(morsecode-noisy));
 printf('SNR =%f dB\n',SNR);
 
+% Normalize before saving 
+max_n = max(noisy);
+noisy = noisy/max_n;
 
 if exist('file','var')
-wavwrite(noisy,Fs,16,file);
+wavwrite(noisy,Fs,32,file);  % was 16 before (32 should provide more range)
 if exist('playsound')
 system(['aplay ',file]);
 end

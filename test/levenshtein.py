@@ -33,6 +33,15 @@ def levenshtein(s1, s2):
  
     return previous_row[-1]
 
+def run_ltest(str1,str2):
+	fid1 = open(str1);
+	fid2 = open(str2);
+	  
+	s1 = file.read(fid1);
+	s2 = file.read(fid2);
+	ltest = levenshtein(s1, s2)
+	
+
 def main(*args, **kwargs):
   
   (options, args) = parser.parse_args()
@@ -46,12 +55,7 @@ def main(*args, **kwargs):
     print 'no input file provided!'
     exit(1)
   elif len(args) == 2:
-	fid1 = open(args[0]);
-	fid2 = open(args[1]);
-	  
-	s1 = file.read(fid1);
-	s2 = file.read(fid2);
-	ltest = levenshtein(s1, s2)
+	ltest = run_ltest(args[0],args[1])
 	print ltest	
 
     
